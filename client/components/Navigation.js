@@ -1,8 +1,9 @@
 import styled from 'styled-components';
 import Link from 'next/link';
+import Logo from './Logo';
 
 const NavBar = styled.nav`
-  background: ${({ theme }) => theme.colors.lightGreen};
+  background: ${({ theme }) => theme.colors.mainViolet};
   margin: 0;
   padding: 0;
   display: flex;
@@ -44,11 +45,7 @@ const NavBarBtn = styled((props) => (
 const Navigation = () => (
   <NavBar>
     <NavBarContainer>
-        <Link href="/">
-          <a>
-          <img width="256" height="80" src="/imgs/NavBarIcon.png" alt="Red Interdiciplinaria de Primera Infancia" />
-          </a>
-        </Link>
+        <Logo href="/"/>    
         <NavBarBtn href="/">Inicio</NavBarBtn>
         <NavBarBtn href="/noticias">Noticias</NavBarBtn>
         <NavBarBtn href="/capacitaciones">Capacitaciones</NavBarBtn>
@@ -59,3 +56,7 @@ const Navigation = () => (
   );
   
 export default Navigation;
+
+/*
+
+*/
