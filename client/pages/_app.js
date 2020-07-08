@@ -1,7 +1,7 @@
-import App from 'next/app'
-import Head from 'next/head'
-import GlobalFonts from '../fonts/fonts';
-import { ThemeProvider } from 'styled-components'
+import App from 'next/app';
+import Head from 'next/head';
+import { ThemeProvider } from 'styled-components';
+import GlobalStyle from '../components/GlobalStyle';
 
 const theme = {
   colors: {
@@ -15,7 +15,7 @@ const theme = {
     mainText: '#5d5d5d'
   },
   fonts: {
-    main: 'M PLUS Rounded'
+    main: '"M PLUS Rounded", Arial, Helvetica, sans-serif'
   }
 }
 
@@ -32,7 +32,7 @@ export default class MyApp extends App {
               crossOrigin=""
             />
         </Head>
-        <GlobalFonts />
+        <GlobalStyle />
         <Component {...pageProps} />
       </ThemeProvider>
     )

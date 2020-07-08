@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import Container from '../components/Container';
 
 const Title = styled.h1`
   font-size: 30px;
@@ -7,9 +8,9 @@ const Title = styled.h1`
 `;
 
 const MyFirstView = () => (
-    <section>
+    <Container>
       <Title>Hola Mundo</Title>
-    </section>
+    </Container>
   );
 
 export default MyFirstView;
