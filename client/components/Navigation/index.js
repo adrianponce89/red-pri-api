@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 import Link from 'next/link';
-import Logo from './Logo';
+import Logo from './components/Logo';
+import SearchBar from './components/SearchBar';
 
 const NavBar = styled.nav`
   background: ${({ theme }) => theme.colors.mainViolet};
@@ -8,7 +9,8 @@ const NavBar = styled.nav`
   padding: 0;
   display: flex;
   justify-content: center;
-  border-bottom: 1px solid gray;
+  -webkit-box-shadow: 0 0 6px rgba(0,0,0,0.4);
+  box-shadow: 0 0 6px rgba(0,0,0,0.4);
 `;
 
 const NavBarContainer = styled.ul`
@@ -17,6 +19,7 @@ const NavBarContainer = styled.ul`
   display: flex;
   font-family: ${({ theme }) => theme.fonts.main};
   width: 100%;
+  align-items: center;
   max-width: 1032px;
 `;
 
@@ -33,7 +36,7 @@ const NavBarBtn = styled((props) => (
   div {
     //background: yellow;
     cursor: pointer;
-    padding: 0 1em;
+    padding: 0 0.5em;
     text-decoration: none;
     color: white;
     font-size: 1em;
@@ -51,6 +54,7 @@ const Navigation = () => (
         <NavBarBtn href="/capacitaciones">Capacitaciones</NavBarBtn>
         <NavBarBtn href="/profesionales">Profesionales</NavBarBtn>
         <NavBarBtn href="/preguntas">Preguntas</NavBarBtn>
+        <SearchBar />
     </NavBarContainer>
   </NavBar>
   );

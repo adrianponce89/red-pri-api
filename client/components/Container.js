@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import Navigation from '../components/Navigation';
+import Navigation from './Navigation';
 
 const Container = (props) => (
     <div className={props.className}>
