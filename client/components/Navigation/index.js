@@ -5,7 +5,7 @@ import Logo from './components/Logo';
 import SearchBar from './components/SearchBar';
 
 const NavBar = styled.nav`
-  background: ${({ theme }) => theme.colors.mainViolet};
+  background: ${({ theme }) => theme.colors.lightGreen};
   margin: 0;
   padding: 0;
   display: flex;
@@ -63,6 +63,7 @@ const NavBarLoginBtn = styled((props) => (
     cursor: pointer;
     padding: 5px;
   }
+  margin: 0 1em 0 0.5em;
 `;
 
 const RightAlign = styled.div`
@@ -70,7 +71,6 @@ const RightAlign = styled.div`
   justify-content: flex-end;
   flex: 1;
   align-items: center;
-  margin-right: 1em;
 `;
 
 const Navigation = (props) => {
@@ -96,7 +96,7 @@ const Navigation = (props) => {
         ))}
         <RightAlign>
           <SearchBar />
-          <NavBarBtn href="#" active>
+          <NavBarBtn href="#">
             Registrarse
           </NavBarBtn>
           <NavBarLoginBtn href="#">

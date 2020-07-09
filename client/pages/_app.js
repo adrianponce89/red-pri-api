@@ -5,13 +5,13 @@ import GlobalStyle from '../components/GlobalStyle';
 
 const theme = {
   colors: {
-    mainGreen: '#54a9aa',
-    lightGreen: '#9bcfcd',
-    mainOrange: '#fb9a00',
-    lightOrange: '#fcae15',
-    mainRed: '#f9425f',
-    lightRed: '#fa91a4',
-    mainViolet: '#d7c2d5',
+    mainGreen: '#52aaab',//
+    lightGreen: '#9bcfcd',//
+    mainOrange: '#ff9a00',//
+    lightOrange: '#ffae16',//
+    mainRed: '#f9425e',//
+    lightRed: '#ff91a4',//
+    mainViolet: '#d8c3d6',//
     mainText: '#5d5d5d'
   },
   fonts: {
