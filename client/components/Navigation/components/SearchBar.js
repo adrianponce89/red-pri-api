@@ -19,7 +19,7 @@ const SearchBtn = styled((props) => (
 `;
 
 const SearchBarInput = styled((props) => (
-  <input className={props.className} placeholder="Buscar en Red-Pri..." maxlength="200">
+  <input className={props.className} placeholder="Buscar en Red-Pri..." maxLength="200">
     {props.children}
   </input>
 ))`

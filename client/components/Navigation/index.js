@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import Link from 'next/link';
+import { withRouter } from 'next/router';
 import Logo from './components/Logo';
 import SearchBar from './components/SearchBar';
 
@@ -30,36 +31,52 @@ const NavBarBtn = styled((props) => (
 ))`
   list-style-type:none;
   transition: 0.3s;
+  opacity: ${({ active }) => active ? 1 : 0.6 };
+  font-size: ${({ active }) => active ? '0.9em' : '0.8em' };;
   :hover {
-    background: ${({ theme }) => theme.colors.mainGreen};
+    opacity: 1;
   }
+
   div {
     //background: yellow;
     cursor: pointer;
     padding: 0 0.5em;
     text-decoration: none;
     color: white;
-    font-size: 1em;
+
     height: 80px;
     line-height: 80px;
   }
 `;
 
-const Navigation = () => (
+const Navigation = (props) => {
+  const { pathname } = props.router;
+  const navBtns = [
+    { route: '/', name: 'Inicio' },
+    { route: '/noticias', name: 'Noticias' },
+    { route: '/capacitaciones', name: 'Capacitaciones' },
+    { route: '/profesionales', name: 'Profesionales' },
+    { route: '/preguntas', name: 'Preguntas' },
+  ];
+  return (
   <NavBar>
     <NavBarContainer>
-        <Logo href="/"/>    
-        <NavBarBtn href="/">Inicio</NavBarBtn>
-        <NavBarBtn href="/noticias">Noticias</NavBarBtn>
-        <NavBarBtn href="/capacitaciones">Capacitaciones</NavBarBtn>
-        <NavBarBtn href="/profesionales">Profesionales</NavBarBtn>
-        <NavBarBtn href="/preguntas">Preguntas</NavBarBtn>
+        <Logo href="/"/>
+        {navBtns.map(btn => (
+          <NavBarBtn
+            key={btn.route}
+            href={btn.route}
+            active={btn.route === pathname}>
+              {btn.name}
+          </NavBarBtn>
+        ))}
         <SearchBar />
     </NavBarContainer>
   </NavBar>
-  );
+  )
+};
   
-export default Navigation;
+export default withRouter(Navigation);
 
 /*
 
