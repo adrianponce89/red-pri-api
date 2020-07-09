@@ -18,7 +18,7 @@ const NavBarContainer = styled.ul`
   margin: 0;
   padding: 0;
   display: flex;
-  font-family: ${({ theme }) => theme.fonts.main};
+  font-family: ${({ theme }) => theme.fonts.rounded};
   width: 100%;
   align-items: center;
   max-width: 1032px;
@@ -38,15 +38,39 @@ const NavBarBtn = styled((props) => (
   }
 
   div {
-    //background: yellow;
     cursor: pointer;
-    padding: 0 0.5em;
+    padding: 5px;
     text-decoration: none;
     color: white;
-
-    height: 80px;
-    line-height: 80px;
   }
+`;
+
+const NavBarLoginBtn = styled((props) => (
+  <li className={props.className}>
+    <Link href={props.href}><div>{props.children}</div></Link>
+  </li>
+))`
+  list-style-type:none;
+  transition: 0.3s;
+  background: ${({ theme }) => theme.colors.lightOrange};
+  border-radius: 5px;
+  :hover {
+    background: ${({ theme }) => theme.colors.mainOrange};
+  }
+  div {
+    color: white;
+    text-decoration: none;
+    cursor: pointer;
+    padding: 5px;
+  }
+`;
+
+const RightAlign = styled.div`
+  display: flex;
+  justify-content: flex-end;
+  flex: 1;
+  align-items: center;
+  margin-right: 1em;
 `;
 
 const Navigation = (props) => {
@@ -70,7 +94,15 @@ const Navigation = (props) => {
               {btn.name}
           </NavBarBtn>
         ))}
-        <SearchBar />
+        <RightAlign>
+          <SearchBar />
+          <NavBarBtn href="#" active>
+            Registrarse
+          </NavBarBtn>
+          <NavBarLoginBtn href="#">
+            Ingresar
+          </NavBarLoginBtn>
+        </RightAlign>
     </NavBarContainer>
   </NavBar>
   )

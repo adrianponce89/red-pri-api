@@ -30,10 +30,15 @@ const SearchBarInput = styled((props) => (
   padding: 0 35px 0 10px;
   border: 1px solid transparent;
   box-shadow: none !important;
+  flex: 1;
+  font-family: ${({ theme }) => theme.fonts.default};
 `;
 
 const SearchBarContainer = styled.div`
-  position: relative
+  position: relative;
+  display: flex;
+  flex: 1;
+  margin: 0 0.5em;
 `;
 
 const SearchBar = (props) => (

@@ -15,7 +15,7 @@ const theme = {
     mainText: '#5d5d5d'
   },
   fonts: {
-    main: '"M PLUS Rounded", Arial, Helvetica, sans-serif'
+    rounded: '"M PLUS Rounded", Arial, Helvetica, sans-serif'
   }
 }
 
