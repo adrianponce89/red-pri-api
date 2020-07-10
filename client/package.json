@@ -1,0 +1,22 @@
+{
+  "name": "red-pri-client",
+  "version": "1.0.0",
+  "description": "Red Pri Client",
+  "main": "index.js",
+  "scripts": {
+    "dev": "next",
+    "build": "next build",
+    "start": "next start"
+  },
+  "author": "Adrian Ponce",
+  "license": "ISC",
+  "dependencies": {
+    "next": "^9.4.4",
+    "react": "^16.13.1",
+    "react-dom": "^16.13.1",
+    "styled-components": "^5.1.1"
+  },
+  "devDependencies": {
+    "babel-plugin-styled-components": "^1.10.7"
+  }
+}
