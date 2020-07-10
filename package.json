@@ -4,8 +4,9 @@
   "description": "Red Pri API",
   "main": "app.js",
   "scripts": {
-    "start": "node app.js",
-    "app": "nodemon app.js",
+    "dev": "nodemon ./src/app.js",
+    "build": "next build ./src",
+    "start": "NODE_ENV=production node ./src/app.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -22,14 +23,23 @@
     "@types/express": "^4.17.6",
     "bcryptjs": "^2.4.3",
     "body-parser": "^1.19.0",
+    "bootstrap": "^4.5.0",
     "dotenv": "^8.2.0",
+    "dotenv-webpack": "^2.0.0",
     "express": "^4.17.1",
     "express-promise-router": "^4.0.1",
+    "isomorphic-fetch": "^2.2.1",
     "mongoose": "^5.9.21",
     "morgan": "^1.10.0",
+    "next": "^9.4.4",
+    "react": "^16.13.1",
+    "react-bootstrap": "^1.2.0",
+    "react-dom": "^16.13.1",
+    "styled-components": "^5.1.1",
     "validation": "0.0.1"
   },
   "devDependencies": {
+    "babel-plugin-styled-components": "^1.10.7",
     "nodemon": "^2.0.4"
   }
 }
