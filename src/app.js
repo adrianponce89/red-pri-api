@@ -26,11 +26,8 @@ app.prepare().then(() => {
   server.use(morgan('dev'));
   server.use(express.json());
   
-  // importing routes
-  const articles = require('./routes/articles');
-  
   // Routes
-  server.use('/articles', articles);
+  server.use('/api', require('./routes'));
   
   // handling everything else with Next.js
   server.get("*", app.getRequestHandler());
