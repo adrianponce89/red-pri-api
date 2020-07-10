@@ -2,14 +2,12 @@ import styled from 'styled-components';
 import Navigation from './Navigation';
 
 const Container = (props) => (
-    <div className={props.className}>
-        <Navigation />
-        <div>
-            {props.children}
-        </div>
-    </div>
-  );
+  <div className={props.className}>
+    <Navigation />
+    {props.children}
+  </div>
+);
   
 export default styled(Container)`
-    background: ${({ theme }) => theme.colors.mainViolet};
+  padding-top: 80px;
 `;

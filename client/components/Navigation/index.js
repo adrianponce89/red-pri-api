@@ -12,6 +12,9 @@ const NavBar = styled.nav`
   justify-content: center;
   -webkit-box-shadow: 0 0 6px rgba(0,0,0,0.4);
   box-shadow: 0 0 6px rgba(0,0,0,0.4);
+  position: fixed;
+  top: 0;
+  width: 100%;
 `;
 
 const NavBarContainer = styled.ul`

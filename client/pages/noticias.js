@@ -6,10 +6,10 @@ const Title = styled.h1`
   text-align: center;
 `;
 
-const Home = () => (
+const Noticias = () => (
     <Container>
-      <Title>Inicio</Title>
+      <Title>Noticias</Title>
     </Container>
   );
 
-export default Home;
+export default Noticias;
