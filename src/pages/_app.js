@@ -5,13 +5,13 @@ import GlobalStyle from '../components/GlobalStyle';
 
 const theme = {
   colors: {
-    mainGreen: '#52aaab',//
-    lightGreen: '#9bcfcd',//
-    mainOrange: '#ff9a00',//
-    lightOrange: '#ffae16',//
-    mainRed: '#f9425e',//
-    lightRed: '#ff91a4',//
-    mainViolet: '#d8c3d6',//
+    mainGreen: '#52aaab',
+    lightGreen: '#9bcfcd',
+    mainOrange: '#ff9a00',
+    lightOrange: '#ffae16',
+    mainRed: '#f9425e',
+    lightRed: '#ff91a4',
+    mainViolet: '#d8c3d6',
     mainText: '#5d5d5d'
   },
   fonts: {
@@ -24,14 +24,6 @@ export default class MyApp extends App {
     const { Component, pageProps } = this.props
     return (
       <ThemeProvider theme={theme}>
-        <Head>
-          <link
-              rel="preload"
-              href="/fonts/MPLUSRounded1c-Bold.ttf"
-              as="font"
-              crossOrigin=""
-            />
-        </Head>
         <GlobalStyle />
         <Component {...pageProps} />
       </ThemeProvider>

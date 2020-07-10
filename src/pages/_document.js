@@ -1,4 +1,4 @@
-import Document from 'next/document'
+import Document, { Head, Html, Main, NextScript } from "next/document";
 import { ServerStyleSheet } from 'styled-components'
 
 export default class MyDocument extends Document {
@@ -26,5 +26,28 @@ export default class MyDocument extends Document {
     } finally {
       sheet.seal()
     }
+  }
+
+  render() {
+    return (
+      <Html>
+        <Head>
+          <link
+            rel="stylesheet"
+            href="https://bootswatch.com/4/darkly/bootstrap.min.css"
+          />
+          <link
+            rel="preload"
+            href="/fonts/MPLUSRounded1c-Bold.ttf"
+            as="font"
+            crossOrigin=""
+          />
+        </Head>
+        <body>
+          <Main />
+          <NextScript />
+        </body>
+      </Html>
+    );
   }
 }
