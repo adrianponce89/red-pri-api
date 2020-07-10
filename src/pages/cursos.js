@@ -6,10 +6,10 @@ const Title = styled.h1`
   text-align: center;
 `;
 
-const Capacitaciones = () => (
+const Cursos = () => (
     <Container>
-      <Title>Capacitaciones</Title>
+      <Title>Cursos</Title>
     </Container>
   );
 
-export default Capacitaciones;
+export default Cursos;

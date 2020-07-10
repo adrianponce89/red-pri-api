@@ -34,7 +34,7 @@ export default class MyDocument extends Document {
         <Head>
           <link
             rel="stylesheet"
-            href="https://bootswatch.com/4/darkly/bootstrap.min.css"
+            href="https://bootswatch.com/4/simplex/bootstrap.min.css"
           />
           <link
             rel="preload"
