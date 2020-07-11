@@ -2,27 +2,20 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 import Navigation from './Navigation';
 import SignInModal from './Modals/SignInModal';
-import SignUpModal from './Modals/SignUpModal';
 
 const Container = (props) => {
-  const [showSignIn, setShowSignIn] = useState(false);
-  const [showSignUp, setShowSignUp] = useState(false);
+  const [modalStep, setModalStep] = useState(null);
 
   return (
     <div className={props.className}>
       <Navigation
-        onShowSignUp={() => setShowSignUp(true)}
-        onShowSignIn={() => setShowSignIn(true)}
+        onShowSignUp={() => setModalStep('SelectSignUp')}
+        onShowSignIn={() => setModalStep('SelectSignIn')}
       />
       <SignInModal
-        show={showSignIn}
-        onClose={() => setShowSignIn(false)}
-        onShowSignUp={() => { setShowSignIn(false); setShowSignUp(true); }}
-      />
-      <SignUpModal
-        show={showSignUp}
-        onClose={() => setShowSignUp(false)}
-        onShowSignIn={() => { setShowSignUp(false); setShowSignIn(true); }}
+        initialStep={modalStep}
+        show={modalStep !== null}
+        onClose={() => setModalStep(null)}
       />
       {props.children}
     </div>
