@@ -25,7 +25,7 @@ const SignInModal = (props) => (
           Ingresa para ver contenido adicional, configurar alertas y seguir autores de tu interes.
         </p>
         <Col xs className="d-flex flex-column p-3 col-sm-8">
-          <Button variant="outline-info" className="m-2 pl-sm-5 text-left">
+          <Button variant="outline-primary" className="m-2 pl-sm-5 text-left">
             <FontAwesomeIcon className="fa fa-google" aria-hidden="true">
             </FontAwesomeIcon>{' '}Ingresar con Google
           </Button>
@@ -33,7 +33,7 @@ const SignInModal = (props) => (
             <FontAwesomeIcon className="fa fa-facebook-official" aria-hidden="true">
             </FontAwesomeIcon>{' '}Ingresar con Facebook
           </Button>
-          <Button variant="outline-info" className="m-2 pl-sm-5 text-left">
+          <Button variant="outline-secondary" className="m-2 pl-sm-5 text-left">
             <FontAwesomeIcon className="fa fa-envelope-o" aria-hidden="true">
             </FontAwesomeIcon>{' '}Ingresar con email
           </Button>

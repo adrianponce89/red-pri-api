@@ -13,7 +13,7 @@ const LogoContainer = styled.div`
   a {
       text-decoration: none;
   }
-  @media (max-width: 992px) {
+  @media (max-width: 576px) {
     height: 34px;
     min-width: 94px;
     width: 94px;
@@ -26,7 +26,7 @@ const Title = styled.h1`
   margin: 0;
   color: ${({ theme }) => theme.colors.mainOrange};
   text-align: center;
-  @media (max-width: 992px) {
+  @media (max-width: 576px) {
     font-size: 1.6em;
   }
 `;
@@ -37,7 +37,7 @@ const SubTitle = styled.h2`
   text-align: center;
   margin: 0;
   white-space: break-spaces;
-  @media (max-width: 992px) {
+  @media (max-width: 576px) {
     font-size: 0.4em;
   }
 `;
