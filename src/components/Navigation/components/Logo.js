@@ -7,6 +7,7 @@ const LogoContainer = styled.div`
   width: 138px;
   min-width: 138px;
   text-shadow: 0px 0px 3px #444;
+  font-family: ${({ theme }) => theme.fonts.rounded};
   display: flex;
   flex-direction: column;
   justify-content: center;

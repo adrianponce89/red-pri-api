@@ -7,11 +7,14 @@ import EmailSignUpMethod from './components/EmailSignUpMethod';
 
 const SignInModal = (props) => {
   const [step, setStep] = useState(null);
+  const [last, setLast] = useState(null);
+  useEffect(() => { setLast(step); setStep(props.initialStep); }, [props]);
 
-  useEffect(() => setStep(props.initialStep), [props]);
+  // Keep last state on sceen on fade-out.
+  const current = step || last;
 
   const renderSteps = () => {
-    if (step === 'SelectSignIn')
+    if (current === 'SelectSignIn')
       return (
         <SelectSignInMethod
           {...props}
@@ -19,11 +22,11 @@ const SignInModal = (props) => {
           onEmailMethod={() => setStep('EmailSignIn')}
         />
       );
-    else if (step === 'EmailSignIn')
+    else if (current === 'EmailSignIn')
       return (
         <EmailSignInMethod {...props} onSelectSignIn={() => setStep('SelectSignIn')}/>
       );
-    else if (step === 'SelectSignUp')
+    else if (current === 'SelectSignUp')
       return (
         <SelectSignUpMethod
           {...props}
@@ -31,12 +34,12 @@ const SignInModal = (props) => {
           onEmailMethod={() => setStep('EmailSignUp')}
         />
       );
-    else if (step === 'EmailSignUp')
+    else if (current === 'EmailSignUp')
       return (
         <EmailSignUpMethod {...props} onSelectSignUp={() => setStep('SelectSignUp')}/>
       );
     else
-      return <h1>Ocurrio un error!</h1>
+      return <h1>Ocurrio un Error!</h1>
   }
   return (
     <Modal
