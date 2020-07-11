@@ -3,6 +3,11 @@ import Modal from "react-bootstrap/Modal";
 import Button from "react-bootstrap/Button";
 import Container from "react-bootstrap/Container";
 import Col from "react-bootstrap/Col";
+import styled from 'styled-components';
+
+const FontAwesomeIcon = styled.i`
+  font-size: 1.1em;
+`
 
 const RegisterModal = (props) => (
     <Modal
@@ -20,9 +25,18 @@ const RegisterModal = (props) => (
           Crea una cuenta para ver contenido adicional, configurar alertas y seguir autores de tu interes.
         </p>
         <Col xs className="d-flex flex-column p-3 col-8">
-          <Button variant="outline-info" className="m-2">Unirse con Google</Button>
-          <Button variant="outline-info" className="m-2">Unirse con Facebook</Button>
-          <Button variant="outline-info" className="m-2">Unirse con email</Button>
+          <Button variant="outline-info" className="m-2 pl-5 text-left">
+            <FontAwesomeIcon className="fa fa-google" aria-hidden="true">
+            </FontAwesomeIcon>{' '}Unirse con Google
+          </Button>
+          <Button variant="outline-info" className="m-2 pl-5 text-left">
+            <FontAwesomeIcon className="fa fa-facebook-official" aria-hidden="true">
+            </FontAwesomeIcon>{' '}Unirse con Facebook
+          </Button>
+          <Button variant="outline-info" className="m-2 pl-5 text-left">
+            <FontAwesomeIcon className="fa fa-envelope-o" aria-hidden="true">
+            </FontAwesomeIcon>{' '}Unirse con email
+          </Button>
         </Col>
         
         <p>
