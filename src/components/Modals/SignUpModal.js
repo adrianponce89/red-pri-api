@@ -7,9 +7,9 @@ import styled from 'styled-components';
 
 const FontAwesomeIcon = styled.i`
   font-size: 1.1em;
-`
+`;
 
-const RegisterModal = (props) => (
+const SignUpModal = (props) => (
     <Modal
       show={props.show}
       onHide={props.onClose}
@@ -24,23 +24,23 @@ const RegisterModal = (props) => (
         <p>
           Crea una cuenta para ver contenido adicional, configurar alertas y seguir autores de tu interes.
         </p>
-        <Col xs className="d-flex flex-column p-3 col-8">
-          <Button variant="outline-info" className="m-2 pl-5 text-left">
+        <Col xs className="d-flex flex-column p-3 col-sm-8">
+          <Button variant="outline-info" className="m-2 pl-sm-5 text-left">
             <FontAwesomeIcon className="fa fa-google" aria-hidden="true">
             </FontAwesomeIcon>{' '}Unirse con Google
           </Button>
-          <Button variant="outline-info" className="m-2 pl-5 text-left">
+          <Button variant="outline-info" className="m-2 pl-sm-5 text-left">
             <FontAwesomeIcon className="fa fa-facebook-official" aria-hidden="true">
             </FontAwesomeIcon>{' '}Unirse con Facebook
           </Button>
-          <Button variant="outline-info" className="m-2 pl-5 text-left">
+          <Button variant="outline-info" className="m-2 pl-sm-5 text-left">
             <FontAwesomeIcon className="fa fa-envelope-o" aria-hidden="true">
             </FontAwesomeIcon>{' '}Unirse con email
           </Button>
         </Col>
         
         <p>
-          ¿Ya tenes una cuenta?{' '}<Link href="/"><a>Ingresa</a></Link>
+          ¿Ya tenes una cuenta?{' '}<a href="#" onClick={props.onShowSignIn}>Ingresa</a>
         </p>
         <p>
           Para hacer funcionar Red-Pri, guardamos información del usuario. Al hacer click en “Unirse” aceptas los <Link href="/"><a>terminos y condiciones</a></Link>
@@ -50,4 +50,4 @@ const RegisterModal = (props) => (
     </Modal>
   );
 
-  export default RegisterModal;
+  export default SignUpModal;
