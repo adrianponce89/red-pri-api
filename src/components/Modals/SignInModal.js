@@ -43,7 +43,7 @@ const SignInModal = (props) => (
           ¿No tenes una cuenta?{' '}<a href="#" onClick={props.onShowSignUp}>Crea una</a>
         </p>
         <p>
-          Para hacer funcionar Red-Pri, guardamos información del usuario. Al hacer click en “Unirse” aceptas los <Link href="/"><a>terminos y condiciones</a></Link>
+          Para hacer funcionar Red-Pri, guardamos información del usuario. Al hacer click en “Ingresar” aceptas los <Link href="/"><a>terminos y condiciones</a></Link>
         </p>
         </Container>
       </Modal.Body>
