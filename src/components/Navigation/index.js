@@ -30,7 +30,7 @@ const AppNavbar = (props) => {
         <Form inline className="m-2">
           <SearchBar />
         </Form>
-        <Button variant="outline-light" className="m-2">Registrarse</Button>
+        <Button variant="outline-light" className="m-2" onClick={props.onShowRegister}>Registrarse</Button>
         <Button variant="success">Ingresar</Button>
       </Navbar.Collapse>
       </Container>
