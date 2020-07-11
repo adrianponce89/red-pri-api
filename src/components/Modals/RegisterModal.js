@@ -9,21 +9,20 @@ const RegisterModal = (props) => (
       show={props.show}
       onHide={props.onClose}
       keyboard={false}
-      className="text-center"
       centered
     >
       <Modal.Header closeButton>
         <Modal.Title>Unirse a Red-Pri</Modal.Title>
       </Modal.Header>
       <Modal.Body>
-        <Container>
+        <Container className="text-center d-flex flex-column align-items-center">
         <p>
           Crea una cuenta para ver contenido adicional, configurar alertas y seguir autores de tu interes.
         </p>
-        <Col xs className="d-flex flex-column p-3">
-          <Button variant="outline-info" className="m-2">Registrarse con Google</Button>
-          <Button variant="outline-info" className="m-2">Registrarse con Facebook</Button>
-          <Button variant="outline-info" className="m-2">Registrarse con email</Button>
+        <Col xs className="d-flex flex-column p-3 col-8">
+          <Button variant="outline-info" className="m-2">Unirse con Google</Button>
+          <Button variant="outline-info" className="m-2">Unirse con Facebook</Button>
+          <Button variant="outline-info" className="m-2">Unirse con email</Button>
         </Col>
         
         <p>
@@ -34,12 +33,6 @@ const RegisterModal = (props) => (
         </p>
         </Container>
       </Modal.Body>
-      <Modal.Footer>
-        <Button variant="secondary" onClick={props.onClose}>
-          Cerrar
-        </Button>
-        <Button variant="success">Unirse</Button>
-      </Modal.Footer>
     </Modal>
   );
 
