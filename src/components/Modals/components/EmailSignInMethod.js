@@ -13,12 +13,12 @@ const EmailSignInMethod = (props) => (
         <p>
           Ingresa tu email y contraseña asociado con la cuenta
         </p>
-        <Form className="pb-2">
+        <Form className="pb-2" action="/api/auth/local-signin" method="POST">
           <Form.Group controlId="formBasicEmail">
-            <Form.Control type="email" placeholder="Email" />
+            <Form.Control name="email" type="email" placeholder="Email" />
           </Form.Group>
           <Form.Group controlId="formBasicPassword">
-            <Form.Control type="password" placeholder="Contraseña" />
+            <Form.Control name="password" type="password" placeholder="Contraseña" />
             <Form.Text>
               <a href="#">¿Olvidaste tu contraseña?</a>
             </Form.Text>

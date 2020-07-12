@@ -13,12 +13,12 @@ const EmailSignUpMethod = (props) => (
         <p>
           Ingresa tu email y eligí una contraseña para crear una cuenta nueva
         </p>
-        <Form className="pb-2">
-          <Form.Group controlId="formBasicEmail">
-            <Form.Control type="email" placeholder="Email" />
+        <Form className="pb-2" action="/api/auth/local-signup" method="POST">
+          <Form.Group controlId="email">
+            <Form.Control name="email" type="email" placeholder="Email" />
           </Form.Group>
-          <Form.Group controlId="formBasicPassword">
-            <Form.Control type="password" placeholder="Contraseña" />
+          <Form.Group controlId="password">
+            <Form.Control name="password" type="password" placeholder="Contraseña" />
           </Form.Group>
 
           <Button variant="primary" type="submit">
