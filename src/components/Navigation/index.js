@@ -17,7 +17,9 @@ const Navigation = (props) => {
   return (
     <Navbar variant="dark" expand="lg" fixed="top" className={props.className}>
       <Container>
-      <Navbar.Brand href="/" className="p-0"><Logo href="/" /></Navbar.Brand>
+      <Navbar.Brand href="/" className="p-0">
+        <img src="/imgs/red-pri-icon.png" alt="Red-Pri Red interdiciplinaria de la primera infancia"width="138" height="64"/>
+      </Navbar.Brand>
       <Navbar.Toggle aria-controls="basic-navbar-nav" />
       <Navbar.Collapse id="basic-navbar-nav">
         <Nav className="mr-auto" activeKey={pathname}>
