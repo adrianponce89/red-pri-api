@@ -2,16 +2,22 @@ import styled from 'styled-components';
 import Link from 'next/link';
 
 const LogoContainer = styled.div`
-  height: 80px;
+  height: 64px;
   text-align: center;
-  width: 140px;
-  min-width: 140px;
+  width: 138px;
+  min-width: 138px;
   text-shadow: 0px 0px 3px #444;
+  font-family: ${({ theme }) => theme.fonts.rounded};
   display: flex;
   flex-direction: column;
   justify-content: center;
   a {
       text-decoration: none;
+  }
+  @media (max-width: 576px) {
+    height: 34px;
+    min-width: 94px;
+    width: 94px;
   }
 `;
 
@@ -21,6 +27,9 @@ const Title = styled.h1`
   margin: 0;
   color: ${({ theme }) => theme.colors.mainOrange};
   text-align: center;
+  @media (max-width: 576px) {
+    font-size: 1.6em;
+  }
 `;
 
 const SubTitle = styled.h2`
@@ -28,6 +37,10 @@ const SubTitle = styled.h2`
   color: white;
   text-align: center;
   margin: 0;
+  white-space: break-spaces;
+  @media (max-width: 576px) {
+    font-size: 0.4em;
+  }
 `;
 
 const Logo = (props) => (

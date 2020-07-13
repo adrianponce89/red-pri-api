@@ -34,7 +34,12 @@ export default class MyDocument extends Document {
         <Head>
           <link
             rel="stylesheet"
-            href="https://bootswatch.com/4/darkly/bootstrap.min.css"
+            href="https://bootswatch.com/4/simplex/bootstrap.min.css"
+          />
+          <link
+            rel="stylesheet"
+            href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN"
+            crossOrigin="anonymous"
           />
           <link
             rel="preload"
