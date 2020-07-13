@@ -1,22 +1,29 @@
 import styled from 'styled-components';
-import Container from '../components/Container';
+import Container from "react-bootstrap/Container";
+import Row from "react-bootstrap/Row";
+import Col from "react-bootstrap/Col";
 import fetch from "isomorphic-fetch";
 import { server } from '../config';
+import ArticleCard from '../components/ArticleCard';
 
-const Title = styled.h1`
-  font-size: 30px;
-  text-align: center;
-`;
-
-const Noticias = ({ articles }) => (
-    <Container>
-      <Title>Noticias</Title>
-      {articles.map((article) => (
-        <div key={article._id}>
-          <h1>{article.title}</h1>
-          <p>{article.content}</p>
-        </div>
-      ))}
+const Noticias = ({ className, articles }) => (
+    <Container className={className}>
+      <Row>
+        <Col sm='4'>
+          <h2>Popular en Red-Pri</h2>
+          {articles.map((article) => (
+            <div key={article._id}>
+              <h3>{article.title}</h3>
+              <p>{article.content}</p>
+            </div>
+          ))}
+        </Col>
+        <Col sm={{span: 8, order: 'first'}}>
+          {articles.map((article) => (
+            <ArticleCard key={article._id} {...article} />
+          ))}
+        </Col>
+      </Row>
     </Container>
   );
 
@@ -30,4 +37,6 @@ export async function getStaticProps() {
   }
 }
 
-export default Noticias;
+export default styled(Noticias)`
+  padding-top: 1em;
+`;

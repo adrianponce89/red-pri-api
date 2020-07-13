@@ -1,7 +1,8 @@
-import App from 'next/app';
-import Head from 'next/head';
+import React, { useState } from 'react';
 import { ThemeProvider } from 'styled-components';
 import GlobalStyle from '../components/GlobalStyle';
+import Navigation from '../components/Navigation';
+import SignInModal from '../components/Modals/SignInModal';
 
 const theme = {
   colors: {
@@ -19,14 +20,26 @@ const theme = {
   }
 }
 
-export default class MyApp extends App {
-  render() {
-    const { Component, pageProps } = this.props
-    return (
-      <ThemeProvider theme={theme}>
-        <GlobalStyle />
+const MyApp = (props) => {
+  const [modalStep, setModalStep] = useState(null);
+  const { Component, pageProps } = props
+  return (
+    <ThemeProvider theme={theme}>
+      <GlobalStyle />
+      <Navigation
+        onShowSignUp={() => setModalStep('SelectSignUp')}
+        onShowSignIn={() => setModalStep('SelectSignIn')}
+      />
+      <SignInModal
+        initialStep={modalStep}
+        show={modalStep !== null}
+        onClose={() => setModalStep(null)}
+      />
+      <div style={{ paddingTop: '80px' }}>
         <Component {...pageProps} />
-      </ThemeProvider>
-    )
-  }
-}
+      </div>
+    </ThemeProvider>
+  )
+};
+
+export default MyApp;
