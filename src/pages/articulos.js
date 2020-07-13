@@ -6,7 +6,7 @@ import fetch from "isomorphic-fetch";
 import { server } from '../config';
 import ArticleCard from '../components/ArticleCard';
 
-const Noticias = ({ className, articles }) => (
+const Articulos = ({ className, articles }) => (
     <Container className={className}>
       <Row>
         <Col sm='4'>
@@ -37,6 +37,6 @@ export async function getStaticProps() {
   }
 }
 
-export default styled(Noticias)`
+export default styled(Articulos)`
   padding-top: 1em;
 `;
