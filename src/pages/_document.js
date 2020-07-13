@@ -41,12 +41,6 @@ export default class MyDocument extends Document {
             href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN"
             crossOrigin="anonymous"
           />
-          <link
-            rel="preload"
-            href="/fonts/MPLUSRounded1c-Bold.ttf"
-            as="font"
-            crossOrigin=""
-          />
         </Head>
         <body>
           <Main />
