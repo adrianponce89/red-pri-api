@@ -13,6 +13,7 @@ const theme = {
     lightOrange: '#ffae16',
     mainRed: '#f9425e',
     lightRed: '#ff91a4',
+    darkRed: '#D9230F',
     mainViolet: '#d8c3d6',
     mainText: '#5d5d5d'
   },
