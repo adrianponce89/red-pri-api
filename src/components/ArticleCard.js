@@ -34,7 +34,7 @@ const ArticleCard = (props) => {
 }
 
 export default styled(ArticleCard)`
-  background: ${({ theme }) => theme.colors.mainOrange};
+  background: ${({ theme }) => theme.colors.lightOrange};
   margin-bottom: 1em;
   overflow: hidden;
   display: flex;

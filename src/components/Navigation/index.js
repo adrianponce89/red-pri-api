@@ -43,7 +43,7 @@ const Navigation = (props) => {
 }
 
 const styledNavBar = styled(withRouter(Navigation))`
-  background: ${({ theme }) => theme.colors.lightGreen};
+  background: ${({ theme }) => theme.colors.mainViolet};
   -webkit-box-shadow: 0 0 6px rgba(0,0,0,0.4);
   box-shadow: 0 0 6px rgba(0,0,0,0.4);
   border: none;
