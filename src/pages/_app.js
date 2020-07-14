@@ -3,6 +3,7 @@ import { ThemeProvider } from 'styled-components';
 import GlobalStyle from '../components/GlobalStyle';
 import Navigation from '../components/Navigation';
 import SignInModal from '../components/Modals/SignInModal';
+import Background from '../components/Background';
 
 const theme = {
   colors: {
@@ -35,7 +36,9 @@ const MyApp = (props) => {
         show={modalStep !== null}
         onClose={() => setModalStep(null)}
       />
-      <div style={{ paddingTop: '80px' }}>
+      
+      <div style={{ position: 'relative', paddingTop: '80px' }}>
+        <Background />
         <Component {...pageProps} />
       </div>
     </ThemeProvider>
