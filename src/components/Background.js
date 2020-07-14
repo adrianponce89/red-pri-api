@@ -64,7 +64,8 @@ const StripedCircle = styled.div`
   position: absolute;
 `;
 
-const Background = ({ className, theme }) => {
+
+const ShapedPattern = styled(withTheme(({ className, theme }) => {
   const { lightRed, lightOrange } = theme.colors;
   return (
   <div className={className}>
@@ -82,9 +83,27 @@ const Background = ({ className, theme }) => {
     <Triangle size="15" rotation="105" color={lightRed} style={{ right: '30vw', top: '40vh'}}/>
     <Triangle size="5" rotation="25" color={lightRed} style={{ right: '0', top: '75vh'}}/>
   </div>
-)}
+)}))`
+  opacity: 0.2;
+  position: relative;
+  top: ${props => props.pos * 120}vh;
+`
 
-export default styled(withTheme(Background))`
+const range = (min, max) => {
+  const arr = [];
+  for (let i = min; i < max; i++) { arr.push(i) }
+  return arr;
+}
+
+const Background = ({ className }) => (
+  <div className={className}>
+    {range(0, 5).map(pos => (
+      <ShapedPattern pos={pos} />
+    ))}
+  </div>
+);
+
+export default styled(Background)`
   z-index: -1;
   background: ${({ theme }) => theme.colors.lightGreen};
   position: absolute;
