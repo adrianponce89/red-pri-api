@@ -1,3 +1,4 @@
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
@@ -5,8 +6,16 @@ import Col from "react-bootstrap/Col";
 import Card from "react-bootstrap/Card";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
+import { Editor } from '@tinymce/tinymce-react';
+import { tinyAPIKey } from '../config';
 
-const CrearArticulo = ({ className }) => (
+const CrearArticulo = ({ className }) => {
+  const [content, setContent] = useState("");
+
+  const handleEditorChange = (content, editor) => {
+    setContent(content);
+  }
+  return (
     <Container className={className}>
       <Row>
         <Col lg="8" className="pb-2">
@@ -18,7 +27,24 @@ const CrearArticulo = ({ className }) => (
                   <Form.Control type="text" placeholder="Título (obligatorio)" />
                 </Form.Group>
                 <Form.Group controlId="content">
-                  <Form.Control as="textarea" rows="3" placeholder="¿Qué quieres compartir? (obligatorio)" />
+                  <Editor
+                    apiKey={`${tinyAPIKey}`}
+                    initialValue={content}
+                    init={{
+                      height: 500,
+                      menubar: false,
+                      plugins: [
+                        'advlist autolink lists link image charmap print preview anchor',
+                        'searchreplace visualblocks code fullscreen',
+                        'insertdatetime media table paste code help wordcount'
+                      ],
+                      toolbar:
+                        'undo redo | formatselect | bold italic underline | \
+                        alignleft aligncenter alignright alignjustify | \
+                        bullist numlist outdent indent | removeformat | image link | help'
+                    }}
+                    onEditorChange={handleEditorChange}
+                  />
                 </Form.Group>
               </Form>
             </Card.Body>
@@ -52,7 +78,8 @@ const CrearArticulo = ({ className }) => (
         </Col>
       </Row>
     </Container>
-  );
+  )
+};
 
 export default styled(CrearArticulo)`
   padding-top: 1em;
