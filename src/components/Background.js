@@ -98,7 +98,7 @@ const range = (min, max) => {
 const Background = ({ className }) => (
   <div className={className}>
     {range(0, 5).map(pos => (
-      <ShapedPattern pos={pos} />
+      <ShapedPattern key={pos} pos={pos} />
     ))}
   </div>
 );
