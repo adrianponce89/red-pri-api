@@ -4,6 +4,7 @@ import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Nav from "react-bootstrap/Nav";
 import Button from "react-bootstrap/Button";
+import Card from "react-bootstrap/Card";
 import fetch from "isomorphic-fetch";
 import { server } from '../../config';
 import ArticleCard from '../../components/ArticleCard';
@@ -13,13 +14,17 @@ const Articulos = ({ className, articles }) => (
     <Container className={className}>
       <Row>
         <Col sm='4'>
-          <h2>Popular en Red-Pri</h2>
-          {articles.map((article) => (
-            <div key={article._id}>
-              <h3>{article.title}</h3>
-              <p>{article.content}</p>
-            </div>
-          ))}
+          <Card>
+            <Card.Header><h2>Popular en Red-Pri</h2></Card.Header>
+            <Card.Body>
+              {articles.map((article) => (
+                <div key={article._id}>
+                  <h3>{article.title}</h3>
+                  <p>{article.content}</p>
+                </div>
+              ))}
+            </Card.Body>
+          </Card>
         </Col>
         <Col sm={{span: 8, order: 'first'}}>
           <div className="d-flex justify-content-between pb-2">

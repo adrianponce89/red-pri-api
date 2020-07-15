@@ -1,9 +1,17 @@
+const textVersion = require("textversionjs");
 const Article = require('../models/article');
 
 module.exports = {
 	index: async (req, res, next) => {
 		const articles = await Article.find({});
-		res.status(200).json(articles);
+		const plainArticles = articles.map(article => ({
+			_id: article._id,
+			title: article.title,
+			tags: article.tags,
+			category: article.category,
+			content: textVersion(article.content).substr(0, 500)
+		}));
+		res.status(200).json(plainArticles);
 	},
 
 	newArticle: async (req, res, next) => {
