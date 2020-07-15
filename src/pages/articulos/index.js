@@ -5,9 +5,9 @@ import Col from "react-bootstrap/Col";
 import Nav from "react-bootstrap/Nav";
 import Button from "react-bootstrap/Button";
 import fetch from "isomorphic-fetch";
-import { server } from '../config';
-import ArticleCard from '../components/ArticleCard';
-import FAIcon from '../components/FAIcon';
+import { server } from '../../config';
+import ArticleCard from '../../components/ArticleCard';
+import FAIcon from '../../components/FAIcon';
 
 const Articulos = ({ className, articles }) => (
     <Container className={className}>
