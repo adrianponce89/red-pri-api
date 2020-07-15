@@ -11,7 +11,7 @@ const CenterTitle = styled.h1`
   text-align: center;
 `;
 
-const CrearArticulo = ({ className, article }) => {
+const Articulo = ({ className, article }) => {
 
   return (
     <Container className={className}>
@@ -71,6 +71,12 @@ export async function getStaticProps({ params }) {
   }
 }
 
-export default styled(CrearArticulo)`
+export default styled(Articulo)`
   padding-top: 1em;
+  img, iframe {
+    max-width: 100%;
+  };
+  img {
+    height: auto;
+  };
 `;
