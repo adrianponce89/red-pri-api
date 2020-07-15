@@ -4,11 +4,7 @@ import Button from "react-bootstrap/Button";
 import Container from "react-bootstrap/Container";
 import Modal from "react-bootstrap/Modal";
 import Col from "react-bootstrap/Col";
-import styled from 'styled-components';
-
-const FontAwesomeIcon = styled.i`
-  font-size: 1.1em;
-`;
+import FAIcon from '../../FAIcon';
 
 const SelectSignInMethod = (props) => (
   <>
@@ -22,16 +18,13 @@ const SelectSignInMethod = (props) => (
         </p>
         <Col xs className="d-flex flex-column p-3 col-sm-8">
           <Button variant="outline-primary" className="m-2 pl-sm-5 text-left">
-            <FontAwesomeIcon className="fa fa-google" aria-hidden="true">
-            </FontAwesomeIcon>{' '}Ingresar con Google
+            <FAIcon className="fa fa-google" />{' '}Ingresar con Google
           </Button>
           <Button variant="outline-info" className="m-2 pl-sm-5 text-left">
-            <FontAwesomeIcon className="fa fa-facebook-official" aria-hidden="true">
-            </FontAwesomeIcon>{' '}Ingresar con Facebook
+            <FAIcon className="fa fa-facebook-official" />{' '}Ingresar con Facebook
           </Button>
           <Button variant="outline-secondary" className="m-2 pl-sm-5 text-left" onClick={props.onEmailMethod}>
-            <FontAwesomeIcon className="fa fa-envelope-o" aria-hidden="true">
-            </FontAwesomeIcon>{' '}Ingresar con email
+            <FAIcon className="fa fa-envelope-o" />{' '}Ingresar con email
           </Button>
         </Col>
         

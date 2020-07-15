@@ -1,13 +1,30 @@
+const textVersion = require("textversionjs");
+const sanitizeHtml = require('sanitize-html');
 const Article = require('../models/article');
+const { sanitizeConfig } = require ('../config');
 
 module.exports = {
 	index: async (req, res, next) => {
 		const articles = await Article.find({});
-		res.status(200).json(articles);
+		const plainArticles = articles.map(article => ({
+			_id: article._id,
+			title: article.title,
+			tags: article.tags,
+			category: article.category,
+			content: textVersion(article.content).substr(0, 500)
+		}));
+		res.status(200).json(plainArticles);
 	},
 
 	newArticle: async (req, res, next) => {
-		const newArticle = new Article(req.body);
+		const sanitized = {
+			title: req.body.title,
+			content: sanitizeHtml(req.body.content, sanitizeConfig),
+			category: req.body.category,
+			tags: req.body.tags,
+			user: req.user
+		}
+		const newArticle = new Article(sanitized);
 		const article = await newArticle.save();
 		res.status(201).json(article);
 	},

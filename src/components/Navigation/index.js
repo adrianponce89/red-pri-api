@@ -18,13 +18,13 @@ const Navigation = (props) => {
     <Navbar variant="dark" expand="lg" fixed="top" className={props.className}>
       <Container>
       <Navbar.Brand href="/" className="p-0">
-        <img src="/imgs/red-pri-icon.png" alt="Red-Pri Red interdiciplinaria de la primera infancia"width="138" height="64"/>
+        <img src="/imgs/red-pri-logo.png" alt="Red-Pri Red interdiciplinaria de la primera infancia" width="73" height="64"/>
       </Navbar.Brand>
       <Navbar.Toggle aria-controls="basic-navbar-nav" />
       <Navbar.Collapse id="basic-navbar-nav">
         <Nav className="mr-auto" activeKey={pathname}>
           <Nav.Link href="/">Inicio</Nav.Link>
-          <Nav.Link href="/noticias">Noticias</Nav.Link>
+          <Nav.Link href="/articulos">Articulos</Nav.Link>
           <Nav.Link href="/profesionales">Profesionales</Nav.Link>
           <NavDropdown title="Capacitacion" id="basic-nav-dropdown">
             <NavDropdown.Item href="/cursos">Cursos</NavDropdown.Item>
@@ -43,7 +43,7 @@ const Navigation = (props) => {
 }
 
 const styledNavBar = styled(withRouter(Navigation))`
-  background: ${({ theme }) => theme.colors.lightGreen};
+  background: ${({ theme }) => theme.colors.mainViolet};
   -webkit-box-shadow: 0 0 6px rgba(0,0,0,0.4);
   box-shadow: 0 0 6px rgba(0,0,0,0.4);
   border: none;
