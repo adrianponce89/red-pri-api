@@ -33,15 +33,16 @@ const CrearArticulo = ({ className }) => {
                     init={{
                       height: 500,
                       menubar: false,
+                      language: 'es',
                       plugins: [
-                        'advlist autolink lists link image charmap print preview anchor',
-                        'searchreplace visualblocks code fullscreen',
-                        'insertdatetime media table paste code help wordcount'
+                        'advlist autolink lists link image',
+                        'fullscreen',
+                        'media table help wordcount'
                       ],
                       toolbar:
-                        'undo redo | formatselect | bold italic underline | \
+                        'fullscreen | undo redo | formatselect | bold italic underline | \
                         alignleft aligncenter alignright alignjustify | \
-                        bullist numlist outdent indent | removeformat | image link | help'
+                        bullist numlist outdent indent | removeformat | link table image media | help'
                     }}
                     onEditorChange={handleEditorChange}
                   />
