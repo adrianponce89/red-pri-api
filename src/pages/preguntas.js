@@ -7,9 +7,9 @@ const Title = styled.h1`
 `;
 
 const Preguntas = () => (
-    <Container>
-      <Title>Preguntas</Title>
-    </Container>
-  );
+  <Container>
+    <Title>Preguntas</Title>
+  </Container>
+);
 
 export default Preguntas;

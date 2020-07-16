@@ -7,9 +7,9 @@ const Title = styled.h1`
 `;
 
 const Profesionales = () => (
-    <Container>
-      <Title>Profesionales</Title>
-    </Container>
-  );
+  <Container>
+    <Title>Profesionales</Title>
+  </Container>
+);
 
 export default Profesionales;

@@ -7,9 +7,9 @@ const Title = styled.h1`
 `;
 
 const Home = () => (
-    <Container>
-      <Title>Inicio</Title>
-    </Container>
-  );
+  <Container>
+    <Title>Inicio</Title>
+  </Container>
+);
 
 export default Home;

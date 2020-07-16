@@ -7,9 +7,9 @@ const Title = styled.h1`
 `;
 
 const Seminarios = () => (
-    <Container>
-      <Title>Seminarios</Title>
-    </Container>
-  );
+  <Container>
+    <Title>Seminarios</Title>
+  </Container>
+);
 
 export default Seminarios;

@@ -15,16 +15,16 @@ const theme = {
     lightRed: '#ff91a4',
     darkRed: '#D9230F',
     mainViolet: '#d8c3d6',
-    mainText: '#5d5d5d'
+    mainText: '#5d5d5d',
   },
   fonts: {
-    rounded: '"M PLUS Rounded", Arial, Helvetica, sans-serif'
-  }
-}
+    rounded: '"M PLUS Rounded", Arial, Helvetica, sans-serif',
+  },
+};
 
 const MyApp = (props) => {
   const [modalStep, setModalStep] = useState(null);
-  const { Component, pageProps } = props
+  const { Component, pageProps } = props;
   return (
     <ThemeProvider theme={theme}>
       <GlobalStyle />
@@ -37,13 +37,13 @@ const MyApp = (props) => {
         show={modalStep !== null}
         onClose={() => setModalStep(null)}
       />
-      
+
       <div style={{ position: 'relative', paddingTop: '80px' }}>
         <Background />
         <Component {...pageProps} />
       </div>
     </ThemeProvider>
-  )
+  );
 };
 
 export default MyApp;
