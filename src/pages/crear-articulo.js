@@ -1,18 +1,16 @@
 import React, { useState } from 'react';
 import Router from 'next/router'
-import styled from 'styled-components';
 import fetch from "isomorphic-fetch";
-import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Card from "react-bootstrap/Card";
 import Form from "react-bootstrap/Form";
-import Button from "react-bootstrap/Button";
 import { Editor } from '@tinymce/tinymce-react';
 import { tinyAPIKey } from '../config';
+import Container from '../components/Container';
 import { LoadableButton } from '../components/Loadable';
 
-const CrearArticulo = ({ className }) => {
+const CrearArticulo = () => {
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
   const [category, setCategory] = useState("PSICOLOGIA");
@@ -45,7 +43,7 @@ const CrearArticulo = ({ className }) => {
   }
 
   return (
-    <Container className={className}>
+    <Container>
       <Form onSubmit={handleSubmit}>
         <Row>
           <Col lg="8" className="pb-2">
@@ -129,6 +127,4 @@ const CrearArticulo = ({ className }) => {
   )
 };
 
-export default styled(CrearArticulo)`
-  padding-top: 1em;
-`;
+export default CrearArticulo;
