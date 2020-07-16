@@ -8,11 +8,11 @@ const articleSchema = new Schema(
     //   type: Schema.Types.ObjectId,
     //   ref: 'user'
     // },
-    content: String
+    content: String,
   },
   {
-    timestamps: true
-  }
+    timestamps: true,
+  },
 );
 
 const Article = mongoose.model('article', articleSchema);

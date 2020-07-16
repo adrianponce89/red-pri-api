@@ -1,5 +1,4 @@
 import styled from 'styled-components';
-import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Nav from "react-bootstrap/Nav";
@@ -7,14 +6,15 @@ import Button from "react-bootstrap/Button";
 import Card from "react-bootstrap/Card";
 import fetch from "isomorphic-fetch";
 import { server } from '../../config';
+import Container from '../../components/Container';
 import ArticleCard from '../../components/ArticleCard';
 import Popular from '../../components/Popular';
 import FAIcon from '../../components/FAIcon';
 
-const Articulos = ({ className, articles }) => (
-    <div className={className}>
+const Articulos = ({ articles }) => (
+    <Container>
       <Row>
-        <Col md='4'>
+        <Col md='4' className="mb-2">
           <Popular articles={articles}/>
         </Col>
         <Col md={{span: 8, order: 'first'}}>
@@ -32,16 +32,14 @@ const Articulos = ({ className, articles }) => (
               {' '}Crear articulo
             </Button>
           </div>
-          <Card>
-            <Card.Body style={{padding: '0.5em'}}>
+          <div>
               {articles.map((article) => (
                 <ArticleCard key={article._id} {...article} />
               ))}
-            </Card.Body>
-          </Card>
+          </div>
         </Col>
       </Row>
-    </div>
+    </Container>
   );
 
 export async function getStaticProps() {
@@ -54,6 +52,4 @@ export async function getStaticProps() {
   }
 }
 
-export default styled(Articulos)`
-  padding: 1em;
-`;
+export default Articulos;

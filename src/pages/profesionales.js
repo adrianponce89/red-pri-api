@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import Container from "react-bootstrap/Container";
+import Container from '../components/Container';
 
 const Title = styled.h1`
   font-size: 30px;
