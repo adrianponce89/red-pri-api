@@ -1,5 +1,5 @@
 import styled from 'styled-components';
- 
+
 const External = styled.div`
   padding: 1em;
   display: flex;
@@ -13,10 +13,8 @@ const Inner = styled.div`
 
 const Container = (props) => (
   <External className={props.className}>
-    <Inner>
-      {props.children}
-    </Inner>
+    <Inner>{props.children}</Inner>
   </External>
-  );
+);
 
 export default Container;

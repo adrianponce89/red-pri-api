@@ -12,7 +12,7 @@ const LogoContainer = styled.div`
   flex-direction: column;
   justify-content: center;
   a {
-      text-decoration: none;
+    text-decoration: none;
   }
   @media (max-width: 576px) {
     height: 34px;
@@ -45,13 +45,13 @@ const SubTitle = styled.h2`
 
 const Logo = (props) => (
   <LogoContainer className={props.className}>
-      <Link href={props.href}>
-          <a>
-            <Title>Red Pri</Title>
-            <SubTitle>Red Interdiciplinaria de Primera Infancia</SubTitle>
-          </a>
-      </Link>
+    <Link href={props.href}>
+      <a>
+        <Title>Red Pri</Title>
+        <SubTitle>Red Interdiciplinaria de Primera Infancia</SubTitle>
+      </a>
+    </Link>
   </LogoContainer>
-  );
-  
+);
+
 export default Logo;

@@ -1,9 +1,9 @@
 import styled from 'styled-components';
-import Card from "react-bootstrap/Card";
+import Card from 'react-bootstrap/Card';
 import Link from 'next/link';
 
 const RankNumber = styled.h2`
-  color: rgba(0,0,0,.15);
+  color: rgba(0, 0, 0, 0.15);
   font-size: 34px;
   padding: 0 12px;
 `;
@@ -29,24 +29,33 @@ const HeaderTitle = styled.h4`
 
 const Popular = ({ className, articles }) => (
   <Card className={className}>
-    <Card.Header><HeaderTitle>Popular en Red-Pri</HeaderTitle></Card.Header>
+    <Card.Header>
+      <HeaderTitle>Popular en Red-Pri</HeaderTitle>
+    </Card.Header>
     <Card.Body>
       {articles.map((article, index) => (
         <RankedArticle key={article._id} className={className}>
           <RankNumber>{index + 1}</RankNumber>
           <div>
-            <Link href={`/articulos/[id]`} as={`/articulos/${article._id}`}>
-              <a><RankTitle>{article.title}</RankTitle></a>
+            <Link
+              href={`/articulos/[id]`}
+              as={`/articulos/${article._id}`}
+            >
+              <a>
+                <RankTitle>{article.title}</RankTitle>
+              </a>
             </Link>
-            <p><cite>Nombre Autor</cite></p>
-            <small className="text-muted">15 de Mayo <span>Lectura 8 min</span></small>
+            <p>
+              <cite>Nombre Autor</cite>
+            </p>
+            <small className="text-muted">
+              15 de Mayo <span>Lectura 8 min</span>
+            </small>
           </div>
         </RankedArticle>
       ))}
     </Card.Body>
   </Card>
-  );
+);
 
-export default styled(Popular)`
-
-`;
+export default styled(Popular)``;
