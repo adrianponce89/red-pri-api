@@ -16,7 +16,6 @@ const Navigation = (props) => {
   const { pathname } = props.router;
   return (
     <Navbar variant="dark" expand="lg" fixed="top" className={props.className}>
-      <Container>
       <Navbar.Brand href="/" className="p-0">
         <img src="/imgs/red-pri-logo.png" alt="Red-Pri Red interdiciplinaria de la primera infancia" width="73" height="64"/>
       </Navbar.Brand>
@@ -37,7 +36,6 @@ const Navigation = (props) => {
         <Button variant="outline-light" className="m-2" onClick={props.onShowSignUp}>Registrarse</Button>
         <Button variant="success" onClick={props.onShowSignIn}>Ingresar</Button>
       </Navbar.Collapse>
-      </Container>
     </Navbar>
   );
 }

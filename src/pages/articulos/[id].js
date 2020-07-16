@@ -6,15 +6,16 @@ import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Card from "react-bootstrap/Card";
 import { server } from '../../config';
+import Popular from '../../components/Popular';
 
 const CenterTitle = styled.h1`
   text-align: center;
 `;
 
-const Articulo = ({ className, article }) => {
+const Articulo = ({ className, article, articles }) => {
 
   return (
-    <Container className={className}>
+    <div className={className}>
         <Row>
           <Col lg="8" className="pb-2">
             <Card>
@@ -27,17 +28,10 @@ const Articulo = ({ className, article }) => {
             </Card> 
           </Col>
           <Col lg="4" className="pb-2">
-            <Card>
-              <Card.Header>Popular en Red Pri</Card.Header>
-              <Card.Body>
-                  bla blah
-                  bla blah
-                  bla blah
-              </Card.Body>
-            </Card>
+            <Popular articles={articles} />
           </Col>
         </Row>
-    </Container>
+    </div>
   )
 };
 
@@ -61,18 +55,23 @@ export async function getStaticPaths() {
 export async function getStaticProps({ params }) {
   // params contains the article `id`.
   // If the route is like /articles/1, then params.id is 1
-  const res = await fetch(`${server}/api/articles/${params.id}`);
-  const article = await res.json();
+  const resArticle = await fetch(`${server}/api/articles/${params.id}`);
+  const article = await resArticle.json();
+
+  const resArticles = await fetch(`${server}/api/articles`);
+  const articles = await resArticles.json();
+
   // Pass article data to the page via props
   return {
     props: {
       article,
+      articles
     },
   }
 }
 
 export default styled(Articulo)`
-  padding-top: 1em;
+  padding: 1em;
   img, iframe {
     max-width: 100%;
   };
