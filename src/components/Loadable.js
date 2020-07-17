@@ -24,7 +24,7 @@ const Loadable = (WrappedComponent) => ({
   children,
   ...otherProps
 }) => (
-  <WrappedComponent {...otherProps} style={{ position: 'relative' }}>
+  <WrappedComponent style={{ position: 'relative' }} {...otherProps}>
     <ChildrenContainer loading={loading}>
       {children}
     </ChildrenContainer>
