@@ -22,7 +22,7 @@ module.exports = {
       content: sanitizeHtml(req.body.content, sanitizeConfig),
       category: req.body.category,
       tags: req.body.tags,
-      user: req.user,
+      article: req.article,
     };
     const newArticle = new Article(sanitized);
     const article = await newArticle.save();
@@ -47,11 +47,18 @@ module.exports = {
 
   updateArticle: async (req, res, next) => {
     const { articleId } = req.params;
-    const newArticle = req.body;
-    const oldArticle = await Article.findByIdAndUpdate(
-      articleId,
-      newArticle,
-    );
+    const newArticle = {};
+    if (req.body.title) newArticle['title'] = req.body.title;
+    if (req.body.content) newArticle['content'] = req.body.content;
+
+    const oldArticle = await Article.findByIdAndUpdate(articleId, {
+      $set: newArticle,
+    });
     res.status(200).json({ success: true });
+  },
+  removeArticle: async (req, res, next) => {
+    const { articleId } = req.params;
+    const article = await Article.deleteOne({ _id: articleId });
+    res.status(200).json({ article, success: true });
   },
 };

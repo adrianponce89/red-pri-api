@@ -7,6 +7,7 @@ import Table from 'react-bootstrap/Table';
 import { server } from '../config';
 import Container from '../components/Container';
 import UsersTable from '../components/Admin/UsersTable';
+import ArticlesTable from '../components/Admin/ArticlesTable';
 
 const Admin = ({ users, articles }) => {
   const [selected, setSelected] = useState('users');
@@ -32,7 +33,11 @@ const Admin = ({ users, articles }) => {
       </Nav>
 
       <Card>
-        <UsersTable users={users} />
+        {selected === 'users' ? (
+          <UsersTable users={users} />
+        ) : (
+          <ArticlesTable articles={articles} />
+        )}
       </Card>
     </Container>
   );
