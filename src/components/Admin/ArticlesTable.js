@@ -61,7 +61,7 @@ const ArticleRow = ({ article }) => {
   };
 
   return (
-    <tr>
+    <tr key={article._id}>
       <td>{article._id}</td>
       <td>
         <input

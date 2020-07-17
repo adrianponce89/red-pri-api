@@ -66,7 +66,7 @@ const UserRow = ({ user }) => {
   };
 
   return (
-    <tr>
+    <tr key={user._id}>
       <td>{user._id}</td>
       <td>
         <input
