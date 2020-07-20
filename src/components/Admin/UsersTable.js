@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
 import Table from 'react-bootstrap/Table';
+import Button from 'react-bootstrap/Button';
 import { LoadableButton } from '../Loadable';
 import Router from 'next/router';
 
-const UserRow = ({ user }) => {
+const UserRow = ({ key, user }) => {
   const [email, setEmail] = useState(user.email);
   const [password, setPassword] = useState('');
   const [role, setRole] = useState(user.role);
@@ -66,7 +67,7 @@ const UserRow = ({ user }) => {
   };
 
   return (
-    <tr key={user._id}>
+    <tr key={key}>
       <td>{user._id}</td>
       <td>
         <input
@@ -123,14 +124,14 @@ const UserRow = ({ user }) => {
             Eliminar
           </LoadableButton>
         )}
-        <LoadableButton
+        <Button
           loading={loading}
           variant="secondary"
           onClick={handleCancel}
           style={{ visibility: modified ? 'visible' : 'hidden' }}
         >
           Cancelar
-        </LoadableButton>
+        </Button>
       </td>
     </tr>
   );
@@ -149,7 +150,7 @@ const UsersTable = ({ users }) => (
     </thead>
     <tbody>
       {users.map((user) => (
-        <UserRow user={user} />
+        <UserRow key={user._id} user={user} />
       ))}
     </tbody>
   </Table>

@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import Table from 'react-bootstrap/Table';
+import Button from 'react-bootstrap/Button';
 import { LoadableButton } from '../Loadable';
 import Router from 'next/router';
 
@@ -101,14 +102,14 @@ const ArticleRow = ({ article }) => {
             Eliminar
           </LoadableButton>
         )}
-        <LoadableButton
+        <Button
           loading={loading}
           variant="secondary"
           onClick={handleCancel}
           style={{ visibility: modified ? 'visible' : 'hidden' }}
         >
           Cancelar
-        </LoadableButton>
+        </Button>
       </td>
     </tr>
   );
