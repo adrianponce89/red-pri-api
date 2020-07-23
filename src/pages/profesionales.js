@@ -4,6 +4,7 @@ import Container from '../components/Container';
 import Card from 'react-bootstrap/Card';
 import Nav from 'react-bootstrap/Nav';
 import SearchByName from '../components/Profesionals/SearchByName';
+import SearchBySpecility from '../components/Profesionals/SearchBySpeciality';
 
 const Title = styled.h1`
   font-size: 30px;
@@ -67,9 +68,9 @@ const Profesionales = () => {
             </Nav.Link>
           </Nav>
           <SelectionContainer>
-            {selected === 'byName' ? (
-              <SearchByName />
-            ) : selected === 'byLocation' ? (
+            {selected === 'bySpeciality' ? (
+              <SearchBySpecility />
+            ) : selected === 'byName' ? (
               <SearchByName />
             ) : (
               <SearchByName />
