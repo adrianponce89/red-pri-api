@@ -35,7 +35,7 @@ const SearchByName = () => {
             onChange={(e) => setProvincia(e.target.value)}
           >
             {provincias.map((name) => (
-              <option>{name}</option>
+              <option key={name}>{name}</option>
             ))}
           </Form.Control>
         </Form.Group>
@@ -48,7 +48,7 @@ const SearchByName = () => {
             onChange={(e) => setSocial(e.target.value)}
           >
             {obrasSociales.map((name) => (
-              <option>{name}</option>
+              <option key={name}>{name}</option>
             ))}
           </Form.Control>
         </Form.Group>
