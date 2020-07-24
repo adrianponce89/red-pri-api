@@ -15,5 +15,12 @@ userSchema.methods.comparePassword = function (password) {
   return bcrypt.compareSync(password, this.password);
 };
 
+userSchema.methods.secured = function () {
+  return {
+    email: this.email,
+    role: this.role,
+  };
+};
+
 const User = mongoose.model('user', userSchema);
 module.exports = User;

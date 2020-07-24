@@ -9,6 +9,8 @@ const articleSchema = new Schema(
     //   ref: 'user'
     // },
     content: String,
+    category: String,
+    tags: String,
   },
   {
     timestamps: true,

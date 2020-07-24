@@ -1,26 +1,12 @@
 const express = require('express');
 const router = require('express-promise-router')();
-const passport = require('passport');
 
-router.post(
-  '/local-signup',
-  passport.authenticate('local-signup', {
-    successRedirect: '/',
-    failureRedirect: '/?signupError=1',
-  }),
-);
+const AuthController = require('../controllers/auth');
 
-router.post(
-  '/local-signin',
-  passport.authenticate('local-signin', {
-    successRedirect: '/',
-    failureRedirect: '/?signinError=1',
-  }),
-);
+router.route('/signup').post(AuthController.signup);
 
-router.get('/signout', (req, res) => {
-  req.logout();
-  res.redirect('/');
-});
+router.route('/signin').post(AuthController.signin);
+
+router.route('/signout').get(AuthController.signout);
 
 module.exports = router;

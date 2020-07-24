@@ -5,7 +5,8 @@ const http = require('http');
 const next = require('next');
 const morgan = require('morgan');
 const passport = require('passport');
-const expressSession = require('express-session');
+const cookieParser = require('cookie-parser');
+const auth = require('./auth');
 const connectDB = require('./config/db');
 
 // Settings
@@ -16,45 +17,36 @@ const dev = process.env.NODE_ENV !== 'production';
 connectDB();
 
 // Initializations
-const app = next({
+const nextApp = next({
   dev,
   dir: './src',
 });
 
-app.prepare().then(() => {
-  const server = express();
+nextApp.prepare().then(() => {
+  const app = express();
 
   // Middlewares
-  server.use(
+  app.use(
     morgan('dev', {
       skip: (req, res) => req.url.startsWith('/_next'),
     }),
   );
-  server.use(express.json());
-  server.use(express.urlencoded({ extended: false }));
+  app.use(express.json());
+  app.use(express.urlencoded({ extended: false }));
+  app.use(cookieParser());
 
-  // Configuring Passport
-  require('./passport/local-auth')(passport);
-
-  // Adding Passport and authentication routes
-  server.use(
-    expressSession({
-      secret: process.env.SESSION_KEY,
-      resave: true,
-      saveUninitialized: true,
-    }),
-  );
-  server.use(passport.initialize());
-  server.use(passport.session());
+  // Adding Passport and initialise Authentication
+  app.use(passport.initialize());
+  auth.initialiseAuthentication(app);
 
   // Routes
-  server.use('/api', require('./routes'));
+  app.use('/api', require('./routes'));
 
   // handling everything else with Next.js
-  server.get('*', app.getRequestHandler());
+  app.get('*', nextApp.getRequestHandler());
 
   // Start server
-  http.createServer(server).listen(port, () => {
+  http.createServer(app).listen(port, () => {
     console.log(`Server running on port ${port}`);
   });
 });
