@@ -22,6 +22,7 @@ module.exports = {
       content: sanitizeHtml(req.body.content, sanitizeConfig),
       category: req.body.category,
       tags: req.body.tags,
+      author: req.user.id,
     };
     const newArticle = new Article(sanitized);
     const article = await newArticle.save();
