@@ -51,7 +51,7 @@ module.exports = {
         return res
           .status(200)
           .cookie('jwt', token, {
-            httpOnly: true,
+            httpOnly: false,
           })
           .json({
             success: true,
@@ -94,7 +94,7 @@ module.exports = {
     return res
       .status(200)
       .cookie('jwt', token, {
-        httpOnly: true,
+        httpOnly: false,
       })
       .json({
         success: true,
