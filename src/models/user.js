@@ -17,6 +17,7 @@ userSchema.methods.comparePassword = function (password) {
 
 userSchema.methods.secured = function () {
   return {
+    _id: this._id,
     email: this.email,
     role: this.role,
   };
