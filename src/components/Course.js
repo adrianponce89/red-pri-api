@@ -1,19 +1,14 @@
 import styled from 'styled-components';
-import Card from 'react-bootstrap/Card';
 import Link from 'next/link';
 
 const CenteredImage = styled.div`
-  width: 390px;
-  height: 200px;
+  width: 100%;
+  height: 225px;
   background-image: url("${(props) => props.src}");
-  background-color: #cccccc;
+  background-color: #cccc88;
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
-  @media (max-width: 576px) {
-    width: 100%;
-    padding-bottom: 75%;
-  }
 `;
 
 const TitleTxt = styled.h3`
@@ -21,13 +16,22 @@ const TitleTxt = styled.h3`
   color: #ff812e;
 `;
 
+const ContTitle = styled.div`
+  height: 10px;
+  margin: 10px 10px 0px 0px;
+`;
+
 const ConDiv = styled.div`
-  border: 5px solid #858585;
   background-color: #cccccc;
-  width: 400px;
+  box-shadow: 2px 2px 4px 0px rgba(0, 0, 0, 0.3);
+  margin: 15px 0px 0px 10px;
+  width: 30%;
+  height: 500px;
+  overflow: hidden;
 `;
 
 const ClampedContent = styled.p`
+  margin: 20px 10px 10px 0px;
   overflow: hidden;
   text-overflow: ellipsis;
   display: -webkit-box;
@@ -38,21 +42,21 @@ const ClampedContent = styled.p`
 
 const Course = (props) => {
   return (
-    <ConDiv>
-      <Link href={`/courses/${props._id}`}>
-        <div>
-          <a>
-            <CenteredImage src={props.img} />
-          </a>
-          <div style={{ zIndex: 1, padding: '1em' }}>
+    <Link href={`/courses/${props._id}`}>
+      <ConDiv>
+        <a>
+          <CenteredImage src={props.img} />
+        </a>
+        <div style={{ zIndex: 1, padding: '1em' }}>
+          <ContTitle>
             <TitleTxt>
               <a>{props.TitleTxt}</a>
             </TitleTxt>
-            <ClampedContent>{props.detail}</ClampedContent>
-          </div>
+          </ContTitle>
+          <ClampedContent>{props.detail}</ClampedContent>
         </div>
-      </Link>
-    </ConDiv>
+      </ConDiv>
+    </Link>
   );
 };
 
