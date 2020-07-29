@@ -34,10 +34,13 @@ const ClampedContent = styled.p`
 const OuterSize = styled.div`
   width: 30%;
   position: relative;
-  margin: 15px 0px 0px 10px;
+  margin: 8px 8px;
   background-color: white;
   box-shadow: 2px 2px 4px 0px rgba(0, 0, 0, 0.3);
   overflow: hidden;
+  @media (max-width: 576px) {
+    width: 100%;
+  }
 `;
 
 const InnerSize = styled.div`
