@@ -9,7 +9,7 @@ const Title = styled.h1`
   text-align: center;
 `;
 
-const GrupCurse = styled.div`
+const GroupCourse = styled.div`
   display: flex;
   flex-wrap: wrap;
 `;
@@ -17,7 +17,7 @@ const GrupCurse = styled.div`
 const Cursos = ({ courses }) => (
   <Container>
     <Title>Cursos</Title>
-    <GrupCurse>
+    <GroupCourse>
       {courses.map((course) => (
         <Course
           title={course.title}
@@ -25,7 +25,7 @@ const Cursos = ({ courses }) => (
           description={course.description}
         />
       ))}
-    </GrupCurse>
+    </GroupCourse>
   </Container>
 );
 

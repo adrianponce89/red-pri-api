@@ -3,7 +3,7 @@ import Link from 'next/link';
 
 const CenteredImage = styled.div`
   width: 100%;
-  height: 225px;
+  height: 50%;
   background-image: url("${(props) => props.src}");
   background-color: #cccc88;
   background-position: center;
@@ -11,7 +11,7 @@ const CenteredImage = styled.div`
   background-size: cover;
 `;
 
-const TitleTxt = styled.h3`
+const Title = styled.h3`
   height: 10px;
   font-weight: bold;
   color: #ff812e;
@@ -19,16 +19,6 @@ const TitleTxt = styled.h3`
 
 const ContentTitleDetail = styled.div`
   padding: 1em;
-`;
-
-const CourseContainer = styled.div`
-  border-radius: 10px;
-  background-color: #cccccc;
-  box-shadow: 2px 2px 4px 0px rgba(0, 0, 0, 0.3);
-  margin: 15px 0px 0px 10px;
-  width: 30%;
-  height: 500px;
-  overflow: hidden;
 `;
 
 const ClampedContent = styled.p`
@@ -41,6 +31,34 @@ const ClampedContent = styled.p`
   cursor: pointer;
 `;
 
+const OuterSize = styled.div`
+  width: 30%;
+  position: relative;
+  margin: 15px 0px 0px 10px;
+  background-color: white;
+  box-shadow: 2px 2px 4px 0px rgba(0, 0, 0, 0.3);
+  overflow: hidden;
+`;
+
+const InnerSize = styled.div`
+  padding-bottom: 161.8%;
+`;
+
+const FloatingContainer = styled.div`
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+`;
+
+const CourseContainer = (props) => (
+  <OuterSize>
+    <InnerSize />
+    <FloatingContainer>{props.children}</FloatingContainer>
+  </OuterSize>
+);
+
 const Course = (props) => {
   return (
     <Link href={`/courses/${props._id}`}>
@@ -49,9 +67,9 @@ const Course = (props) => {
           <CenteredImage src={props.picUrl} />
         </a>
         <ContentTitleDetail>
-          <TitleTxt>
+          <Title>
             <a>{props.title}</a>
-          </TitleTxt>
+          </Title>
           <ClampedContent>{props.description}</ClampedContent>
         </ContentTitleDetail>
       </CourseContainer>
