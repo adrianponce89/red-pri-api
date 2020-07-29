@@ -67,9 +67,19 @@ class MyApp extends React.Component {
           onSetProfile={this.setProfile}
         />
 
-        <div style={{ position: 'relative', paddingTop: '80px' }}>
+        <div
+          style={{
+            position: 'relative',
+            paddingTop: '80px',
+            width: '100%',
+          }}
+        >
           <Background />
-          <Component {...pageProps} />
+          <Component
+            {...pageProps}
+            profile={profile}
+            setProfile={this.setProfile}
+          />
         </div>
       </ThemeProvider>
     );
