@@ -20,9 +20,9 @@ const Cursos = ({ courses }) => (
     <GrupCurse>
       {courses.map((course) => (
         <Course
-          TitleTxt={course.title}
-          img={course.picUrl}
-          detail={course.description}
+          title={course.title}
+          picUrl={course.picUrl}
+          description={course.description}
         />
       ))}
     </GrupCurse>

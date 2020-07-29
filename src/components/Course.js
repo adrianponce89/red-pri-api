@@ -12,16 +12,17 @@ const CenteredImage = styled.div`
 `;
 
 const TitleTxt = styled.h3`
+  height: 10px;
   font-weight: bold;
   color: #ff812e;
 `;
 
-const ContTitle = styled.div`
-  height: 10px;
-  margin: 10px 10px 0px 0px;
+const ContentTitleDetail = styled.div`
+  padding: 1em;
 `;
 
-const ConDiv = styled.div`
+const CourseContainer = styled.div`
+  border-radius: 10px;
   background-color: #cccccc;
   box-shadow: 2px 2px 4px 0px rgba(0, 0, 0, 0.3);
   margin: 15px 0px 0px 10px;
@@ -35,7 +36,7 @@ const ClampedContent = styled.p`
   overflow: hidden;
   text-overflow: ellipsis;
   display: -webkit-box;
-  -webkit-line-clamp: 3; /* number of lines to show */
+  -webkit-line-clamp: 4; /* number of lines to show */
   -webkit-box-orient: horizontal;
   cursor: pointer;
 `;
@@ -43,19 +44,17 @@ const ClampedContent = styled.p`
 const Course = (props) => {
   return (
     <Link href={`/courses/${props._id}`}>
-      <ConDiv>
+      <CourseContainer>
         <a>
-          <CenteredImage src={props.img} />
+          <CenteredImage src={props.picUrl} />
         </a>
-        <div style={{ zIndex: 1, padding: '1em' }}>
-          <ContTitle>
-            <TitleTxt>
-              <a>{props.TitleTxt}</a>
-            </TitleTxt>
-          </ContTitle>
-          <ClampedContent>{props.detail}</ClampedContent>
-        </div>
-      </ConDiv>
+        <ContentTitleDetail>
+          <TitleTxt>
+            <a>{props.title}</a>
+          </TitleTxt>
+          <ClampedContent>{props.description}</ClampedContent>
+        </ContentTitleDetail>
+      </CourseContainer>
     </Link>
   );
 };
