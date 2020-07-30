@@ -9,25 +9,31 @@ const userSchema = new Schema({
   picUrl: String,
   name: String,
   surname: String,
+  username: String,
   matricula: Number,
   title: String,
   about: String,
   specialities: [String],
   themes: [String],
-  orientations: [String],
   atentionType: [String],
   practice: String,
-  address: [
+  addressList: [
     {
       street: String,
-      number: Number,
+      floor: String,
       reference: String,
       province: String,
       locality: String,
       zipCode: String,
     },
   ],
-  phones: [String],
+  phoneList: [
+    {
+      type: String,
+      number: Number,
+      attentionHours: String,
+    },
+  ],
 });
 
 userSchema.methods.encryptPassword = (password) => {
@@ -42,6 +48,19 @@ userSchema.methods.secured = function () {
     _id: this._id,
     email: this.email,
     role: this.role,
+    picUrl: this.picUrl,
+    name: this.name,
+    surname: this.surname,
+    username: this.username,
+    matricula: this.matricula,
+    title: this.title,
+    about: this.about,
+    specialities: this.specialities,
+    themes: this.themes,
+    atentionType: this.atentionType,
+    practice: this.practice,
+    addressList: this.addressList,
+    phoneList: this.phoneList,
   };
 };
 
