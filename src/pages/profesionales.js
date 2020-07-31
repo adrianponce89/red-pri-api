@@ -1,14 +1,10 @@
-import styled from 'styled-components';
+import React, { useState } from 'react';
 import Container from '../components/Container';
-
-const Title = styled.h1`
-  font-size: 30px;
-  text-align: center;
-`;
+import Profesionals from '../components/Profesionals';
 
 const Profesionales = () => (
   <Container>
-    <Title>Profesionales</Title>
+    <Profesionals />
   </Container>
 );
 
