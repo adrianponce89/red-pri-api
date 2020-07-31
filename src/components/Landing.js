@@ -1,56 +1,29 @@
 import styled from 'styled-components';
+import CardBox from '../components/CardBox';
+
+const WIDTH_PIC = '140px';
+const HEIGHT_PIC = '140px';
 
 const CenteredImage = styled.div`
-  width: 140px;
-  height: 140px;
+  width: ${(props) => props.width || WIDTH_PIC};
+  height: ${(props) => props.height || HEIGHT_PIC};
   background-image: url("${(props) => props.src}");
   background-color: #cccc88;
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
-  border-radius: 50%;
+  border-radius: ${(props) => props.radiuspercent || CardBox.NONE};
 `;
 
 const Title = styled.h5`
-  height: 10px;
-  margin 8px 8px;
+  height: ${CardBox.MARGIM_TOP};
+  margin ${CardBox.MARGIM_TOP} ${CardBox.MARGIM_RIGTH};
   font-weight: bold;
   color: #545454;
-  display: block;
 `;
-
-const OuterSize = styled.div`
-  width: 30%;
-  height: 324.75px;
-  position: relative;
-  margin: 8px 8px;
-  overflow: hidden;
-  @media (max-width: 576px) {
-    width: 100%;
-  }
-`;
-
-const InnerSize = styled.div`
-  padding-bottom: 161.8%;
-`;
-
-const FloatingContainer = styled.div`
-  position: absolute;
-  left: 0;
-  right: 0;
-  top: 10px;
-  bottom: 0;
-`;
-
-const LandingContent = (props) => (
-  <OuterSize>
-    <InnerSize />
-    <FloatingContainer>{props.children}</FloatingContainer>
-  </OuterSize>
-);
 
 const ClampedContent = styled.p`
-  margin: 10px;
+  margin: ${CardBox.MARGIM_TOP};
   overflow: hidden;
   color: rgba(0, 0, 0, 0.42);
   text-overflow: ellipsis;
@@ -68,13 +41,20 @@ const ComponentLinding = styled.div`
 
 const Landing = (props) => {
   return (
-    <LandingContent>
+    <CardBox floatingtop={CardBox.MARGIM_TOP} hightoutersize>
       <ComponentLinding>
-        <CenteredImage src={props.picUrl} />
-        <Title>{props.title}</Title>
-        <ClampedContent>{props.description}</ClampedContent>
+        <CenteredImage
+          src={props.picUrl}
+          radiuspercent={props.radiuspercent}
+        />
+        <Title>
+          <a>{props.title}</a>
+        </Title>
+        <ClampedContent>
+          <a>{props.description}</a>
+        </ClampedContent>
       </ComponentLinding>
-    </LandingContent>
+    </CardBox>
   );
 };
 
