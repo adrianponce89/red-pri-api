@@ -3,8 +3,7 @@ const passport = require('passport');
 
 module.exports = {
   // Restric access to some routes
-  // Three level access: ['signin', 'author', 'admin']
-  // TODO create roles
+  // Three level access: ['user', 'author', 'admin']
   restrictAccess: (access = 'user') => (req, res, next) => {
     passport.authenticate('jwt', (error, user, info) => {
       if (error) {
