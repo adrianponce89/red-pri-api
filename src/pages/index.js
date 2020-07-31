@@ -11,18 +11,15 @@ const ContainTitle = styled.div`
   justify-content: center;
 `;
 
-const ContainerLanding = styled.div`
+const LandingContainer = styled.div`
+  max-width: 1032px;
+  margin-right: auto;
+  margin-left: auto;
   display: flex;
   flex-wrap: wrap;
 `;
 
-const Size = styled.div`
-  max-width: 1032px;
-  margin-right: auto;
-  margin-left: auto;
-`;
-
-const BackgraundoLanding = styled.div`
+const LandingBackground = styled.div`
   display: block;
   background-color: white;
 `;
@@ -32,27 +29,25 @@ const Home = () => (
     <ContainTitle>
       <Title>Inicio</Title>
     </ContainTitle>
-    <BackgraundoLanding>
-      <Size>
-        <ContainerLanding>
-          <Landing
-            picUrl="/imgs/ph_bebe_1.jpeg"
-            title="Titulo1"
-            description="description1"
-          />
-          <Landing
-            picUrl="/imgs/ph_bebe_1.jpeg"
-            title="Titulo2"
-            description="description2"
-          />
-          <Landing
-            picUrl="/imgs/ph_bebe_1.jpeg"
-            title="Titulo3"
-            description="description3"
-          />
-        </ContainerLanding>
-      </Size>
-    </BackgraundoLanding>
+    <LandingBackground>
+      <LandingContainer>
+        <Landing
+          picUrl="/imgs/ph_bebe_1.jpeg"
+          title="Titulo1"
+          description="description1"
+        />
+        <Landing
+          picUrl="/imgs/ph_bebe_1.jpeg"
+          title="Titulo2"
+          description="description2"
+        />
+        <Landing
+          picUrl="/imgs/ph_bebe_1.jpeg"
+          title="Titulo3"
+          description="description3"
+        />
+      </LandingContainer>
+    </LandingBackground>
   </>
 );
 
