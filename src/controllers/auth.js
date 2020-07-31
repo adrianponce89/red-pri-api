@@ -41,7 +41,7 @@ module.exports = {
         await newUser.save();
 
         console.log('User Registration succesful');
-        const [loginErr, token] = await to(login(req, user));
+        const [loginErr, token] = await to(login(req, newUser));
 
         if (loginErr) {
           console.error('Log in error', loginErr);
