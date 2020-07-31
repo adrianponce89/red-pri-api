@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 import Button from 'react-bootstrap/Button';
 import Spinner from './Spinner';
+import { loadGetInitialProps } from 'next/dist/next-server/lib/utils';
 
 const SpinnerContainer = styled.div`
   position: absolute;
@@ -33,6 +34,23 @@ const Loadable = (WrappedComponent) => ({
     </SpinnerContainer>
   </WrappedComponent>
 );
+
+export const contentOnLoad = (WrappedComponent) => ({
+  loading,
+  size,
+  dark,
+  color,
+  ...otherProps
+}) => {
+  if (loading) {
+    return (
+      <SpinnerContainer loading={loading}>
+        <Spinner size={size} dark={dark} color={color} />
+      </SpinnerContainer>
+    );
+  }
+  return <WrappedComponent {...otherProps} />;
+};
 
 export const LoadableButton = Loadable(Button);
 

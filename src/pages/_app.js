@@ -22,28 +22,70 @@ const theme = {
   },
 };
 
-const MyApp = (props) => {
-  const [modalStep, setModalStep] = useState(null);
-  const { Component, pageProps } = props;
-  return (
-    <ThemeProvider theme={theme}>
-      <GlobalStyle />
-      <Navigation
-        onShowSignUp={() => setModalStep('SelectSignUp')}
-        onShowSignIn={() => setModalStep('SelectSignIn')}
-      />
-      <SignInModal
-        initialStep={modalStep}
-        show={modalStep !== null}
-        onClose={() => setModalStep(null)}
-      />
+class MyApp extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      modalStep: null,
+      profile: null,
+      loading: true,
+    };
+    this.setModalStep = this.setModalStep.bind(this);
+    this.setProfile = this.setProfile.bind(this);
+  }
 
-      <div style={{ position: 'relative', paddingTop: '80px' }}>
-        <Background />
-        <Component {...pageProps} />
-      </div>
-    </ThemeProvider>
-  );
-};
+  setModalStep(modalStep) {
+    this.setState({ modalStep });
+  }
+
+  setProfile(profile) {
+    localStorage.setItem('profile', JSON.stringify(profile));
+    this.setState({ profile });
+  }
+
+  componentDidMount() {
+    const profile = JSON.parse(localStorage.getItem('profile'));
+    this.setState({ profile, loading: false });
+  }
+
+  render() {
+    const { modalStep, profile, loading } = this.state;
+    const { Component, pageProps } = this.props;
+
+    return (
+      <ThemeProvider theme={theme}>
+        <GlobalStyle />
+        <Navigation
+          onShowSignUp={() => this.setModalStep('SelectSignUp')}
+          onShowSignIn={() => this.setModalStep('SelectSignIn')}
+          profile={profile}
+          setProfile={this.setProfile}
+        />
+        <SignInModal
+          initialStep={modalStep}
+          show={modalStep !== null}
+          onClose={() => this.setModalStep(null)}
+          onSetProfile={this.setProfile}
+        />
+
+        <div
+          style={{
+            position: 'relative',
+            paddingTop: '80px',
+            width: '100%',
+          }}
+        >
+          <Background />
+          <Component
+            {...pageProps}
+            loading={loading}
+            profile={profile}
+            setProfile={this.setProfile}
+          />
+        </div>
+      </ThemeProvider>
+    );
+  }
+}
 
 export default MyApp;

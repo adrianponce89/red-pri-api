@@ -6,6 +6,34 @@ const userSchema = new Schema({
   email: String,
   password: String,
   role: String,
+  picUrl: String,
+  name: String,
+  surname: String,
+  username: String,
+  matricula: Number,
+  title: String,
+  about: String,
+  specialities: [String],
+  themes: [String],
+  atentionType: [String],
+  practice: String,
+  addressList: [
+    {
+      street: String,
+      floor: String,
+      reference: String,
+      province: String,
+      locality: String,
+      zipCode: String,
+    },
+  ],
+  phoneList: [
+    {
+      phoneType: String,
+      number: String,
+      attentionHours: String,
+    },
+  ],
 });
 
 userSchema.methods.encryptPassword = (password) => {
@@ -17,8 +45,22 @@ userSchema.methods.comparePassword = function (password) {
 
 userSchema.methods.secured = function () {
   return {
+    _id: this._id,
     email: this.email,
     role: this.role,
+    picUrl: this.picUrl,
+    name: this.name,
+    surname: this.surname,
+    username: this.username,
+    matricula: this.matricula,
+    title: this.title,
+    about: this.about,
+    specialities: this.specialities,
+    themes: this.themes,
+    atentionType: this.atentionType,
+    practice: this.practice,
+    addressList: this.addressList,
+    phoneList: this.phoneList,
   };
 };
 

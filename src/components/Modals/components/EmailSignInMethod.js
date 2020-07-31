@@ -27,6 +27,7 @@ const EmailSignInMethod = (props) => {
     const resJson = await res.json();
     setLoading(false);
     if (res.status === 200) {
+      props.onSetProfile(resJson.user);
       props.onClose();
     } else {
       setMessage(resJson.error);
