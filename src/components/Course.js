@@ -1,9 +1,14 @@
 import styled from 'styled-components';
+import CardBox from '../components/CardBox';
 import Link from 'next/link';
 
+const HEIGHT = '10px';
+const HEIGHT_PORCENT = '50%';
+const MARGIN_CLAMPEDCONTENT = '20px 10px 10px 0px';
+
 const CenteredImage = styled.div`
-  width: 100%;
-  height: 50%;
+  width: ${CardBox.WIDTH_PORCENT};
+  height: ${HEIGHT_PORCENT};
   background-image: url("${(props) => props.src}");
   background-color: #cccc88;
   background-position: center;
@@ -12,7 +17,7 @@ const CenteredImage = styled.div`
 `;
 
 const Title = styled.h3`
-  height: 10px;
+  height: ${HEIGHT};
   font-weight: bold;
   color: #ff812e;
 `;
@@ -22,7 +27,7 @@ const ContentTitleDetail = styled.div`
 `;
 
 const ClampedContent = styled.p`
-  margin: 20px 10px 10px 0px;
+  margin: ${MARGIN_CLAMPEDCONTENT};
   overflow: hidden;
   text-overflow: ellipsis;
   display: -webkit-box;
@@ -31,41 +36,10 @@ const ClampedContent = styled.p`
   cursor: pointer;
 `;
 
-const OuterSize = styled.div`
-  width: 30%;
-  position: relative;
-  margin: 8px 8px;
-  background-color: white;
-  box-shadow: 2px 2px 4px 0px rgba(0, 0, 0, 0.3);
-  overflow: hidden;
-  @media (max-width: 576px) {
-    width: 100%;
-  }
-`;
-
-const InnerSize = styled.div`
-  padding-bottom: 161.8%;
-`;
-
-const FloatingContainer = styled.div`
-  position: absolute;
-  left: 0;
-  right: 0;
-  top: 0;
-  bottom: 0;
-`;
-
-const CourseContainer = (props) => (
-  <OuterSize>
-    <InnerSize />
-    <FloatingContainer>{props.children}</FloatingContainer>
-  </OuterSize>
-);
-
 const Course = (props) => {
   return (
     <Link href={`/courses/${props._id}`}>
-      <CourseContainer>
+      <CardBox boxshadow>
         <a>
           <CenteredImage src={props.picUrl} />
         </a>
@@ -75,7 +49,7 @@ const Course = (props) => {
           </Title>
           <ClampedContent>{props.description}</ClampedContent>
         </ContentTitleDetail>
-      </CourseContainer>
+      </CardBox>
     </Link>
   );
 };
