@@ -40,7 +40,7 @@ module.exports = {
   updateUser: async (req, res, next) => {
     const { userId } = req.params;
 
-    if (req.user.role === 'admin' || req.user._id === userId) {
+    if (req.user.role === 'admin' || req.user._id.equals(userId)) {
       const newUser = {};
       if (req.body.email) newUser['email'] = req.body.email;
       if (req.body.password) newUser['password'] = req.body.password;

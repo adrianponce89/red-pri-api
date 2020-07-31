@@ -5,7 +5,7 @@ module.exports = {
   // Restric access to some routes
   // Three level access: ['signin', 'author', 'admin']
   // TODO create roles
-  restrictAccess: (access = 'signin') => (req, res, next) => {
+  restrictAccess: (access = 'user') => (req, res, next) => {
     passport.authenticate('jwt', (error, user, info) => {
       if (error) {
         return res.status(401).json({
@@ -17,7 +17,7 @@ module.exports = {
         if (
           role === 'admin' ||
           (access === 'author' && role === 'author') ||
-          access === 'signin'
+          access === 'user'
         ) {
           return next();
         }

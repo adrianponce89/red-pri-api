@@ -13,7 +13,7 @@ router
   .route('/:userId')
   .get(UserController.getUser)
   .put(restrictAccess('admin'), UserController.replaceUser)
-  .patch(restrictAccess('admin'), UserController.updateUser)
+  .patch(restrictAccess('user'), UserController.updateUser)
   .delete(restrictAccess('admin'), UserController.removeUser);
 
 module.exports = router;
