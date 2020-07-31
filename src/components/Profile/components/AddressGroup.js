@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import Button from 'react-bootstrap/Button';
 import AddressRow from './AddressRow';
@@ -16,16 +16,7 @@ const LineDivider = styled.div`
 `;
 
 const AddressGroup = (props) => {
-  const [addressList, setAddressList] = useState(props.addressList);
-  const [loaded, setLoaded] = useState(false);
-
-  useEffect(() => {
-    if (!loaded && props.addressList) {
-      console.log('cargando addressList', props.addressList);
-      setAddressList(props.addressList);
-      setLoaded(true);
-    }
-  }, [props]);
+  const { addressList } = props;
 
   const onChange = (index, val) => {
     const newList = [
@@ -33,14 +24,12 @@ const AddressGroup = (props) => {
       val,
       ...addressList.slice(index + 1),
     ];
-    setAddressList(newList);
-    props.onChange(addressList);
+    props.onChange(newList);
   };
 
   const onAdd = () => {
-    const newList = [...addressList, {}];
-    setAddressList(newList);
-    props.onChange(addressList);
+    const newList = [...addressList, { key: `${Math.random()}` }];
+    props.onChange(newList);
   };
 
   const onRemove = (index) => {
@@ -48,11 +37,10 @@ const AddressGroup = (props) => {
       ...addressList.slice(0, index),
       ...addressList.slice(index + 1),
     ];
-    setAddressList(newList);
-    props.onChange(addressList);
+    props.onChange(newList);
   };
   return (
-    <AddressContainer>
+    <AddressContainer key={props.key}>
       <h5>Direcciones:</h5>
       <LineDivider />
       <RoundButton
@@ -64,6 +52,7 @@ const AddressGroup = (props) => {
       </RoundButton>
       {addressList.map((address, i) => (
         <AddressRow
+          key={address._id || address.key}
           address={address}
           onChange={(val) => onChange(i, val)}
           onRemove={() => onRemove(i)}

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import Col from 'react-bootstrap/Col';
 import Form from 'react-bootstrap/Form';
@@ -15,25 +15,12 @@ const FormRow = styled(Form.Row)`
 `;
 
 const PhoneRow = (props) => {
-  const [type, setType] = useState('');
-  const [number, setNumber] = useState('');
-  const [attentionHours, setAttentionHours] = useState('');
-  const [loaded, setLoaded] = useState(false);
+  const { phone } = props;
 
-  useEffect(() => {
-    if (!loaded && props.phone) {
-      setType(props.phone.type);
-      setNumber(props.phone.number);
-      attentionHours(props.phone.attentionHours);
-      setLoaded(true);
-    }
-  }, [props]);
-
-  const onChange = () => {
+  const onChange = (key, value) => {
     props.onChange({
-      type,
-      number,
-      attentionHours,
+      ...props.phone,
+      [key]: value,
     });
   };
 
@@ -51,10 +38,9 @@ const PhoneRow = (props) => {
           <Form.Control
             type="text"
             placeholder="Consultorio"
-            value={type}
+            value={phone.phoneType}
             onChange={(event) => {
-              setType(event.target.value);
-              onChange();
+              onChange('phoneType', event.target.value);
             }}
             required
           />
@@ -65,10 +51,9 @@ const PhoneRow = (props) => {
             type="tel"
             placeholder="11-4444-5555"
             pattern="[-0-9]+"
-            value={number}
+            value={phone.number}
             onChange={(event) => {
-              setNumber(event.target.value);
-              onChange();
+              onChange('number', event.target.value);
             }}
             required
           />
@@ -81,10 +66,9 @@ const PhoneRow = (props) => {
           <Form.Control
             type="text"
             placeholder="10hs a 13hs y 16hs a 18hs"
-            value={attentionHours}
+            value={phone.attentionHours}
             onChange={(event) => {
-              setAttentionHours(event.target.value);
-              onChange();
+              onChange('attentionHours', event.target.value);
             }}
           />
           <Form.Control.Feedback type="invalid">

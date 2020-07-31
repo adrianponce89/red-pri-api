@@ -29,8 +29,8 @@ const userSchema = new Schema({
   ],
   phoneList: [
     {
-      type: String,
-      number: Number,
+      phoneType: String,
+      number: String,
       attentionHours: String,
     },
   ],

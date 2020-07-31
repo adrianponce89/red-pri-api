@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import PhoneRow from './PhoneRow';
 import RoundButton from './RoundButton';
@@ -15,15 +15,7 @@ const LineDivider = styled.div`
 `;
 
 const PhoneGroup = (props) => {
-  const [phoneList, setPhoneList] = useState(props.phoneList);
-  const [loaded, setLoaded] = useState(false);
-
-  useEffect(() => {
-    if (!loaded && props.phoneList) {
-      setPhoneList(props.phoneList);
-      setLoaded(true);
-    }
-  }, [props]);
+  const { phoneList } = props;
 
   const onChange = (index, val) => {
     const newList = [
@@ -31,14 +23,12 @@ const PhoneGroup = (props) => {
       val,
       ...phoneList.slice(index + 1),
     ];
-    setPhoneList(newList);
-    props.onChange(phoneList);
+    props.onChange(newList);
   };
 
   const onAdd = () => {
-    const newList = [...phoneList, {}];
-    setPhoneList(newList);
-    props.onChange(phoneList);
+    const newList = [...phoneList, { key: `${Math.random()}` }];
+    props.onChange(newList);
   };
 
   const onRemove = (index) => {
@@ -46,8 +36,7 @@ const PhoneGroup = (props) => {
       ...phoneList.slice(0, index),
       ...phoneList.slice(index + 1),
     ];
-    setPhoneList(newList);
-    props.onChange(phoneList);
+    props.onChange(newList);
   };
   return (
     <PhoneContainer>
@@ -60,9 +49,10 @@ const PhoneGroup = (props) => {
       >
         +
       </RoundButton>
-      {phoneList.map((address, i) => (
+      {phoneList.map((phone, i) => (
         <PhoneRow
-          address={address}
+          key={phone._id || phone.key}
+          phone={phone}
           onChange={(val) => onChange(i, val)}
           onRemove={() => onRemove(i)}
         />

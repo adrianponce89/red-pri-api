@@ -28,6 +28,7 @@ class MyApp extends React.Component {
     this.state = {
       modalStep: null,
       profile: null,
+      loading: true,
     };
     this.setModalStep = this.setModalStep.bind(this);
     this.setProfile = this.setProfile.bind(this);
@@ -44,11 +45,11 @@ class MyApp extends React.Component {
 
   componentDidMount() {
     const profile = JSON.parse(localStorage.getItem('profile'));
-    this.setState({ profile });
+    this.setState({ profile, loading: false });
   }
 
   render() {
-    const { modalStep, profile } = this.state;
+    const { modalStep, profile, loading } = this.state;
     const { Component, pageProps } = this.props;
 
     return (
@@ -77,6 +78,7 @@ class MyApp extends React.Component {
           <Background />
           <Component
             {...pageProps}
+            loading={loading}
             profile={profile}
             setProfile={this.setProfile}
           />

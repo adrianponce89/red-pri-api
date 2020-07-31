@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import Col from 'react-bootstrap/Col';
 import Form from 'react-bootstrap/Form';
@@ -15,34 +15,12 @@ const FormRow = styled(Form.Row)`
 `;
 
 const AddressRow = (props) => {
-  const [street, setStreet] = useState('');
-  const [floor, setFloor] = useState('');
-  const [reference, setReference] = useState('');
-  const [province, setProvince] = useState('');
-  const [locality, setLocality] = useState('');
-  const [zipCode, setZipCode] = useState('');
-  const [loaded, setLoaded] = useState(false);
+  const { address } = props;
 
-  useEffect(() => {
-    if (!loaded && props.address) {
-      setStreet(props.address.street);
-      setFloor(props.address.floor);
-      setReference(props.address.reference);
-      setProvince(props.address.province);
-      setLocality(props.address.locality);
-      setZipCode(props.address.zipCode);
-      setLoaded(true);
-    }
-  }, [props]);
-
-  const onChange = () => {
+  const onChange = (key, value) => {
     props.onChange({
-      street,
-      floor,
-      reference,
-      province,
-      locality,
-      zipCode,
+      ...props.address,
+      [key]: value,
     });
   };
 
@@ -59,10 +37,9 @@ const AddressRow = (props) => {
           <Form.Label>Calle</Form.Label>
           <Form.Control
             type="text"
-            value={street}
+            value={address.street}
             onChange={(event) => {
-              setStreet(event.target.value);
-              onChange();
+              onChange('street', event.target.value);
             }}
             placeholder="Calle 1234"
           />
@@ -71,10 +48,9 @@ const AddressRow = (props) => {
           <Form.Label>Departamento</Form.Label>
           <Form.Control
             type="text"
-            value={floor}
+            value={address.floor}
             onChange={(event) => {
-              setFloor(event.target.value);
-              onChange();
+              onChange('floor', event.target.value);
             }}
             placeholder="8vo C"
           />
@@ -83,10 +59,9 @@ const AddressRow = (props) => {
           <Form.Label>Referencias</Form.Label>
           <Form.Control
             type="text"
-            value={reference}
+            value={address.reference}
             onChange={(event) => {
-              setReference(event.target.value);
-              onChange();
+              onChange('reference', event.target.value);
             }}
             placeholder="Entre Av.Corrientes y Lavalle"
           />
@@ -98,10 +73,9 @@ const AddressRow = (props) => {
           <Form.Control
             type="text"
             placeholder="Localidad"
-            value={locality}
+            value={address.locality}
             onChange={(event) => {
-              setLocality(event.target.value);
-              onChange();
+              onChange('locality', event.target.value);
             }}
             required
           />
@@ -114,10 +88,9 @@ const AddressRow = (props) => {
           <Form.Control
             type="text"
             placeholder="Provincia"
-            value={province}
+            value={address.province}
             onChange={(event) => {
-              setProvince(event.target.value);
-              onChange();
+              onChange('province', event.target.value);
             }}
             required
           />
@@ -130,10 +103,9 @@ const AddressRow = (props) => {
           <Form.Control
             type="text"
             placeholder="Código Postal"
-            value={zipCode}
+            value={address.zipCode}
             onChange={(event) => {
-              setZipCode(event.target.value);
-              onChange();
+              onChange('zipCode', event.target.value);
             }}
             required
           />

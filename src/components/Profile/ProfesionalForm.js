@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import Router from 'next/router';
 import fetch from 'isomorphic-fetch';
 import Col from 'react-bootstrap/Col';
@@ -10,42 +10,29 @@ import PhoneGroup from './components/PhoneGroup';
 import { LoadableButton } from '../Loadable';
 
 const ProfesionalForm = (props) => {
-  const [email, setEmail] = useState('');
+  const profile = props.profile || {};
+  const [email, setEmail] = useState(profile.email);
   const [password, setPassword] = useState('');
-  const [picUrl, setPicUrl] = useState('');
-  const [name, setName] = useState('');
-  const [surname, setSurname] = useState('');
-  const [username, setUsername] = useState('');
-  const [matricula, setMatricula] = useState('');
-  const [title, setTitle] = useState('');
-  const [about, setAbout] = useState('');
-  const [specialities, setSpecialities] = useState('');
-  const [themes, setThemes] = useState('');
-  const [atentionType, setAtentionType] = useState('Particular');
-  const [practice, setPractice] = useState('');
-  const [addressList, setAddressList] = useState([]);
-  const [phoneList, setPhoneList] = useState([]);
+  const [picUrl, setPicUrl] = useState(profile.picUrl);
+  const [name, setName] = useState(profile.name);
+  const [surname, setSurname] = useState(profile.surname);
+  const [username, setUsername] = useState(profile.username);
+  const [matricula, setMatricula] = useState(profile.matricula);
+  const [title, setTitle] = useState(profile.title);
+  const [about, setAbout] = useState(profile.about);
+  const [specialities, setSpecialities] = useState(
+    profile.specialities,
+  );
+  const [themes, setThemes] = useState(profile.themes);
+  const [atentionType, setAtentionType] = useState(
+    profile.atentionType || 'Particular',
+  );
+  const [practice, setPractice] = useState(profile.practice);
+  const [addressList, setAddressList] = useState(
+    profile.addressList || [],
+  );
+  const [phoneList, setPhoneList] = useState(profile.phoneList || []);
   const [loading, setLoading] = useState(false);
-
-  useEffect(() => {
-    const { profile } = props;
-    if (profile) {
-      setEmail(profile.email);
-      setPicUrl(profile.picUrl);
-      setName(profile.name);
-      setSurname(profile.surname);
-      setUsername(profile.username);
-      setMatricula(profile.matricula);
-      setTitle(profile.title);
-      setAbout(profile.about);
-      setSpecialities(profile.specialities);
-      setThemes(profile.themes);
-      setAtentionType(profile.atentionType);
-      setPractice(profile.practice);
-      setAddressList(profile.addressList);
-      setPhoneList(profile.phoneList);
-    }
-  }, [props]);
 
   const postProfileChanges = async () => {
     setLoading(true);
