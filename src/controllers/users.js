@@ -6,12 +6,8 @@ const { sanitizeConfig } = require('../config');
 module.exports = {
   index: async (req, res, next) => {
     const users = await User.find({});
-    const plainUsers = users.map((user) => ({
-      _id: user._id,
-      email: user.email,
-      role: user.role,
-    }));
-    res.status(200).json(plainUsers);
+    const securedUsers = users.map((user) => user.secured());
+    res.status(200).json(securedUsers);
   },
 
   newUser: async (req, res, next) => {
