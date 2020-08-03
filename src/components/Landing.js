@@ -1,29 +1,33 @@
 import styled from 'styled-components';
 import CardBox from '../components/CardBox';
 
-const WIDTH_PIC = '140px';
-const HEIGHT_PIC = '140px';
+const PIC_WIDTH = '140px';
+const PIC_HEIGHT = '140px';
+const TITLE_HEIGHT = '10px';
+const TITLE_MARGIN = '10px 10px';
+const CLAMPED_CONTENT_MARGIN = '20px 10px 10px 0px';
+const CARDLANDING_HEIGHT = '324.75px';
 
 const CenteredImage = styled.div`
-  width: ${(props) => props.width || WIDTH_PIC};
-  height: ${(props) => props.height || HEIGHT_PIC};
+  width: ${PIC_WIDTH};
+  height: ${PIC_HEIGHT};
   background-image: url("${(props) => props.src}");
   background-color: #cccc88;
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
-  border-radius: ${(props) => props.radiuspercent || CardBox.NONE};
+  border-radius: ${(props) => props.borderRadius};
 `;
 
 const Title = styled.h5`
-  height: ${CardBox.MARGIM_TOP};
-  margin ${CardBox.MARGIM_TOP} ${CardBox.MARGIM_RIGTH};
+  height: ${TITLE_HEIGHT};
+  margin: ${TITLE_MARGIN};
   font-weight: bold;
   color: #545454;
 `;
 
 const ClampedContent = styled.p`
-  margin: ${CardBox.MARGIM_TOP};
+  margin: ${CLAMPED_CONTENT_MARGIN};
   overflow: hidden;
   color: rgba(0, 0, 0, 0.42);
   text-overflow: ellipsis;
@@ -39,13 +43,17 @@ const ComponentLinding = styled.div`
   align-items: center;
 `;
 
+const CardLanding = styled(CardBox)`
+  height: ${CARDLANDING_HEIGHT};
+`;
+
 const Landing = (props) => {
   return (
-    <CardBox floatingtop={CardBox.MARGIM_TOP} hightoutersize>
+    <CardLanding floatingtop="10px">
       <ComponentLinding>
         <CenteredImage
           src={props.picUrl}
-          radiuspercent={props.radiuspercent}
+          borderRadius={props.borderRadius}
         />
         <Title>
           <a>{props.title}</a>
@@ -54,7 +62,7 @@ const Landing = (props) => {
           <a>{props.description}</a>
         </ClampedContent>
       </ComponentLinding>
-    </CardBox>
+    </CardLanding>
   );
 };
 
