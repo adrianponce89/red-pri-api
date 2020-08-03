@@ -1,24 +1,18 @@
 import styled from 'styled-components';
 
-const WIDTH_SM = '576px';
-const OUTERSIZE_PROPORTION = '30%';
-const OUTERSIZE_MARGIN = '10px 10px';
-const PADDING_BOTTOM = '161.8%';
-
 const OuterSize = styled.div`
-  width: ${OUTERSIZE_PROPORTION};
+  width: 30%;
   position: relative;
-  margin: ${OUTERSIZE_MARGIN};
+  margin: 10px 10px;
   background-color: white;
-  box-shadow: ${(props) => props.shadow};
   overflow: hidden;
-  @media (max-width: ${WIDTH_SM}) {
+  @media (max-width: 576px) {
     width: 100%;
   }
 `;
 
 const InnerSize = styled.div`
-  padding-bottom: ${PADDING_BOTTOM};
+  padding-bottom: 161.8%;
   display: flex;
   justify-content: center;
 `;

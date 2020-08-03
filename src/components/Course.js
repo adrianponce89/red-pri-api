@@ -2,13 +2,9 @@ import styled from 'styled-components';
 import CardBox from '../components/CardBox';
 import Link from 'next/link';
 
-const CLAMPED_CONTENT_MARGIN = '20px 10px 10px 0px';
-const PIC_HEIGHT = '50%';
-const CARDCOURSE_SHADOW = '2px 2px 4px 0px rgba(0, 0, 0, 0.3)';
-
 const CenteredImage = styled.div`
   width: 100%;
-  height: ${PIC_HEIGHT};
+  height: 50%;
   background-image: url("${(props) => props.src}");
   background-color: #cccc88;
   background-position: center;
@@ -18,7 +14,7 @@ const CenteredImage = styled.div`
 
 const Title = styled.h3`
   font-weight: bold;
-  color: #ff812e;
+  color: ${({ theme }) => theme.colors.mainText};
 `;
 
 const ContentTitleDetail = styled.div`
@@ -26,7 +22,7 @@ const ContentTitleDetail = styled.div`
 `;
 
 const ClampedContent = styled.p`
-  margin: ${CLAMPED_CONTENT_MARGIN};
+  margin: 20px 10px 10px 0px;
   overflow: hidden;
   text-overflow: ellipsis;
   display: -webkit-box;
@@ -36,7 +32,7 @@ const ClampedContent = styled.p`
 `;
 
 const CardCourse = styled(CardBox)`
-  box-shadow: ${CARDCOURSE_SHADOW};
+  box-shadow: 2px 2px 4px 0px rgba(0, 0, 0, 0.3);
 `;
 
 const Course = (props) => {

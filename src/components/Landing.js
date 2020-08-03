@@ -1,16 +1,9 @@
 import styled from 'styled-components';
 import CardBox from '../components/CardBox';
 
-const PIC_WIDTH = '140px';
-const PIC_HEIGHT = '140px';
-const TITLE_HEIGHT = '10px';
-const TITLE_MARGIN = '10px 10px';
-const CLAMPED_CONTENT_MARGIN = '20px 10px 10px 0px';
-const CARDLANDING_HEIGHT = '324.75px';
-
 const CenteredImage = styled.div`
-  width: ${PIC_WIDTH};
-  height: ${PIC_HEIGHT};
+  width: 140px;
+  height: 140px;
   background-image: url("${(props) => props.src}");
   background-color: #cccc88;
   background-position: center;
@@ -20,14 +13,14 @@ const CenteredImage = styled.div`
 `;
 
 const Title = styled.h5`
-  height: ${TITLE_HEIGHT};
-  margin: ${TITLE_MARGIN};
+  height: 10px;
+  margin: 10px 10px;
   font-weight: bold;
-  color: #545454;
+  color: ${({ theme }) => theme.colors.mainText};
 `;
 
 const ClampedContent = styled.p`
-  margin: ${CLAMPED_CONTENT_MARGIN};
+  margin: 20px 10px 10px 0px;
   overflow: hidden;
   color: rgba(0, 0, 0, 0.42);
   text-overflow: ellipsis;
@@ -44,7 +37,7 @@ const ComponentLinding = styled.div`
 `;
 
 const CardLanding = styled(CardBox)`
-  height: ${CARDLANDING_HEIGHT};
+  height: 324.75px;
 `;
 
 const Landing = (props) => {
