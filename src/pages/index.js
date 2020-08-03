@@ -17,6 +17,7 @@ const LandingContainer = styled.div`
   margin-left: auto;
   display: flex;
   flex-wrap: wrap;
+  justify-content: center;
 `;
 
 const LandingBackground = styled.div`
@@ -32,7 +33,7 @@ const Home = () => (
     <LandingBackground>
       <LandingContainer>
         <Landing
-          radiuspercent="50%"
+          borderRadius="50%"
           picUrl="/imgs/ph_bebe_1.jpeg"
           title="Titulo1"
           description="description1"
@@ -43,7 +44,7 @@ const Home = () => (
           description="description2"
         />
         <Landing
-          radiuspercent="10px"
+          borderRadius="10px"
           picUrl="/imgs/ph_bebe_1.jpeg"
           title="Titulo3"
           description="description3"
