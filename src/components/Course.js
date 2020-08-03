@@ -2,13 +2,13 @@ import styled from 'styled-components';
 import CardBox from '../components/CardBox';
 import Link from 'next/link';
 
-const HEIGHT = '10px';
-const HEIGHT_PORCENT = '50%';
-const MARGIN_CLAMPEDCONTENT = '20px 10px 10px 0px';
+const CLAMPED_CONTENT_MARGIN = '20px 10px 10px 0px';
+const PIC_HEIGHT = '50%';
+const CARDCOURSE_SHADOW = '2px 2px 4px 0px rgba(0, 0, 0, 0.3)';
 
 const CenteredImage = styled.div`
-  width: ${CardBox.WIDTH_PORCENT};
-  height: ${HEIGHT_PORCENT};
+  width: 100%;
+  height: ${PIC_HEIGHT};
   background-image: url("${(props) => props.src}");
   background-color: #cccc88;
   background-position: center;
@@ -17,7 +17,6 @@ const CenteredImage = styled.div`
 `;
 
 const Title = styled.h3`
-  height: ${HEIGHT};
   font-weight: bold;
   color: #ff812e;
 `;
@@ -27,7 +26,7 @@ const ContentTitleDetail = styled.div`
 `;
 
 const ClampedContent = styled.p`
-  margin: ${MARGIN_CLAMPEDCONTENT};
+  margin: ${CLAMPED_CONTENT_MARGIN};
   overflow: hidden;
   text-overflow: ellipsis;
   display: -webkit-box;
@@ -36,20 +35,24 @@ const ClampedContent = styled.p`
   cursor: pointer;
 `;
 
+const CardCourse = styled(CardBox)`
+  box-shadow: ${CARDCOURSE_SHADOW};
+`;
+
 const Course = (props) => {
   return (
     <Link href={`/courses/${props._id}`}>
-      <CardBox boxshadow>
-        <a>
-          <CenteredImage src={props.picUrl} />
-        </a>
+      <CardCourse floatingtop="0px">
+        <CenteredImage src={props.picUrl} />
         <ContentTitleDetail>
           <Title>
             <a>{props.title}</a>
           </Title>
-          <ClampedContent>{props.description}</ClampedContent>
+          <ClampedContent>
+            <a>{props.description}</a>
+          </ClampedContent>
         </ContentTitleDetail>
-      </CardBox>
+      </CardCourse>
     </Link>
   );
 };
