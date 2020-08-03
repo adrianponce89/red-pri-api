@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import CardBox from '../components/CardBox';
 import Link from 'next/link';
 
 const CenteredImage = styled.div`
@@ -12,9 +13,8 @@ const CenteredImage = styled.div`
 `;
 
 const Title = styled.h3`
-  height: 10px;
   font-weight: bold;
-  color: #ff812e;
+  color: ${({ theme }) => theme.colors.mainText};
 `;
 
 const ContentTitleDetail = styled.div`
@@ -31,48 +31,24 @@ const ClampedContent = styled.p`
   cursor: pointer;
 `;
 
-const OuterSize = styled.div`
-  width: 30%;
-  position: relative;
-  margin: 15px 0px 0px 10px;
-  background-color: white;
+const CardCourse = styled(CardBox)`
   box-shadow: 2px 2px 4px 0px rgba(0, 0, 0, 0.3);
-  overflow: hidden;
 `;
-
-const InnerSize = styled.div`
-  padding-bottom: 161.8%;
-`;
-
-const FloatingContainer = styled.div`
-  position: absolute;
-  left: 0;
-  right: 0;
-  top: 0;
-  bottom: 0;
-`;
-
-const CourseContainer = (props) => (
-  <OuterSize>
-    <InnerSize />
-    <FloatingContainer>{props.children}</FloatingContainer>
-  </OuterSize>
-);
 
 const Course = (props) => {
   return (
     <Link href={`/courses/${props._id}`}>
-      <CourseContainer>
-        <a>
-          <CenteredImage src={props.picUrl} />
-        </a>
+      <CardCourse floatingtop="0px">
+        <CenteredImage src={props.picUrl} />
         <ContentTitleDetail>
           <Title>
             <a>{props.title}</a>
           </Title>
-          <ClampedContent>{props.description}</ClampedContent>
+          <ClampedContent>
+            <a>{props.description}</a>
+          </ClampedContent>
         </ContentTitleDetail>
-      </CourseContainer>
+      </CardCourse>
     </Link>
   );
 };
