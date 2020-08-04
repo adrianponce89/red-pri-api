@@ -2,51 +2,57 @@ import styled from 'styled-components';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Nav from 'react-bootstrap/Nav';
-import Button from 'react-bootstrap/Button';
-import ButtonGroup from 'react-bootstrap/ButtonGroup';
 import fetch from 'isomorphic-fetch';
 import { server } from '../config';
 import Container from '../components/Container';
 import ProfesionalCard from '../components/Search/ProfesionalCard';
+import Filters from '../components/Search/Filters';
+import AvailableFilters from '../components/Search/AvailableFilters';
 import Popular from '../components/Popular';
 import FAIcon from '../components/FAIcon';
+import NavPills from '../components/NavPills';
 
-const Articulos = ({ users }) => (
+const FiltersTitle = styled.h4`
+  margin: 0.2em 0;
+  font-weight: bold;
+`;
+
+const Articulos = ({
+  results,
+  filters,
+  paging,
+  availableFilters,
+}) => (
   <Container>
     <Row>
       <Col md="3" className="mb-2">
         <div className="applied-filters">
-          <h3>Resultados para:</h3>
-          <p>tag1, tag2</p>
+          <FiltersTitle>Resultados para:</FiltersTitle>
+          <Filters filters={filters} />
+          <h5>{paging.total} Resultados</h5>
+          <AvailableFilters availableFilters={availableFilters} />
         </div>
-
-        <div>filtros</div>
       </Col>
       <Col md="9">
         <div className="d-flex justify-content-end pb-2">
-          <Nav variant="pills" defaultActiveKey="/busqueda#listado">
-            <Nav.Item>
-              <Nav.Link href="/busqueda#listado">
-                <FAIcon
-                  className="fa fa-list"
-                  style={{ verticalAlign: 'middle' }}
-                />{' '}
-                Listado
-              </Nav.Link>
-            </Nav.Item>
-            <Nav.Item>
-              <Nav.Link href="/busqueda#mapa">
-                <FAIcon
-                  className="fa fa-map-marker"
-                  style={{ verticalAlign: 'middle' }}
-                />{' '}
-                Mapa
-              </Nav.Link>
-            </Nav.Item>
-          </Nav>
+          <NavPills
+            defaultActiveKey="/busqueda#listado"
+            items={[
+              {
+                link: '/busqueda#listado',
+                icon: 'fa fa-list',
+                title: 'Listado',
+              },
+              {
+                link: '/busqueda#mapa',
+                icon: 'fa fa-map-marker',
+                title: 'Mapa',
+              },
+            ]}
+          />
         </div>
         <div>
-          {users.map((user) => (
+          {results.map((user) => (
             <ProfesionalCard key={user._id} {...user} />
           ))}
         </div>
@@ -56,11 +62,25 @@ const Articulos = ({ users }) => (
 );
 
 export async function getStaticProps() {
-  const res = await fetch(`${server}/api/users`);
-  const users = await res.json();
+  const res = await fetch(`${server}/api/search`);
+  const {
+    results,
+    paging,
+    sort,
+    availableSorts,
+    filters,
+    availableFilters,
+  } = await res.json();
+
+  console.log(filters);
   return {
     props: {
-      users,
+      results,
+      paging,
+      sort,
+      availableSorts,
+      filters,
+      availableFilters,
     },
   };
 }
