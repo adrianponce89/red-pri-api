@@ -9,6 +9,7 @@ import { server } from '../../config';
 import Container from '../../components/Container';
 import ArticleCard from '../../components/ArticleCard';
 import Popular from '../../components/Popular';
+import NavPills from '../../components/NavPills';
 import FAIcon from '../../components/FAIcon';
 
 const Articulos = ({ articles }) => (
@@ -19,21 +20,19 @@ const Articulos = ({ articles }) => (
       </Col>
       <Col md={{ span: 8, order: 'first' }}>
         <div className="d-flex justify-content-between pb-2">
-          <Nav
-            variant="pills"
+          <NavPills
             defaultActiveKey="/articulos#destacados"
-          >
-            <Nav.Item>
-              <Nav.Link href="/articulos#destacados">
-                Destacados
-              </Nav.Link>
-            </Nav.Item>
-            <Nav.Item>
-              <Nav.Link href="/articulos#recientes">
-                Recientes
-              </Nav.Link>
-            </Nav.Item>
-          </Nav>
+            items={[
+              {
+                link: '/articulos#destacados',
+                title: 'Destacados',
+              },
+              {
+                link: '/articulos#recientes',
+                title: 'Recientes',
+              },
+            ]}
+          />
           <Button
             variant="success"
             href="/crear-articulo"

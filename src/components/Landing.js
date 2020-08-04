@@ -1,16 +1,6 @@
 import styled from 'styled-components';
 import CardBox from '../components/CardBox';
-
-const CenteredImage = styled.div`
-  width: 140px;
-  height: 140px;
-  background-image: url("${(props) => props.src}");
-  background-color: #cccc88;
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: cover;
-  border-radius: ${(props) => props.borderRadius};
-`;
+import CenteredImage from '../components/CenteredImage';
 
 const Title = styled.h5`
   height: 10px;
