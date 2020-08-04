@@ -3,7 +3,8 @@ import Container from '../components/Container';
 import Form from 'react-bootstrap/Form';
 import FormGroup from 'react-bootstrap/FormGroup';
 import FormControl from 'react-bootstrap/FormControl';
-import Button from 'react-bootstrap/Button';
+import { LoadableButton } from '../components/Loadable';
+import React, { useState } from 'react';
 
 const Title = styled.h2`
   font-weight: bold;
@@ -38,6 +39,35 @@ const ContainButton = styled.div`
 `;
 
 const Contact = (props) => {
+  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
+  const [content, setContent] = useState('');
+  const [loading, setLoading] = useState(false);
+
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    setLoading(true);
+    const res = await fetch('/api/contact', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        name,
+        email,
+        content,
+      }),
+    });
+
+    if (res.status === 200) {
+      // TODO: mostrar mensaje de recibido. Tal vez con un modal
+    }
+    setLoading(false);
+    setName('');
+    setEmail('');
+    setContent('');
+  };
+
   return (
     <Container>
       <ContainTitleSpam>
@@ -51,18 +81,22 @@ const Contact = (props) => {
           </a>
         </Spam>
       </ContainTitleSpam>
-      <Form>
+      <Form onSubmit={handleSubmit}>
         <FormGroup>
           <ContainFormControl>
             <FormControls
               tipe="text"
               placeholder="Tu nombre"
               size="lg"
+              value={name}
+              onChange={(e) => setName(e.target.value)}
             />
             <FormControls
               tipe="email"
               placeholder="Tu e-mail"
               size="lg"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
             />
           </ContainFormControl>
           <FormControl
@@ -70,12 +104,20 @@ const Contact = (props) => {
             rows="2"
             placeholder="Escribí acá tu consulta"
             size="lg"
+            value={content}
+            onChange={(e) => setContent(e.target.value)}
           />
         </FormGroup>
         <ContainButton>
-          <Button variant="primary" type="submit" size="lg">
+          <LoadableButton
+            loading={loading}
+            disabled={loading}
+            variant="primary"
+            type="submit"
+            size="lg"
+          >
             Enviar
-          </Button>
+          </LoadableButton>
         </ContainButton>
       </Form>
     </Container>
