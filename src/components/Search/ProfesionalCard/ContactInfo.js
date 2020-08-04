@@ -9,7 +9,6 @@ const RevealContainer = styled.div`
 
 const RevealOnClick = (props) => {
   const [show, setShow] = useState(false);
-  console.log('title:', props.title, 'display:', props.display);
   return (
     <RevealContainer display={props.display}>
       {show ? (

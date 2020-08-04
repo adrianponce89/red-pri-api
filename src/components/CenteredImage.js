@@ -8,6 +8,7 @@ const CenteredImage = styled.div`
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
+  border-radius: ${(props) => props.borderRadius || 0};
 `;
 
 export default CenteredImage;
