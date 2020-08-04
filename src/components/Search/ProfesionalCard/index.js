@@ -31,7 +31,6 @@ const ShowOnSm = styled.div`
 `;
 
 const ProfesionalCard = (props) => {
-  console.log(props);
   return (
     <Card className={`d-flex ${props.className}`}>
       <div className="d-flex">

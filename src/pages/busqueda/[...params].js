@@ -3,14 +3,14 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Nav from 'react-bootstrap/Nav';
 import fetch from 'isomorphic-fetch';
-import { server } from '../config';
-import Container from '../components/Container';
-import ProfesionalCard from '../components/Search/ProfesionalCard';
-import Filters from '../components/Search/Filters';
-import AvailableFilters from '../components/Search/AvailableFilters';
-import Popular from '../components/Popular';
-import FAIcon from '../components/FAIcon';
-import NavPills from '../components/NavPills';
+import { server } from '../../config';
+import Container from '../../components/Container';
+import ProfesionalCard from '../../components/Search/ProfesionalCard';
+import Filters from '../../components/Search/Filters';
+import AvailableFilters from '../../components/Search/AvailableFilters';
+import Popular from '../../components/Popular';
+import FAIcon from '../../components/FAIcon';
+import NavPills from '../../components/NavPills';
 
 const FiltersTitle = styled.h4`
   margin: 0.2em 0;
@@ -61,8 +61,18 @@ const Articulos = ({
   </Container>
 );
 
-export async function getStaticProps() {
-  const res = await fetch(`${server}/api/search`);
+export async function getServerSideProps(context) {
+  const { params } = context.query;
+  const res = await fetch(`${server}/api/search`, {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+      params,
+    }),
+  });
+
   const {
     results,
     paging,
@@ -72,7 +82,6 @@ export async function getStaticProps() {
     availableFilters,
   } = await res.json();
 
-  console.log(filters);
   return {
     props: {
       results,
