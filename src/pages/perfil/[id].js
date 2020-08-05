@@ -3,6 +3,7 @@ import fetch from 'isomorphic-fetch';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Card from 'react-bootstrap/Card';
+import Badge from 'react-bootstrap/Badge';
 import { server } from '../../config';
 import Container from '../../components/Container';
 import CenteredImage from '../../components/CenteredImage';
@@ -39,8 +40,9 @@ const ClampedContent = styled.p`
   -webkit-box-orient: horizontal;
 `;
 
-const ContaniAbout = styled.div`
+const ContainAbout = styled.div`
   font-size: 16px;
+  margin-top: 30px;
 `;
 
 const StyleLine = styled.hr`
@@ -48,11 +50,19 @@ const StyleLine = styled.hr`
   width: 15%;
 `;
 
+const Badges = styled(Badge)`
+  margin: 2px;
+  font-size: 11px;
+  padding: 4px;
+`;
+
+const ContainBadge = styled.div`
+  margin: 2em 0;
+`;
+
 const Perfil = ({ className, user }) => {
   const NameSurname = `${user.name} ${user.surname} `;
   const matricula = `(Mat.${user.matricula})`;
-
-  console.log('user: ', user);
   return (
     <Container className={className}>
       <Row>
@@ -79,17 +89,46 @@ const Perfil = ({ className, user }) => {
               </ContainerPicTitle>
 
               <hr></hr>
-              <ContaniAbout>
+              <ContainAbout>
                 <h5>Acerca de mí</h5>
                 <StyleLine />
                 <ClampedContent>{user.about}</ClampedContent>
-              </ContaniAbout>
+              </ContainAbout>
+              <ContainAbout>
+                <h5>Sobre la práctica</h5>
+                <StyleLine />
+                <ClampedContent>{user.practice}</ClampedContent>
+              </ContainAbout>
             </Container>
           </Card>
         </Col>
         <Col lg="4" className="pb-2">
           <Card>
-            <h2>Contacto</h2>
+            <Container>
+              <div>
+                <ContainBadge>
+                  <h5>Especialidades</h5>
+                  <StyleLine />
+                  {user.specialities.map((speciality) => (
+                    <Badges variant="info">{speciality}</Badges>
+                  ))}
+                </ContainBadge>
+                <ContainBadge>
+                  <h5>Temáticas</h5>
+                  <StyleLine />
+                  {user.themes.map((theme) => (
+                    <Badges variant="danger">{theme}</Badges>
+                  ))}
+                </ContainBadge>
+                <ContainBadge>
+                  <h5>Tipos de Atención</h5>
+                  <StyleLine />
+                  {user.atentionType.map((type) => (
+                    <Badges variant="success">{type}</Badges>
+                  ))}
+                </ContainBadge>
+              </div>
+            </Container>
           </Card>
         </Col>
       </Row>
