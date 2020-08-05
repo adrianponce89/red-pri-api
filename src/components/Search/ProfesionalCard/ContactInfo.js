@@ -5,12 +5,16 @@ import FAIcon from '../../FAIcon';
 const RevealContainer = styled.div`
   display: ${(props) => (props.display ? 'block' : 'none')};
   margin-right: 1em;
+  cursor: ${(props) => (props.show ? 'default' : 'pointer')};
 `;
 
 const RevealOnClick = (props) => {
   const [show, setShow] = useState(false);
   return (
-    <RevealContainer display={props.display ? 1 : 0}>
+    <RevealContainer
+      display={props.display ? 1 : 0}
+      show={show ? 1 : 0}
+    >
       {show ? (
         <>{props.children}</>
       ) : (
@@ -32,18 +36,20 @@ const ContactInfo = styled((props) => {
       >
         <FAIcon className="fa fa-money" /> <p>${props.price}</p>
       </RevealOnClick>
+
       <RevealOnClick
         display={!!props.phoneList ? 1 : 0}
         icon="fa fa-phone"
         title="Télefono"
       >
         <>
-          {props.phoneList.map((phone) => (
-            <p key={phone.number}>
-              <FAIcon className="fa fa-phone" /> {phone.number} (
-              {phone.attentionHours})
-            </p>
-          ))}
+          {props.phoneList &&
+            props.phoneList.map((phone) => (
+              <p key={phone.number}>
+                <FAIcon className="fa fa-phone" light />{' '}
+                {phone.number} ({phone.attentionHours})
+              </p>
+            ))}
         </>
       </RevealOnClick>
       <RevealOnClick
@@ -54,6 +60,22 @@ const ContactInfo = styled((props) => {
         <p>
           <FAIcon className="fa fa-envelope" /> {props.email}
         </p>
+      </RevealOnClick>
+
+      <RevealOnClick
+        display={!!props.addressList}
+        icon="fa fa-building"
+        title="Dirección"
+      >
+        <>
+          {props.addressList &&
+            props.addressList.map((address) => (
+              <p>
+                <FAIcon className="fa fa-building" light />{' '}
+                {address.province} {address.locality} {address.street}
+              </p>
+            ))}
+        </>
       </RevealOnClick>
     </div>
   );
