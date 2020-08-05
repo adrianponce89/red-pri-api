@@ -4,6 +4,7 @@ import Col from 'react-bootstrap/Col';
 import Nav from 'react-bootstrap/Nav';
 import fetch from 'isomorphic-fetch';
 import { server } from '../../config';
+import { hyphenToSpace, getKeysFromSlugParams } from '../../utils';
 import Container from '../../components/Container';
 import ProfesionalCard from '../../components/Search/ProfesionalCard';
 import Filters from '../../components/Search/Filters';
@@ -62,17 +63,13 @@ const Articulos = ({
 );
 
 export async function getServerSideProps(context) {
-  const { params } = context.query;
-  const res = await fetch(`${server}/api/search`, {
-    method: 'GET',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify({
-      params,
-    }),
-  });
-
+  const [mainStr, ...paramsStr] = context.query.params;
+  const main = hyphenToSpace(mainStr);
+  const params = getKeysFromSlugParams(paramsStr);
+  const qs = Object.keys(params)
+    .map((key) => `${key}=${params[key]}`)
+    .join('&');
+  const res = await fetch(`${server}/api/search/${main}?${qs}`);
   const {
     results,
     paging,

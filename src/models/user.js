@@ -12,11 +12,12 @@ const userSchema = new Schema({
   username: String,
   matricula: String,
   title: String,
-  about: String,
+  about: { type: String, text: true },
   specialities: [String],
   themes: [String],
   atentionType: [String],
-  practice: String,
+  practice: { type: String, text: true },
+  welfare: [String],
   addressList: [
     {
       street: String,
