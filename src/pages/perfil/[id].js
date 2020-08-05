@@ -5,31 +5,91 @@ import Col from 'react-bootstrap/Col';
 import Card from 'react-bootstrap/Card';
 import { server } from '../../config';
 import Container from '../../components/Container';
+import CenteredImage from '../../components/CenteredImage';
+import ContactInfo from '../../components/Search/ProfesionalCard/ContactInfo';
 
-const CenterTitle = styled.h1`
-  text-align: center;
+const ContainerPicTitle = styled.div`
+  display: flex;
+  flex-direction: row;
+`;
+
+const ContainTitle = styled.div`
+  color: ${({ theme }) => theme.colors.mainText};
+  font-size: 19px;
+`;
+
+const ContactInfos = styled(ContactInfo)`
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+`;
+
+const ContainIn = styled.div`
+  width: 100%;
+  margin-left: 10px;
+  display: flex;
+  justify-content: space-between;
+`;
+
+const ClampedContent = styled.p`
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 4; /* number of lines to show */
+  -webkit-box-orient: horizontal;
+`;
+
+const ContaniAbout = styled.div`
+  font-size: 16px;
+`;
+
+const StyleLine = styled.hr`
+  margin: 1rem 0;
+  width: 15%;
 `;
 
 const Perfil = ({ className, user }) => {
+  const NameSurname = `${user.name} ${user.surname} `;
+  const matricula = `(Mat.${user.matricula})`;
+
+  console.log('user: ', user);
   return (
     <Container className={className}>
       <Row>
         <Col lg="8" className="pb-2">
           <Card>
-            <Card.Body>
-              <CenterTitle>
-                {user.name} {user.surname}
-                <h3>{user.matricula}</h3>
-              </CenterTitle>
-              <div style={{ whiteSpace: 'pre-wrap' }}>
-                {JSON.stringify(user, null, 2)}
-              </div>
-            </Card.Body>
+            <Container>
+              <ContainerPicTitle>
+                <CenteredImage src="/imgs/ph_bebe_1.jpeg" />
+                <ContainIn>
+                  <ContainTitle>
+                    <h2>
+                      {NameSurname}
+                      <small>{matricula}</small>
+                    </h2>
+                    <>{user.title}</>
+                  </ContainTitle>
+                  <ContactInfos
+                    price={'254.25'}
+                    phoneList={user.phoneList}
+                    email={user.email}
+                    addressList={user.addressList}
+                  />
+                </ContainIn>
+              </ContainerPicTitle>
+
+              <hr></hr>
+              <ContaniAbout>
+                <h5>Acerca de mí</h5>
+                <StyleLine />
+                <ClampedContent>{user.about}</ClampedContent>
+              </ContaniAbout>
+            </Container>
           </Card>
         </Col>
         <Col lg="4" className="pb-2">
           <Card>
-            <CenterTitle>Contacto</CenterTitle>
+            <h2>Contacto</h2>
           </Card>
         </Col>
       </Row>
