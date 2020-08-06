@@ -10,12 +10,12 @@ const RevealContainer = styled.div`
 const RevealOnClick = (props) => {
   const [show, setShow] = useState(false);
   return (
-    <RevealContainer display={props.display}>
+    <RevealContainer display={props.display ? 1 : 0}>
       {show ? (
         <>{props.children}</>
       ) : (
         <a onClick={() => setShow(true)}>
-          <FAIcon className={`${props.icon}`} light /> {props.title}
+          <FAIcon className={`${props.icon}`} /> {props.title}
         </a>
       )}
     </RevealContainer>
@@ -26,33 +26,33 @@ const ContactInfo = styled((props) => {
   return (
     <div className={props.className}>
       <RevealOnClick
-        display={!!props.price}
+        display={!!props.price ? 1 : 0}
         icon="fa fa-money"
         title="Consulta Particular"
       >
-        <FAIcon className="fa fa-money" light /> <p>${props.price}</p>
+        <FAIcon className="fa fa-money" /> <p>${props.price}</p>
       </RevealOnClick>
       <RevealOnClick
-        display={!!props.phoneList}
+        display={!!props.phoneList ? 1 : 0}
         icon="fa fa-phone"
         title="Télefono"
       >
         <>
           {props.phoneList.map((phone) => (
-            <p>
-              <FAIcon className="fa fa-phone" light /> {phone.number}{' '}
-              ({phone.attentionHours})
+            <p key={phone.number}>
+              <FAIcon className="fa fa-phone" /> {phone.number} (
+              {phone.attentionHours})
             </p>
           ))}
         </>
       </RevealOnClick>
       <RevealOnClick
-        display={!!props.email}
+        display={!!props.email ? 1 : 0}
         icon="fa fa-envelope"
         title="Email"
       >
         <p>
-          <FAIcon className="fa fa-envelope" light /> {props.email}
+          <FAIcon className="fa fa-envelope" /> {props.email}
         </p>
       </RevealOnClick>
     </div>

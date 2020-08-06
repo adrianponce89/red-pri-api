@@ -106,7 +106,7 @@ const getFilters = (query) => {
   const filters = [];
   Object.keys(query).forEach((key, i) => {
     filters.push({
-      _id: key,
+      _id: nameMap[key],
       name: nameMap[key],
       values: [{ _id: i, name: query[key] }],
     });

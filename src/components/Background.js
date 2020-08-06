@@ -181,9 +181,7 @@ const range = (min, max) => {
 const BackgroundContainer = styled.div`
   z-index: -1;
   background: ${({ theme, path }) =>
-    path === 'busqueda'
-      ? theme.colors.lightGrey
-      : theme.colors.lightGreen};
+    path === '' ? theme.colors.lightGreen : theme.colors.lightGrey};
   position: absolute;
   left: 0;
   right: 0;

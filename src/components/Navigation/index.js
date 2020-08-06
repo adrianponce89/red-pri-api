@@ -47,13 +47,13 @@ const Navigation = (props) => {
             </NavDropdown.Item>
           </NavDropdown>
         </Nav>
-        <Form inline className="m-2">
+        <div className="m-2">
           <SearchBar />
-        </Form>
+        </div>
         {!!props.profile ? (
           <Nav>
             <Nav.Link>
-              <FAIcon className="fa fa-bookmark" light />
+              <FAIcon className="fa fa-bookmark" />
             </Nav.Link>
             <Nav.Link>
               <FAIcon className="fa fa-bell" />

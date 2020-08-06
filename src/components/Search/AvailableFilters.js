@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import Link from 'next/link';
 import styled from 'styled-components';
 import { useRouter } from 'next/router';
 
@@ -11,7 +12,7 @@ const CategoryName = styled.h5`
   font-weight: bold;
 `;
 
-const Filter = styled.a`
+const Filter = styled.p`
   margin: 0;
   text-transform: capitalize;
 `;
@@ -35,27 +36,35 @@ const Category = ({ category }) => {
 
   const router = useRouter();
   return (
-    <CategoryContainer key={category.id}>
+    <CategoryContainer>
       <CategoryName>{category.name}</CategoryName>
       {filters.map((filter) => (
-        <Filter
+        <Link
           key={filter._id}
           href={`${router.asPath}/${
             category._id
           }-${filter.name.toLowerCase().replace(/ /g, '-')}`}
         >
-          {filter.name} <Opaque>({filter.results})</Opaque>
-        </Filter>
+          <a>
+            <Filter>
+              {filter.name} <Opaque>({filter.results})</Opaque>
+            </Filter>
+          </a>
+        </Link>
       ))}
       <ShowMore
-        display={!showMore && category.values.length > MAX_FILTERS}
+        display={
+          !showMore && category.values.length > MAX_FILTERS ? 1 : 0
+        }
         onClick={() => setShowMore(true)}
       >
         Ver más
       </ShowMore>
 
       <ShowMore
-        display={showMore && category.values.length > MAX_FILTERS}
+        display={
+          showMore && category.values.length > MAX_FILTERS ? 1 : 0
+        }
         onClick={() => setShowMore(false)}
       >
         Ver menos
@@ -67,7 +76,7 @@ const Category = ({ category }) => {
 const AvailableFilters = ({ availableFilters }) => (
   <>
     {availableFilters.map((category) => (
-      <Category key={category.id} category={category} />
+      <Category key={category._id} category={category} />
     ))}
   </>
 );

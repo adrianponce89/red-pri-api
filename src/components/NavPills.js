@@ -4,7 +4,7 @@ import FAIcon from './FAIcon';
 const NavPills = ({ items, defaultActiveKey }) => (
   <Nav variant="pills" defaultActiveKey={defaultActiveKey}>
     {items.map((item) => (
-      <Nav.Item>
+      <Nav.Item key={item.title}>
         <Nav.Link href={item.link}>
           {item.icon && (
             <>
