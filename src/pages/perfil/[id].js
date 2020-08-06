@@ -26,7 +26,7 @@ const ContactInfos = styled(ContactInfo)`
   flex-direction: column;
 `;
 
-const InfoContain = styled.div`
+const InfoContainer = styled.div`
   width: 100%;
   margin-left: 10px;
   display: flex;
@@ -55,7 +55,7 @@ const BadgeContainer = styled.div`
 `;
 
 const Perfil = ({ className, user }) => {
-  const FullName = `${user.name} ${user.surname} `;
+  const fullName = `${user.name} ${user.surname} `;
   const matricula = `(Mat.${user.matricula})`;
   return (
     <Container className={className}>
@@ -65,7 +65,7 @@ const Perfil = ({ className, user }) => {
             <Card.Body>
               <TopContainer>
                 <CenteredImage src="/imgs/ph_bebe_1.jpeg" />
-                <InfoContain>
+                <InfoContainer>
                   <TitleContainer>
                     <h2>
                       {FullName}
@@ -79,7 +79,7 @@ const Perfil = ({ className, user }) => {
                     email={user.email}
                     addressList={user.addressList}
                   />
-                </InfoContain>
+                </InfoContainer>
               </TopContainer>
 
               <hr></hr>
