@@ -68,7 +68,7 @@ const Perfil = ({ className, user }) => {
                 <InfoContainer>
                   <TitleContainer>
                     <h2>
-                      {FullName}
+                      {fullName}
                       <small>{matricula}</small>
                     </h2>
                     <>{user.title}</>
