@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
+import { useRouter } from 'next/router';
 
 const CategoryContainer = styled.div`
   margin: 1em 0;
@@ -10,8 +11,9 @@ const CategoryName = styled.h5`
   font-weight: bold;
 `;
 
-const Filter = styled.p`
+const Filter = styled.a`
   margin: 0;
+  text-transform: capitalize;
 `;
 
 const Opaque = styled.span`
@@ -30,11 +32,20 @@ const Category = ({ category }) => {
   const filters = showMore
     ? category.values
     : category.values.slice(0, MAX_FILTERS);
+
+  const router = useRouter();
+  console.log(router.asPath);
+
   return (
     <CategoryContainer key={category.id}>
       <CategoryName>{category.name}</CategoryName>
       {filters.map((filter) => (
-        <Filter key={filter.id}>
+        <Filter
+          key={filter._id}
+          href={`${router.asPath}/${
+            category._id
+          }-${filter.name.toLowerCase().replace(/ /g, '-')}`}
+        >
           {filter.name} <Opaque>({filter.results})</Opaque>
         </Filter>
       ))}

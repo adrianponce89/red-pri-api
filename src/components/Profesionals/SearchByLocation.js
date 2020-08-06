@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import Router from 'next/router';
 import Form from 'react-bootstrap/Form';
 import Col from 'react-bootstrap/Col';
 import { LoadableButton as Button } from '../Loadable';
@@ -13,9 +14,23 @@ const SearchByLocation = () => {
   const [specility, setSpecility] = useState('');
   const [social, setSocial] = useState('Particular');
   const [address, setAddress] = useState('');
+  const [loading, setLoading] = useState(false);
+
+  async function handleSubmit(event) {
+    event.preventDefault();
+    setLoading(true);
+    const slug =
+      '/busqueda/' +
+      specility.toLowerCase().replace(/ /g, '-') +
+      '/obrasocial-' +
+      social.toLowerCase().replace(/ /g, '-') +
+      '/direccion-' +
+      address.toLowerCase();
+    Router.push(slug);
+  }
 
   return (
-    <Form>
+    <Form onSubmit={handleSubmit}>
       <Form.Row>
         <Form.Group as={Col} sm={4} controlId="especialidad">
           <Form.Label>Especialidad</Form.Label>
@@ -62,7 +77,8 @@ const SearchByLocation = () => {
           variant="primary"
           className="btn-lg"
           type="submit"
-          disabled={specility.length === 0}
+          loading={loading}
+          disabled={specility.length === 0 || loading}
         >
           Buscar
         </Button>

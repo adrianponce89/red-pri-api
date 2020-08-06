@@ -1,8 +1,13 @@
 import Badge from 'react-bootstrap/Badge';
+import styled from 'styled-components';
 import FAIcon from '../FAIcon';
 
+const FilterContainer = styled.h5`
+  text-transform: capitalize;
+`;
+
 const Filters = ({ filters }) => (
-  <h5>
+  <FilterContainer>
     {filters
       .reduce((acc, val) => acc.concat(val.values), [])
       .map((filter) => (
@@ -14,7 +19,7 @@ const Filters = ({ filters }) => (
           {filter.name} <FAIcon className="fa fa-times" />
         </Badge>
       ))}
-  </h5>
+  </FilterContainer>
 );
 
 export default Filters;

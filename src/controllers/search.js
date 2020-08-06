@@ -1,4 +1,3 @@
-const { basicSearch } = require('./mockups/search_mockup');
 const User = require('../models/user');
 const { getFilters, getAvailableFilters } = require('../utils');
 
@@ -10,19 +9,19 @@ module.exports = {
     const { sort, ...otherQuery } = query;
     const splitText = text.split(' ');
     const users = await User.find({
+      ...otherQuery,
       $or: [
         { title: { $in: splitText } },
-        { name: { $in: splitText } },
-        { surname: { $in: splitText } },
+        { fullName: { $regex: text } },
         { specialities: { $in: splitText } },
         { themes: { $in: splitText } },
         { atentionType: { $in: splitText } },
         { 'addressList.province': { $in: splitText } },
         { 'addressList.locality': { $in: splitText } },
+        { 'phoneList.number': { $in: splitText } },
         { about: { $regex: text } },
         { practice: { $regex: text } },
       ],
-      ...otherQuery,
     });
     const filters = getFilters(otherQuery);
     const availableFilters = getAvailableFilters(users);

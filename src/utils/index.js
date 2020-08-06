@@ -2,7 +2,7 @@ const { query } = require('express');
 
 const keyMap = {
   ['titulo']: 'title',
-  ['especialidad']: 'specialities',
+  ['especialidades']: 'specialities',
   ['temas']: 'themes',
   ['atencion']: 'atentionType',
   ['obrasocial']: 'welfare',
@@ -91,13 +91,13 @@ const getAvailableFilters = (users) => {
     }
   };
 
-  addFilterFor(title, 'title', 'Titulo');
-  addFilterFor(specialities, 'specialities', 'Especialidades');
-  addFilterFor(themes, 'themes', 'Temas');
-  addFilterFor(atentionType, 'atentionType', 'Tipo de Atención');
-  addFilterFor(welfare, 'welfare', 'Obra social');
-  addFilterFor(province, 'province', 'Provincia');
-  addFilterFor(locality, 'locality', 'Localidad');
+  addFilterFor(title, 'titulo', 'Titulo');
+  addFilterFor(specialities, 'especialidades', 'Especialidades');
+  addFilterFor(themes, 'temas', 'Temas');
+  addFilterFor(atentionType, 'atencion', 'Tipo de Atención');
+  addFilterFor(welfare, 'obrasocial', 'Obra social');
+  addFilterFor(province, 'provincia', 'Provincia');
+  addFilterFor(locality, 'localidad', 'Localidad');
 
   return filters;
 };
