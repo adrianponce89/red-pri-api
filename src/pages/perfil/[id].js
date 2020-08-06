@@ -9,12 +9,13 @@ import Container from '../../components/Container';
 import CenteredImage from '../../components/CenteredImage';
 import ContactInfo from '../../components/Search/ProfesionalCard/ContactInfo';
 
-const ContainerPicTitle = styled.div`
+const TopContainer = styled.div`
   display: flex;
   flex-direction: row;
 `;
 
-const ContainTitle = styled.div`
+const TitleContainer = styled.div`
+  text-transform: capitalize;
   color: ${({ theme }) => theme.colors.mainText};
   font-size: 19px;
 `;
@@ -25,22 +26,14 @@ const ContactInfos = styled(ContactInfo)`
   flex-direction: column;
 `;
 
-const ContainIn = styled.div`
+const InfoContain = styled.div`
   width: 100%;
   margin-left: 10px;
   display: flex;
   justify-content: space-between;
 `;
 
-const ClampedContent = styled.p`
-  overflow: hidden;
-  text-overflow: ellipsis;
-  display: -webkit-box;
-  -webkit-line-clamp: 4; /* number of lines to show */
-  -webkit-box-orient: horizontal;
-`;
-
-const ContainAbout = styled.div`
+const AboutContainer = styled.div`
   font-size: 16px;
   margin-top: 30px;
 `;
@@ -51,84 +44,85 @@ const StyleLine = styled.hr`
 `;
 
 const Badges = styled(Badge)`
+  text-transform: capitalize;
   margin: 2px;
   font-size: 11px;
   padding: 4px;
 `;
 
-const ContainBadge = styled.div`
+const BadgeContainer = styled.div`
   margin: 2em 0;
 `;
 
 const Perfil = ({ className, user }) => {
-  const NameSurname = `${user.name} ${user.surname} `;
+  const FullName = `${user.name} ${user.surname} `;
   const matricula = `(Mat.${user.matricula})`;
   return (
     <Container className={className}>
       <Row>
         <Col lg="8" className="pb-2">
           <Card>
-            <Container>
-              <ContainerPicTitle>
+            <Card.Body>
+              <TopContainer>
                 <CenteredImage src="/imgs/ph_bebe_1.jpeg" />
-                <ContainIn>
-                  <ContainTitle>
+                <InfoContain>
+                  <TitleContainer>
                     <h2>
-                      {NameSurname}
+                      {FullName}
                       <small>{matricula}</small>
                     </h2>
                     <>{user.title}</>
-                  </ContainTitle>
+                  </TitleContainer>
                   <ContactInfos
-                    price={'254.25'}
+                    price={user.proce}
                     phoneList={user.phoneList}
                     email={user.email}
                     addressList={user.addressList}
                   />
-                </ContainIn>
-              </ContainerPicTitle>
+                </InfoContain>
+              </TopContainer>
 
               <hr></hr>
-              <ContainAbout>
+              <AboutContainer>
                 <h5>Acerca de mí</h5>
                 <StyleLine />
-                <ClampedContent>{user.about}</ClampedContent>
-              </ContainAbout>
-              <ContainAbout>
+                <p>{user.about}</p>
+              </AboutContainer>
+              <AboutContainer>
                 <h5>Sobre la práctica</h5>
                 <StyleLine />
-                <ClampedContent>{user.practice}</ClampedContent>
-              </ContainAbout>
-            </Container>
+                <p>{user.practice}</p>
+              </AboutContainer>
+            </Card.Body>
           </Card>
         </Col>
         <Col lg="4" className="pb-2">
           <Card>
-            <Container>
+            <Card.Body>
               <div>
-                <ContainBadge>
+                <BadgeContainer>
                   <h5>Especialidades</h5>
                   <StyleLine />
                   {user.specialities.map((speciality) => (
                     <Badges variant="info">{speciality}</Badges>
                   ))}
-                </ContainBadge>
-                <ContainBadge>
+                </BadgeContainer>
+                <BadgeContainer>
                   <h5>Temáticas</h5>
                   <StyleLine />
                   {user.themes.map((theme) => (
                     <Badges variant="danger">{theme}</Badges>
                   ))}
-                </ContainBadge>
-                <ContainBadge>
+                </BadgeContainer>
+                <BadgeContainer>
                   <h5>Tipos de Atención</h5>
                   <StyleLine />
                   {user.atentionType.map((type) => (
                     <Badges variant="success">{type}</Badges>
                   ))}
-                </ContainBadge>
+                </BadgeContainer>
               </div>
-            </Container>
+            </Card.Body>
           </Card>
         </Col>
       </Row>
