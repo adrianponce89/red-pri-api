@@ -34,8 +34,6 @@ const Category = ({ category }) => {
     : category.values.slice(0, MAX_FILTERS);
 
   const router = useRouter();
-  console.log(router.asPath);
-
   return (
     <CategoryContainer key={category.id}>
       <CategoryName>{category.name}</CategoryName>
