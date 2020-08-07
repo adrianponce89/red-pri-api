@@ -18,18 +18,23 @@ const TitleContainer = styled.div`
   text-transform: capitalize;
   color: ${({ theme }) => theme.colors.mainText};
   font-size: 19px;
+  flex: 3;
 `;
 
 const ContactInfos = styled(ContactInfo)`
   margin: 0;
   display: flex;
   flex-direction: column;
+  flex: 3;
 `;
 
 const InfoContainer = styled.div`
   width: 100%;
   margin-left: 10px;
   display: flex;
+  @media (max-width: 576px) {
+    flex-direction: column;
+  }
   justify-content: space-between;
 `;
 
@@ -52,6 +57,10 @@ const Badges = styled(Badge)`
 
 const BadgeContainer = styled.div`
   margin: 2em 0;
+`;
+
+const SubTitle = styled.h5`
+  font-weight: bold;
 `;
 
 const Perfil = ({ className, user }) => {
@@ -84,12 +93,12 @@ const Perfil = ({ className, user }) => {
 
               <hr></hr>
               <AboutContainer>
-                <h5>Acerca de mí</h5>
+                <SubTitle>Acerca de mí</SubTitle>
                 <StyleLine />
                 <p>{user.about}</p>
               </AboutContainer>
               <AboutContainer>
-                <h5>Sobre la práctica</h5>
+                <SubTitle>Sobre la práctica</SubTitle>
                 <StyleLine />
                 <p>{user.practice}</p>
               </AboutContainer>
@@ -101,21 +110,21 @@ const Perfil = ({ className, user }) => {
             <Card.Body>
               <div>
                 <BadgeContainer>
-                  <h5>Especialidades</h5>
+                  <SubTitle>Especialidades</SubTitle>
                   <StyleLine />
                   {user.specialities.map((speciality) => (
                     <Badges variant="info">{speciality}</Badges>
                   ))}
                 </BadgeContainer>
                 <BadgeContainer>
-                  <h5>Temáticas</h5>
+                  <SubTitle>Temáticas</SubTitle>
                   <StyleLine />
                   {user.themes.map((theme) => (
                     <Badges variant="danger">{theme}</Badges>
                   ))}
                 </BadgeContainer>
                 <BadgeContainer>
-                  <h5>Tipos de Atención</h5>
+                  <SubTitle>Tipos de Atención</SubTitle>
                   <StyleLine />
                   {user.atentionType.map((type) => (
                     <Badges variant="success">{type}</Badges>

@@ -26,6 +26,12 @@ const RevealOnClick = (props) => {
   );
 };
 
+const ContactText = styled.p`
+  margin: 0;
+  text-transform: ${({ transform }) =>
+    transform ? transform : 'none'};
+`;
+
 const ContactInfo = styled((props) => {
   return (
     <div className={props.className}>
@@ -34,7 +40,9 @@ const ContactInfo = styled((props) => {
         icon="fa fa-money"
         title="Consulta Particular"
       >
-        <FAIcon className="fa fa-money" /> <p>${props.price}</p>
+        <ContactText>
+          <FAIcon className="fa fa-money" /> ${props.price}
+        </ContactText>
       </RevealOnClick>
 
       <RevealOnClick
@@ -45,10 +53,10 @@ const ContactInfo = styled((props) => {
         <>
           {props.phoneList &&
             props.phoneList.map((phone) => (
-              <p key={phone.number}>
+              <ContactText key={phone._id}>
                 <FAIcon className="fa fa-phone" light />{' '}
                 {phone.number} ({phone.attentionHours})
-              </p>
+              </ContactText>
             ))}
         </>
       </RevealOnClick>
@@ -57,9 +65,9 @@ const ContactInfo = styled((props) => {
         icon="fa fa-envelope"
         title="Email"
       >
-        <p>
+        <ContactText>
           <FAIcon className="fa fa-envelope" /> {props.email}
-        </p>
+        </ContactText>
       </RevealOnClick>
 
       <RevealOnClick
@@ -70,10 +78,11 @@ const ContactInfo = styled((props) => {
         <>
           {props.addressList &&
             props.addressList.map((address) => (
-              <p>
+              <ContactText key={address._id} transform="capitalize">
                 <FAIcon className="fa fa-building" light />{' '}
-                {address.province} {address.locality} {address.street}
-              </p>
+                {address.province}, {address.locality},{' '}
+                {address.street}
+              </ContactText>
             ))}
         </>
       </RevealOnClick>
