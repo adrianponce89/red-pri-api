@@ -113,21 +113,27 @@ const Perfil = ({ className, user }) => {
                   <SubTitle>Especialidades</SubTitle>
                   <StyleLine />
                   {user.specialities.map((speciality) => (
-                    <Badges variant="info">{speciality}</Badges>
+                    <Badges key={speciality} variant="info">
+                      {speciality}
+                    </Badges>
                   ))}
                 </BadgeContainer>
                 <BadgeContainer>
                   <SubTitle>Temáticas</SubTitle>
                   <StyleLine />
                   {user.themes.map((theme) => (
-                    <Badges variant="danger">{theme}</Badges>
+                    <Badges key={theme} variant="danger">
+                      {theme}
+                    </Badges>
                   ))}
                 </BadgeContainer>
                 <BadgeContainer>
                   <SubTitle>Tipos de Atención</SubTitle>
                   <StyleLine />
                   {user.atentionType.map((type) => (
-                    <Badges variant="success">{type}</Badges>
+                    <Badges key={type} variant="success">
+                      {type}
+                    </Badges>
                   ))}
                 </BadgeContainer>
               </div>

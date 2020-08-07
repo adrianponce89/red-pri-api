@@ -54,8 +54,8 @@ const ContactInfo = styled((props) => {
           {props.phoneList &&
             props.phoneList.map((phone) => (
               <ContactText key={phone._id}>
-                <FAIcon className="fa fa-phone" light />{' '}
-                {phone.number} ({phone.attentionHours})
+                <FAIcon className="fa fa-phone" /> {phone.number} (
+                {phone.attentionHours})
               </ContactText>
             ))}
         </>
@@ -79,7 +79,7 @@ const ContactInfo = styled((props) => {
           {props.addressList &&
             props.addressList.map((address) => (
               <ContactText key={address._id} transform="capitalize">
-                <FAIcon className="fa fa-building" light />{' '}
+                <FAIcon className="fa fa-building" />{' '}
                 {address.province}, {address.locality},{' '}
                 {address.street}
               </ContactText>
