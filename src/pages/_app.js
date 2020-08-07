@@ -16,6 +16,7 @@ const theme = {
     darkRed: '#D9230F',
     mainViolet: '#d8c3d6',
     mainText: '#5d5d5d',
+    lightGrey: '#f4f4f4',
   },
   fonts: {
     rounded: '"M PLUS Rounded", Arial, Helvetica, sans-serif',
@@ -51,7 +52,6 @@ class MyApp extends React.Component {
   render() {
     const { modalStep, profile, loading } = this.state;
     const { Component, pageProps } = this.props;
-
     return (
       <ThemeProvider theme={theme}>
         <GlobalStyle />

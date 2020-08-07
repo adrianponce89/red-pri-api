@@ -6,6 +6,11 @@ import ContactInfo from './ContactInfo';
 
 const CardTitle = styled.h4`
   font-weight: bold;
+  text-transform: capitalize;
+`;
+
+const MatrTitle = styled.h6`
+  text-transform: capitalize;
 `;
 
 const ClampedContent = styled.p`
@@ -43,9 +48,9 @@ const ProfesionalCard = (props) => {
           <CardTitle>
             {props.name} {props.surname}
           </CardTitle>
-          <h6>
+          <MatrTitle>
             {props.title} - Mat. {props.matricula}
-          </h6>
+          </MatrTitle>
           <HideOnSm>
             <ClampedContent>{props.about}</ClampedContent>
           </HideOnSm>

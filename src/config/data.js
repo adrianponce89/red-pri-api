@@ -57,7 +57,12 @@ const obrasSociales = [
 ];
 
 const provincias = [
-  'Ciudad de Buenos Aires y GBA',
+  'Ciudad de Buenos Aires',
+  'GBA Zona Norte',
+  'GBA Zona Noroeste',
+  'GBA Zona Oeste',
+  'GBA Zona Sudoeste',
+  'GBA Zona Sudeste',
   'Buenos Aires',
   'Catamarca',
   'Chaco',
@@ -117,7 +122,7 @@ const provincias_large = [
 
 const localidades_map = {
   'Ciudad de Buenos Aires': [
-    'Todas las Localidades',
+    'Todos los Barrios',
     'Belgrano - Colegiales',
     'Boedo - Almagro - Congreso - San Cristóbal',
     'Caballito - Parque Chacabuco',
@@ -1635,6 +1640,7 @@ const localidades_map = {
 };
 
 const specialities = [
+  'Especialidad...',
   'ADOLESCENCIA Y PUBERTAD',
   'ALERGIA E INMUNOLOGÍA',
   'ALERGIA E INMUNOLOGÍA INFANTIL',

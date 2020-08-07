@@ -1,3 +1,4 @@
+import { useRouter } from 'next/router';
 import styled, { withTheme } from 'styled-components';
 
 const Circle = styled.div`
@@ -177,17 +178,10 @@ const range = (min, max) => {
   return arr;
 };
 
-const Background = ({ className }) => (
-  <div className={className}>
-    {range(0, 5).map((pos) => (
-      <ShapedPattern key={pos} pos={pos} />
-    ))}
-  </div>
-);
-
-export default styled(Background)`
+const BackgroundContainer = styled.div`
   z-index: -1;
-  background: ${({ theme }) => theme.colors.lightGreen};
+  background: ${({ theme, path }) =>
+    path === '' ? theme.colors.lightGreen : theme.colors.lightGrey};
   position: absolute;
   left: 0;
   right: 0;
@@ -196,3 +190,17 @@ export default styled(Background)`
   min-height: 100vh;
   overflow: hidden;
 `;
+
+const Background = () => {
+  const router = useRouter();
+  const path = router.asPath.split('/')[1];
+  return (
+    <BackgroundContainer path={path}>
+      {range(0, 5).map((pos) => (
+        <ShapedPattern key={pos} pos={pos} />
+      ))}
+    </BackgroundContainer>
+  );
+};
+
+export default Background;

@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import Router from 'next/router';
 import Form from 'react-bootstrap/Form';
 import Col from 'react-bootstrap/Col';
 import { LoadableButton as Button } from '../Loadable';
@@ -10,9 +11,23 @@ const SearchByName = () => {
     'Ciudad de Buenos Aires y GBA',
   );
   const [social, setSocial] = useState('Particular');
+  const [loading, setLoading] = useState(false);
+
+  async function handleSubmit(event) {
+    event.preventDefault();
+    setLoading(true);
+    const slug =
+      '/busqueda/' +
+      query.toLowerCase().replace(/ /g, '-') +
+      '/provincia-' +
+      provincia.toLowerCase().replace(/ /g, '-') +
+      '/obrasocial-' +
+      social.toLowerCase().replace(/ /g, '-');
+    Router.push(slug);
+  }
 
   return (
-    <Form>
+    <Form onSubmit={handleSubmit}>
       <Form.Row>
         <Form.Group as={Col} sm={4} controlId="profesionales">
           <Form.Label>Buscar</Form.Label>
@@ -59,7 +74,8 @@ const SearchByName = () => {
           variant="primary"
           className="btn-lg"
           type="submit"
-          disabled={query.length === 0}
+          loading={loading}
+          disabled={query.length === 0 || loading}
         >
           Buscar
         </Button>

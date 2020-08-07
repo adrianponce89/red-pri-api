@@ -38,25 +38,57 @@ module.exports = {
 
     if (req.user.role === 'admin' || req.user._id.equals(userId)) {
       const newUser = {};
-      if (req.body.email) newUser['email'] = req.body.email;
-      if (req.body.password) newUser['password'] = req.body.password;
+      if (req.body.email)
+        newUser['email'] = req.body.email.toLowerCase();
+      if (req.body.password)
+        newUser['password'] = req.user.encryptPasswordencryptPassword(
+          req.body.password,
+        );
       if (req.body.role) newUser['role'] = req.body.role;
       if (req.body.picUrl) newUser['picUrl'] = req.body.picUrl;
-      if (req.body.name) newUser['name'] = req.body.name;
-      if (req.body.surname) newUser['surname'] = req.body.surname;
-      if (req.body.username) newUser['username'] = req.body.username;
+      if (req.body.name)
+        newUser['name'] = req.body.name
+          .toLowerCase()
+          .replace(/-/g, ' ');
+      if (req.body.surname)
+        newUser['surname'] = req.body.surname
+          .toLowerCase()
+          .replace(/-/g, ' ');
+      const name = req.body.name || req.user.name;
+      const surname = req.body.surname || req.user.surname;
+      newUser[
+        'fullName'
+      ] = `${name} ${surname}`.toLowerCase().replace(/-/g, ' ');
+      if (req.body.username)
+        newUser['username'] = req.body.username
+          .toLowerCase()
+          .replace(/-/g, ' ');
       if (req.body.matricula)
         newUser['matricula'] = req.body.matricula;
-      if (req.body.title) newUser['title'] = req.body.title;
+      if (req.body.title)
+        newUser['title'] = req.body.title
+          .toLowerCase()
+          .replace(/-/g, ' ');
       if (req.body.about) newUser['about'] = req.body.about;
       if (req.body.specialities)
-        newUser['specialities'] = req.body.specialities;
-      if (req.body.themes) newUser['themes'] = req.body.themes;
+        newUser['specialities'] = req.body.specialities.map((st) =>
+          st.toLowerCase().replace(/-/g, ' '),
+        );
+      if (req.body.themes)
+        newUser['themes'] = req.body.themes.map((st) =>
+          st.toLowerCase().replace(/-/g, ' '),
+        );
       if (req.body.atentionType)
-        newUser['atentionType'] = req.body.atentionType;
+        newUser['atentionType'] = req.body.atentionType.map((st) =>
+          st.toLowerCase().replace(/-/g, ' '),
+        );
       if (req.body.practice) newUser['practice'] = req.body.practice;
       if (req.body.addressList)
-        newUser['addressList'] = req.body.addressList;
+        newUser['addressList'] = req.body.addressList.map((ob) => ({
+          ...ob,
+          province: ob.province.toLowerCase().replace(/-/g, ' '),
+          locality: ob.locality.toLowerCase().replace(/-/g, ' '),
+        }));
       if (req.body.phoneList)
         newUser['phoneList'] = req.body.phoneList;
 

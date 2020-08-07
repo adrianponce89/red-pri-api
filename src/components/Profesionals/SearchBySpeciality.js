@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import Router from 'next/router';
 import Form from 'react-bootstrap/Form';
 import Col from 'react-bootstrap/Col';
 import { LoadableButton as Button } from '../Loadable';
@@ -11,15 +12,29 @@ import {
 
 const SearchBySpeciality = () => {
   const [specility, setSpecility] = useState('');
-  const [provincia, setProvincia] = useState(
-    'Ciudad de Buenos Aires',
-  );
-  const [localidad, setLocalidad] = useState('Todas las Localidades');
-
+  const [provincia, setProvincia] = useState('Buenos Aires');
+  const [localidad, setLocalidad] = useState('');
   const [social, setSocial] = useState('Particular');
+  const [loading, setLoading] = useState(false);
+
+  async function handleSubmit(event) {
+    event.preventDefault();
+    setLoading(true);
+    const slug =
+      '/busqueda/' +
+      specility.toLowerCase().replace(/ /g, '-') +
+      '/provincia-' +
+      provincia.toLowerCase().replace(/ /g, '-') +
+      (localidad.length > 0
+        ? '/localidad-' + localidad.toLowerCase().replace(/ /g, '-')
+        : '') +
+      '/obrasocial-' +
+      social.toLowerCase().replace(/ /g, '-');
+    Router.push(slug);
+  }
 
   return (
-    <Form>
+    <Form onSubmit={handleSubmit}>
       <Form.Row>
         <Form.Group as={Col} sm={3} controlId="especialidad">
           <Form.Label>Especialidad</Form.Label>
@@ -28,8 +43,10 @@ const SearchBySpeciality = () => {
             value={specility}
             onChange={(e) => setSpecility(e.target.value)}
           >
-            {specialities.map((name) => (
-              <option key={name}>{name}</option>
+            {specialities.map((name, i) => (
+              <option key={name} value={i === 0 ? '' : name}>
+                {name}
+              </option>
             ))}
           </Form.Control>
         </Form.Group>
@@ -42,7 +59,9 @@ const SearchBySpeciality = () => {
             onChange={(e) => setProvincia(e.target.value)}
           >
             {provincias_large.map((name) => (
-              <option key={name}>{name}</option>
+              <option key={name} value={name}>
+                {name}
+              </option>
             ))}
           </Form.Control>
         </Form.Group>
@@ -58,8 +77,10 @@ const SearchBySpeciality = () => {
             value={localidad}
             onChange={(e) => setLocalidad(e.target.value)}
           >
-            {localidades_map[provincia].map((name) => (
-              <option key={name}>{name}</option>
+            {localidades_map[provincia].map((name, i) => (
+              <option key={name} value={i === 0 ? '' : name}>
+                {name}
+              </option>
             ))}
           </Form.Control>
         </Form.Group>
@@ -83,7 +104,8 @@ const SearchBySpeciality = () => {
           variant="primary"
           className="btn-lg"
           type="submit"
-          disabled={specility.length === 0}
+          loading={loading}
+          disabled={specility.length === 0 || loading}
         >
           Buscar
         </Button>
