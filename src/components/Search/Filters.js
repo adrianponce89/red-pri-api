@@ -9,8 +9,8 @@ const FilterContainer = styled.h5`
 `;
 
 const StyledBadge = styled(Badge)`
-  margin: '0.2em';
-  padding: '0.4em';
+  margin: 0.2em;
+  padding: 0.4em;
 `;
 
 const Filters = ({ filters }) => {
@@ -42,7 +42,7 @@ const Filters = ({ filters }) => {
     <FilterContainer>
       {flatFilters.map((filter) => (
         <Link
-          key={filter.id}
+          key={filter._id}
           href={getSlug(filter.type, filter.name)}
         >
           <a>
