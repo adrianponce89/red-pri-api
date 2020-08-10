@@ -4,10 +4,13 @@ import Button from 'react-bootstrap/Button';
 
 const JoinMessage = styled.h2`
   width: 65%;
-  font-size: 35px;
+  font-size: 30px;
   color: white;
   text-shadow: 0px 0px 5px black;
   text-align: end;
+  @media (max-width: 576px) {
+    width: 100%;
+  }
 `;
 
 const JoinButton = styled(Button)`
@@ -17,6 +20,7 @@ const JoinButton = styled(Button)`
 `;
 
 const JoinJustify = styled.div`
+  padding: 45px;
   display: flex;
   flex-direction: column;
   align-items: flex-end;
@@ -24,7 +28,6 @@ const JoinJustify = styled.div`
 
 const JoinBackgound = styled(Container)`
 margin: 30px 0 30px;
-height: 257px;
 background:  linear-gradient(
       rgba(20, 20, 20, 0.75), 
       rgba(20, 20, 20, 0.65)

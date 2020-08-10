@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 import Landing from '../components/Landing';
 import Contact from '../components/Contact';
+import Joinuns from '../components/Join';
 
 const Title = styled.h1`
   font-size: 30px;
@@ -52,6 +53,7 @@ const Home = () => (
         />
       </LandingContainer>
     </LandingBackground>
+    <Joinuns />
     <Contact />
   </>
 );
