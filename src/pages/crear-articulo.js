@@ -29,7 +29,7 @@ const CrearArticulo = () => {
         title,
         content,
         category,
-        tags,
+        tags: tags.split(',').map((v) => v.trim()),
       }),
     });
 

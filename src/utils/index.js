@@ -1,33 +1,3 @@
-const User = require('../models/user');
-const Article = require('../models/article');
-
-const getUsernameUidFor = async (email) => {
-  const separatorIndex = email.indexOf('@');
-  let leftEmail = email.slice(0, separatorIndex);
-  let username = leftEmail;
-  let user = await User.findOne({ username });
-  let index = 1;
-  while (!!user) {
-    username = `${leftEmail}-${index}`;
-    user = await User.findOne({ username });
-    index++;
-  }
-  return username;
-};
-
-const getArticleUidFor = async (title) => {
-  let mainSlug = title.replace(/ /g, '-').toLowerCase();
-  let uid = mainSlug;
-  let article = await Article.findOne({ uid });
-  let index = 1;
-  while (!!article) {
-    uid = `${mainSlug}-${index}`;
-    article = await Article.findOne({ uid });
-    index++;
-  }
-  return uid;
-};
-
 const keyMap = {
   ['titulo']: 'title',
   ['especialidades']: 'specialities',
@@ -144,8 +114,6 @@ const getFilters = (query) => {
 
 module.exports = {
   hyphenToSpace,
-  getUsernameUidFor,
-  getArticleUidFor,
   getKeysFromSlugParams,
   getAvailableFilters,
   getFilters,

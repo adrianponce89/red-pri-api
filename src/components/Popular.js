@@ -39,7 +39,7 @@ const Popular = ({ className, articles }) => (
           <div>
             <Link
               href={`/articulos/[id]`}
-              as={`/articulos/${article._id}`}
+              as={`/articulos/${article.uid}`}
             >
               <a>
                 <RankTitle>{article.title}</RankTitle>

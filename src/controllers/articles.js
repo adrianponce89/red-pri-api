@@ -2,7 +2,6 @@ const textVersion = require('textversionjs');
 const sanitizeHtml = require('sanitize-html');
 const Article = require('../models/article');
 const { sanitizeConfig } = require('../config');
-const { getArticleUidFor } = require('../utils');
 
 module.exports = {
   index: async (req, res, next) => {
@@ -21,7 +20,7 @@ module.exports = {
   newArticle: async (req, res, next) => {
     const sanitized = {
       title: req.body.title,
-      uid: await getArticleUidFor(req.body.title),
+      uid: await Article.getArticleUidFor(req.body.title),
       content: sanitizeHtml(req.body.content, sanitizeConfig),
       category: req.body.category,
       tags: req.body.tags,
@@ -53,7 +52,9 @@ module.exports = {
     const newArticle = {};
     if (req.body.title) {
       newArticle['title'] = req.body.title;
-      newArticle['uid'] = await getArticleUidFor(req.body.title);
+      newArticle['uid'] = await Article.getArticleUidFor(
+        req.body.title,
+      );
     }
     if (req.body.content) newArticle['content'] = req.body.content;
 

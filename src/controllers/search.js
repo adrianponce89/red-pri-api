@@ -3,7 +3,6 @@ const { getFilters, getAvailableFilters } = require('../utils');
 
 module.exports = {
   index: async (req, res, next) => {
-    const User = require('../models/user');
     const { query, params } = req;
     const { text } = params;
     const { sort, ...otherQuery } = query;

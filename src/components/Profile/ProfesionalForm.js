@@ -21,7 +21,7 @@ const ProfesionalForm = (props) => {
   const [title, setTitle] = useState(profile.title);
   const [about, setAbout] = useState(profile.about);
   const [specialities, setSpecialities] = useState(
-    profile.specialities,
+    profile.specialities.join(),
   );
   const [themes, setThemes] = useState(profile.themes);
   const [atentionType, setAtentionType] = useState(
@@ -45,9 +45,9 @@ const ProfesionalForm = (props) => {
       matricula,
       title,
       about,
-      specialities,
-      themes,
-      atentionType,
+      specialities: specialities.split(',').map((v) => v.trim()),
+      themes: themes.split(',').map((v) => v.trim()),
+      atentionType: atentionType.split(',').map((v) => v.trim()),
       practice,
       addressList,
       phoneList,
@@ -65,7 +65,7 @@ const ProfesionalForm = (props) => {
     if (res.status === 200) {
       const resJson = await res.json();
       props.setProfile(resJson.user);
-      Router.push(`/perfil/${props.profile._id}`);
+      Router.push(`/perfil/${resJson.user.username}`);
     } else {
       setLoading(false);
     }

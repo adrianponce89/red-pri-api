@@ -67,5 +67,19 @@ userSchema.methods.secured = function () {
   };
 };
 
+userSchema.statics.getUsernameUidFor = async (email) => {
+  const separatorIndex = email.indexOf('@');
+  let leftEmail = email.slice(0, separatorIndex);
+  let username = leftEmail;
+  let user = await User.findOne({ username });
+  let index = 1;
+  while (!!user) {
+    username = `${leftEmail}-${index}`;
+    user = await User.findOne({ username });
+    index++;
+  }
+  return username;
+};
+
 const User = mongoose.model('user', userSchema);
 module.exports = User;

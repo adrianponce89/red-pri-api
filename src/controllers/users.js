@@ -2,7 +2,6 @@ const textVersion = require('textversionjs');
 const sanitizeHtml = require('sanitize-html');
 const User = require('../models/user');
 const { sanitizeConfig } = require('../config');
-const { getUsernameUidFor } = require('../utils');
 
 module.exports = {
   index: async (req, res, next) => {
@@ -24,7 +23,7 @@ module.exports = {
     const newUser = await new User();
     newUser.email = email;
     newUser.password = newUser.encryptPassword(password);
-    newUser.username = await getUsernameUidFor(email);
+    newUser.username = await User.getUsernameUidFor(email);
 
     const user = await newUser.save();
     res.status(201).json(user.secured());
