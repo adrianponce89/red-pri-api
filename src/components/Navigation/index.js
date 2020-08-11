@@ -65,7 +65,9 @@ const Navigation = (props) => {
               title={props.profile.email}
               id="basic-nav-dropdown"
             >
-              <NavDropdown.Item href={`/perfil/${props.profile._id}`}>
+              <NavDropdown.Item
+                href={`/perfil/${props.profile.username}`}
+              >
                 Perfil
               </NavDropdown.Item>
               <NavDropdown.Divider />

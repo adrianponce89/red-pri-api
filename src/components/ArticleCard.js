@@ -32,7 +32,7 @@ const ClampedContent = styled.p`
 const ArticleCard = (props) => {
   return (
     <Card className={`d-flex flex-sm-row ${props.className}`}>
-      <Link href={`/articulos/${props._id}`}>
+      <Link href={`/articulos/${props.uid}`}>
         <a>
           <CenteredImage src="/imgs/ph_bebe_1.jpeg" />
         </a>
@@ -43,12 +43,12 @@ const ArticleCard = (props) => {
             <a>LACTANCIA MATERNA</a>
           </Card.Text>
         </Link>
-        <Link href={`/articulos/${props._id}`}>
+        <Link href={`/articulos/${props.uid}`}>
           <a>
             <CardTitle>{props.title}</CardTitle>
           </a>
         </Link>
-        <Link href={`/articulos/${props._id}`}>
+        <Link href={`/articulos/${props.uid}`}>
           <ClampedContent>{props.content}</ClampedContent>
         </Link>
         <Card.Text>

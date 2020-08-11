@@ -152,8 +152,8 @@ export async function getStaticPaths() {
   const users = await res.json();
 
   // Get the paths we want to pre-render based on users
-  const paths = users.map((post) => ({
-    params: { id: post._id },
+  const paths = users.map(({ username }) => ({
+    params: { username },
   }));
 
   // We'll pre-render only these paths at build time.
@@ -165,7 +165,9 @@ export async function getStaticPaths() {
 export async function getStaticProps({ params }) {
   // params contains the user `id`.
   // If the route is like /users/1, then params.id is 1
-  const resUser = await fetch(`${server}/api/users/${params.id}`);
+  const resUser = await fetch(
+    `${server}/api/users/${params.username}`,
+  );
   const user = await resUser.json();
 
   // Pass user data to the page via props

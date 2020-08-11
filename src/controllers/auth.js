@@ -1,6 +1,7 @@
 const { to } = require('await-to-js');
 const User = require('../models/user');
 const login = require('../auth/strategies/jwt').login;
+const { getUsernameUidFor } = require('../utils');
 
 module.exports = {
   signup: async (req, res) => {
@@ -36,6 +37,7 @@ module.exports = {
         // set the user's local credentials
         newUser.email = email;
         newUser.password = newUser.encryptPassword(password);
+        newUser.username = await getUsernameUidFor(email);
 
         // save the user
         await newUser.save();
