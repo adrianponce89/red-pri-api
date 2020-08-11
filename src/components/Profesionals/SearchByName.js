@@ -17,7 +17,7 @@ const SearchByName = () => {
     event.preventDefault();
     setLoading(true);
     const slug =
-      '/busqueda/' +
+      '/busqueda/texto-' +
       query.toLowerCase().replace(/ /g, '-') +
       '/provincia-' +
       provincia.toLowerCase().replace(/ /g, '-') +

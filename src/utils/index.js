@@ -1,4 +1,5 @@
 const keyMap = {
+  ['texto']: 'text',
   ['titulo']: 'title',
   ['especialidades']: 'specialities',
   ['temas']: 'themes',
@@ -10,6 +11,7 @@ const keyMap = {
 };
 
 const nameMap = {
+  ['text']: 'texto',
   ['title']: 'titulo',
   ['specialities']: 'especialidades',
   ['themes']: 'temas',

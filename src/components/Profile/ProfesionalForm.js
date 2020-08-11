@@ -23,9 +23,9 @@ const ProfesionalForm = (props) => {
   const [specialities, setSpecialities] = useState(
     profile.specialities.join(),
   );
-  const [themes, setThemes] = useState(profile.themes);
+  const [themes, setThemes] = useState(profile.themes.join());
   const [atentionType, setAtentionType] = useState(
-    profile.atentionType || 'Particular',
+    profile.atentionType.join(),
   );
   const [practice, setPractice] = useState(profile.practice);
   const [addressList, setAddressList] = useState(

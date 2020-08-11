@@ -20,7 +20,7 @@ const SearchByLocation = () => {
     event.preventDefault();
     setLoading(true);
     const slug =
-      '/busqueda/' +
+      '/busqueda/especialidades-' +
       specility.toLowerCase().replace(/ /g, '-') +
       '/obrasocial-' +
       social.toLowerCase().replace(/ /g, '-') +
