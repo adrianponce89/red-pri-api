@@ -43,7 +43,7 @@ const BUTTON_TEXT = 'Unirse a la red';
 const MESSAGE_TEXT =
   '¿Sos profesional y querés formar parte de nuestra comunidad?';
 
-const Joinus = (props) => {
+const JoinUs = (props) => {
   return (
     <JoinBackgound src="/imgs/ph_bebe_1.jpeg">
       <JoinJustify>
@@ -56,7 +56,7 @@ const Joinus = (props) => {
   );
 };
 
-export default styled(Joinus)`
+export default styled(JoinUs)`
   margin-bottom: 1em;
   padding: 0;
   overflow: hidden;
