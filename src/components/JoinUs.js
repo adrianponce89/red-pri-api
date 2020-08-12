@@ -27,7 +27,6 @@ const JoinJustify = styled.div`
 `;
 
 const JoinBackgound = styled(Container)`
-margin: 30px 0 30px;
 background:  linear-gradient(
       rgba(20, 20, 20, 0.75), 
       rgba(20, 20, 20, 0.65)

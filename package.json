@@ -45,6 +45,7 @@
     "react": "^16.13.1",
     "react-bootstrap": "^1.2.0",
     "react-dom": "^16.13.1",
+    "react-share": "^4.2.1",
     "sanitize-html": "^1.27.1",
     "styled-components": "^5.1.1",
     "textversionjs": "^1.1.3",

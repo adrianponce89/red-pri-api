@@ -2,6 +2,8 @@ import styled from 'styled-components';
 import Landing from '../components/Landing';
 import Contact from '../components/Contact';
 import JoinUs from '../components/JoinUs';
+import ShareSocialNetworks from '../components/ShareSocialNetworks';
+import { server } from '../config';
 
 const Title = styled.h1`
   font-size: 30px;
@@ -27,11 +29,14 @@ const LandingBackground = styled.div`
   background-color: white;
 `;
 
+const ShareSocialNetwork = styled(ShareSocialNetworks)`
+  width: 150px;
+  position: sticky;
+  bottom: 20px;
+`;
+
 const Home = () => (
   <>
-    <ContainTitle>
-      <Title>Inicio</Title>
-    </ContainTitle>
     <LandingBackground>
       <LandingContainer>
         <Landing
@@ -55,6 +60,7 @@ const Home = () => (
     </LandingBackground>
     <JoinUs />
     <Contact />
+    <ShareSocialNetwork url={server} />
   </>
 );
 
