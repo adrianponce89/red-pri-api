@@ -15,21 +15,19 @@ const ShareContainer = styled.div`
   justify-content: space-around;
 `;
 
-const ShareSocialNetworks = (props) => {
-  return (
-    <ShareContainer className={props.className}>
-      <FacebookShareButton url={props.url}>
-        <FacebookIcon size={ICON_SIZE} round />
-      </FacebookShareButton>
-      <TwitterShareButton url={props.url}>
-        <TwitterIcon size={ICON_SIZE} round />
-      </TwitterShareButton>
-      <WhatsappShareButton url={props.url}>
-        <WhatsappIcon size={ICON_SIZE} round />
-      </WhatsappShareButton>
-    </ShareContainer>
-  );
-};
+const ShareSocialNetworks = (props) => (
+  <ShareContainer className={props.className}>
+    <FacebookShareButton url={props.url}>
+      <FacebookIcon size={ICON_SIZE} round />
+    </FacebookShareButton>
+    <TwitterShareButton url={props.url}>
+      <TwitterIcon size={ICON_SIZE} round />
+    </TwitterShareButton>
+    <WhatsappShareButton url={props.url}>
+      <WhatsappIcon size={ICON_SIZE} round />
+    </WhatsappShareButton>
+  </ShareContainer>
+);
 
 export default styled(ShareSocialNetworks)`
   margin-bottom: 1em;
