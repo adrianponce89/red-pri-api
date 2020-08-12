@@ -1,18 +1,25 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import fetch from 'isomorphic-fetch';
-import Container from 'react-bootstrap/Container';
+import Button from 'react-bootstrap/Button';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Card from 'react-bootstrap/Card';
 import { server } from '../../config';
+import FAIcon from '../../components/FAIcon';
 import Popular from '../../components/Popular';
 
 const CenterTitle = styled.h1`
   text-align: center;
 `;
 
-const Articulo = ({ className, article, articles }) => {
+const FixedButton = styled(Button)`
+  position: absolute;
+  right: 1em;
+  top: 1em;
+`;
+
+const Articulo = ({ className, article, articles, profile }) => {
   return (
     <div className={className}>
       <Row>
@@ -25,6 +32,20 @@ const Articulo = ({ className, article, articles }) => {
               <div
                 dangerouslySetInnerHTML={{ __html: article.content }}
               />
+              {profile && profile._id === article.author._id ? (
+                <FixedButton
+                  variant="success"
+                  href={`/editar-articulo/${article.uid}`}
+                >
+                  <FAIcon
+                    className="fa fa-pencil-square-o"
+                    style={{ verticalAlign: 'middle' }}
+                  />{' '}
+                  Editar
+                </FixedButton>
+              ) : (
+                ''
+              )}
             </Card.Body>
           </Card>
         </Col>

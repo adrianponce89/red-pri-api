@@ -12,7 +12,7 @@ import Popular from '../../components/Popular';
 import NavPills from '../../components/NavPills';
 import FAIcon from '../../components/FAIcon';
 
-const Articulos = ({ articles }) => (
+const Articulos = ({ articles, profile }) => (
   <Container>
     <Row>
       <Col md="4" className="mb-2">
@@ -33,17 +33,22 @@ const Articulos = ({ articles }) => (
               },
             ]}
           />
-          <Button
-            variant="success"
-            href="/crear-articulo"
-            style={{ paddingTop: '1em' }}
-          >
-            <FAIcon
-              className="fa fa-pencil-square-o"
-              style={{ verticalAlign: 'middle' }}
-            />{' '}
-            Crear articulo
-          </Button>
+          {profile &&
+          (profile.role === 'author' || profile.role === 'admin') ? (
+            <Button
+              variant="success"
+              href="/crear-articulo"
+              style={{ paddingTop: '1em' }}
+            >
+              <FAIcon
+                className="fa fa-pencil-square-o"
+                style={{ verticalAlign: 'middle' }}
+              />{' '}
+              Crear articulo
+            </Button>
+          ) : (
+            ''
+          )}
         </div>
         <div>
           {articles.map((article) => (
