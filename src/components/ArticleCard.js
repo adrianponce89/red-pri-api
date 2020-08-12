@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 import Card from 'react-bootstrap/Card';
 import Link from 'next/link';
+import { timeSince } from '../utils';
 
 const CenteredImage = styled.div`
   width: 160px;
@@ -29,34 +30,40 @@ const ClampedContent = styled.p`
   cursor: pointer;
 `;
 
+const AuthorName = styled.cite`
+  display: block;
+  text-transform: capitalize;
+`;
+
 const ArticleCard = (props) => {
   return (
     <Card className={`d-flex flex-sm-row ${props.className}`}>
-      <Link href={`/articulos/${props._id}`}>
+      <Link href={`/articulos/${props.uid}`}>
         <a>
           <CenteredImage src="/imgs/ph_bebe_1.jpeg" />
         </a>
       </Link>
       <div style={{ zIndex: 1, padding: '1em' }}>
-        <Link href="/buscar?categoria=Lactancia+materna">
+        <Link
+          href={`/busqueda/temas-${props.category.toLowerCase()}`}
+        >
           <Card.Text>
-            <a>LACTANCIA MATERNA</a>
+            <a>{props.category.toUpperCase()}</a>
           </Card.Text>
         </Link>
-        <Link href={`/articulos/${props._id}`}>
+        <Link href={`/articulos/${props.uid}`}>
           <a>
             <CardTitle>{props.title}</CardTitle>
           </a>
         </Link>
-        <Link href={`/articulos/${props._id}`}>
+        <Link href={`/articulos/${props.uid}`}>
           <ClampedContent>{props.content}</ClampedContent>
         </Link>
         <Card.Text>
-          <p>
-            <cite>Nombre Autor</cite>
-          </p>
+          <AuthorName>{props.author.fullName}</AuthorName>
+
           <small className="text-muted">
-            Last updated 3 mins ago
+            Actualizado hace {timeSince(new Date(props.updatedAt))}
           </small>
         </Card.Text>
       </div>

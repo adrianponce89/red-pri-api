@@ -111,13 +111,11 @@ const Busqueda = ({ results, filters, paging, availableFilters }) => {
 };
 
 export async function getServerSideProps(context) {
-  const [mainStr, ...paramsStr] = context.query.params;
-  const main = hyphenToSpace(mainStr);
-  const params = getKeysFromSlugParams(paramsStr);
+  const params = getKeysFromSlugParams(context.query.params);
   const qs = Object.keys(params)
     .map((key) => `${key}=${params[key]}`)
     .join('&');
-  const res = await fetch(`${server}/api/search/${main}?${qs}`);
+  const res = await fetch(`${server}/api/search?${qs}`);
   const {
     results,
     paging,

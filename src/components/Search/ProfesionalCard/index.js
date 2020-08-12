@@ -39,7 +39,7 @@ const ProfesionalCard = (props) => {
   return (
     <Card className={`d-flex ${props.className}`}>
       <div className="d-flex">
-        <Link href={`/perfil/${props._id}`}>
+        <Link href={`/perfil/${props.username}`}>
           <a>
             <CenteredImage src="/imgs/ph_bebe_1.jpeg" />
           </a>

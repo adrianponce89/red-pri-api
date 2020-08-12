@@ -57,7 +57,7 @@ const SearchBar = (props) => {
   async function handleSubmit(event) {
     event.preventDefault();
     const slug =
-      '/busqueda/' + query.toLowerCase().replace(/ /g, '-');
+      '/busqueda/texto-' + query.toLowerCase().replace(/ /g, '-');
     Router.push(slug);
   }
   return (

@@ -21,7 +21,7 @@ const SearchBySpeciality = () => {
     event.preventDefault();
     setLoading(true);
     const slug =
-      '/busqueda/' +
+      '/busqueda/especialidades-' +
       specility.toLowerCase().replace(/ /g, '-') +
       '/provincia-' +
       provincia.toLowerCase().replace(/ /g, '-') +

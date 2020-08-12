@@ -36,6 +36,7 @@ module.exports = {
         // set the user's local credentials
         newUser.email = email;
         newUser.password = newUser.encryptPassword(password);
+        newUser.username = await User.getUsernameUidFor(email);
 
         // save the user
         await newUser.save();

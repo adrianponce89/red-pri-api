@@ -1,17 +1,21 @@
 const textVersion = require('textversionjs');
 const sanitizeHtml = require('sanitize-html');
 const Article = require('../models/article');
+const User = require('../models/user');
 const { sanitizeConfig } = require('../config');
 
 module.exports = {
   index: async (req, res, next) => {
-    const articles = await Article.find({});
+    const articles = await Article.find({}).populate('author');
     const plainArticles = articles.map((article) => ({
       _id: article._id,
       title: article.title,
+      uid: article.uid,
       tags: article.tags,
       category: article.category,
+      author: article.author,
       content: textVersion(article.content).substr(0, 500),
+      updatedAt: article.updatedAt,
     }));
     res.status(200).json(plainArticles);
   },
@@ -19,6 +23,7 @@ module.exports = {
   newArticle: async (req, res, next) => {
     const sanitized = {
       title: req.body.title,
+      uid: await Article.getArticleUidFor(req.body.title),
       content: sanitizeHtml(req.body.content, sanitizeConfig),
       category: req.body.category,
       tags: req.body.tags,
@@ -31,7 +36,9 @@ module.exports = {
 
   getArticle: async (req, res, next) => {
     const { articleId } = req.params;
-    const article = await Article.findById(articleId);
+    const article = await Article.findOne({
+      uid: articleId,
+    }).populate('author');
     res.status(200).json(article);
   },
 
@@ -48,7 +55,12 @@ module.exports = {
   updateArticle: async (req, res, next) => {
     const { articleId } = req.params;
     const newArticle = {};
-    if (req.body.title) newArticle['title'] = req.body.title;
+    if (req.body.title) {
+      newArticle['title'] = req.body.title;
+      newArticle['uid'] = await Article.getArticleUidFor(
+        req.body.title,
+      );
+    }
     if (req.body.content) newArticle['content'] = req.body.content;
 
     const oldArticle = await Article.findByIdAndUpdate(articleId, {

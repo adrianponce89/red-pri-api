@@ -12,9 +12,18 @@ module.exports = {
 
   newUser: async (req, res, next) => {
     const { email, password } = req.body;
+
+    const oldUser = await User.findById({ email });
+    if (oldUser) {
+      return res
+        .status(500)
+        .json({ success: false, error: 'Email is already taken' });
+    }
+
     const newUser = await new User();
     newUser.email = email;
     newUser.password = newUser.encryptPassword(password);
+    newUser.username = await User.getUsernameUidFor(email);
 
     const user = await newUser.save();
     res.status(201).json(user.secured());
@@ -22,7 +31,7 @@ module.exports = {
 
   getUser: async (req, res, next) => {
     const { userId } = req.params;
-    const user = await User.findById(userId);
+    let user = await User.findOne({ username: userId });
     res.status(200).json(user.secured());
   },
 
@@ -41,7 +50,7 @@ module.exports = {
       if (req.body.email)
         newUser['email'] = req.body.email.toLowerCase();
       if (req.body.password)
-        newUser['password'] = req.user.encryptPasswordencryptPassword(
+        newUser['password'] = req.user.encryptPassword(
           req.body.password,
         );
       if (req.body.role) newUser['role'] = req.body.role;
@@ -59,10 +68,19 @@ module.exports = {
       newUser[
         'fullName'
       ] = `${name} ${surname}`.toLowerCase().replace(/-/g, ' ');
-      if (req.body.username)
-        newUser['username'] = req.body.username
+      if (req.body.username) {
+        const username = req.body.username
           .toLowerCase()
           .replace(/-/g, ' ');
+        newUser['username'] = username;
+        const oldUser = await User.findOne({ username });
+        if (oldUser && !req.user._id.equals(oldUser._id)) {
+          return res.status(500).json({
+            success: false,
+            error: 'Username is already taken',
+          });
+        }
+      }
       if (req.body.matricula)
         newUser['matricula'] = req.body.matricula;
       if (req.body.title)
@@ -107,7 +125,7 @@ module.exports = {
 
   removeUser: async (req, res, next) => {
     const { userId } = req.params;
-    const user = await User.deleteOne({ _id: userId });
-    res.status(200).json({ user: user.secured(), success: true });
+    await User.deleteOne({ _id: userId });
+    res.status(200).json({ success: true });
   },
 };

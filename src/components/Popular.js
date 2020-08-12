@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 import Card from 'react-bootstrap/Card';
 import Link from 'next/link';
+import { timeSince } from '../utils';
 
 const RankNumber = styled.h2`
   color: rgba(0, 0, 0, 0.15);
@@ -27,6 +28,11 @@ const HeaderTitle = styled.h4`
   font-weight: bold;
 `;
 
+const AuthorName = styled.cite`
+  display: block;
+  text-transform: capitalize;
+`;
+
 const Popular = ({ className, articles }) => (
   <Card className={className}>
     <Card.Header>
@@ -39,18 +45,20 @@ const Popular = ({ className, articles }) => (
           <div>
             <Link
               href={`/articulos/[id]`}
-              as={`/articulos/${article._id}`}
+              as={`/articulos/${article.uid}`}
             >
               <a>
                 <RankTitle>{article.title}</RankTitle>
               </a>
             </Link>
-            <p>
-              <cite>Nombre Autor</cite>
-            </p>
-            <small className="text-muted">
-              15 de Mayo <span>Lectura 8 min</span>
-            </small>
+            <Card.Text>
+              <AuthorName>{article.author.fullName}</AuthorName>
+
+              <small className="text-muted">
+                Actualizado hace{' '}
+                {timeSince(new Date(article.updatedAt))}
+              </small>
+            </Card.Text>
           </div>
         </RankedArticle>
       ))}

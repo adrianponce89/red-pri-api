@@ -13,6 +13,7 @@ router
   .route('/:articleId')
   .get(ArticleController.getArticle)
   .put(restrictAccess('author'), ArticleController.replaceArticle)
-  .patch(restrictAccess('author'), ArticleController.updateArticle);
+  .patch(restrictAccess('author'), ArticleController.updateArticle)
+  .delete(restrictAccess('admin'), ArticleController.removeArticle);
 
 module.exports = router;

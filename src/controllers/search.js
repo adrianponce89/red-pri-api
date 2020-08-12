@@ -3,27 +3,31 @@ const { getFilters, getAvailableFilters } = require('../utils');
 
 module.exports = {
   index: async (req, res, next) => {
-    const User = require('../models/user');
-    const { query, params } = req;
-    const { text } = params;
-    const { sort, ...otherQuery } = query;
-    const splitText = text.split(' ');
+    const { text, ...otherQuery } = req.query;
+    let query = otherQuery;
+    if (text) {
+      const splitText = text.split(' ');
+      query = {
+        ...query,
+        $or: [
+          { title: { $in: splitText } },
+          { fullName: { $regex: text } },
+          { specialities: { $in: splitText } },
+          { themes: { $in: splitText } },
+          { atentionType: { $in: splitText } },
+          { 'addressList.province': { $in: splitText } },
+          { 'addressList.locality': { $in: splitText } },
+          { 'phoneList.number': { $in: splitText } },
+          { about: { $regex: text } },
+          { practice: { $regex: text } },
+        ],
+      };
+    }
+
     const users = await User.find({
-      ...otherQuery,
-      $or: [
-        { title: { $in: splitText } },
-        { fullName: { $regex: text } },
-        { specialities: { $in: splitText } },
-        { themes: { $in: splitText } },
-        { atentionType: { $in: splitText } },
-        { 'addressList.province': { $in: splitText } },
-        { 'addressList.locality': { $in: splitText } },
-        { 'phoneList.number': { $in: splitText } },
-        { about: { $regex: text } },
-        { practice: { $regex: text } },
-      ],
+      ...query,
     });
-    const filters = getFilters(otherQuery);
+    const filters = getFilters(req.query);
     const availableFilters = getAvailableFilters(users);
     const jsonRes = {
       results: users,
@@ -33,7 +37,7 @@ module.exports = {
         limit: 0,
         primary_results: Math.min(users.length, 100),
       },
-      sort: { _id: sort, name: sort },
+      sort: { _id: 'time_desc', name: 'Mas Reciente' },
       availableSorts: [
         { _id: 'relevance', name: 'Relevancia' },
         { _id: 'time_desc', name: 'Mas Reciente' },

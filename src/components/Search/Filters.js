@@ -25,12 +25,10 @@ const Filters = ({ filters }) => {
   );
 
   const getSlug = (type, name) => {
-    const query = router.asPath.split('/')[2];
     const newFilters = flatFilters.filter(
       (f) => !(f.type === type && f.name === name),
     );
-
-    const slug = `/busqueda/${query}${newFilters.reduce(
+    const slug = `/busqueda${newFilters.reduce(
       (acc, val) =>
         `${acc}/${val.type}-${val.name.replace(/ /g, '-')}`,
       '',
