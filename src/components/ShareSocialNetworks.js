@@ -16,16 +16,15 @@ const ShareContainer = styled.div`
 `;
 
 const ShareSocialNetworks = (props) => {
-  console.log(props.urlShare);
   return (
     <ShareContainer className={props.className}>
-      <FacebookShareButton url={props.urlShare}>
+      <FacebookShareButton url={props.url}>
         <FacebookIcon size={ICON_SIZE} round />
       </FacebookShareButton>
-      <TwitterShareButton url={props.urlShare}>
+      <TwitterShareButton url={props.url}>
         <TwitterIcon size={ICON_SIZE} round />
       </TwitterShareButton>
-      <WhatsappShareButton url={props.urlShare}>
+      <WhatsappShareButton url={props.url}>
         <WhatsappIcon size={ICON_SIZE} round />
       </WhatsappShareButton>
     </ShareContainer>
