@@ -42,18 +42,16 @@ const BUTTON_TEXT = 'Unirse a la red';
 const MESSAGE_TEXT =
   '¿Sos profesional y querés formar parte de nuestra comunidad?';
 
-const JoinUs = (props) => {
-  return (
-    <JoinBackgound src="/imgs/ph_bebe_1.jpeg">
-      <JoinJustify>
-        <JoinMessage>{MESSAGE_TEXT}</JoinMessage>
-        <JoinButton size="lg" variant="btn btn-outline-info">
-          {BUTTON_TEXT}
-        </JoinButton>
-      </JoinJustify>
-    </JoinBackgound>
-  );
-};
+const JoinUs = (props) => (
+  <JoinBackgound src="/imgs/ph_bebe_1.jpeg">
+    <JoinJustify>
+      <JoinMessage>{MESSAGE_TEXT}</JoinMessage>
+      <JoinButton size="lg" variant="btn btn-outline-info">
+        {BUTTON_TEXT}
+      </JoinButton>
+    </JoinJustify>
+  </JoinBackgound>
+);
 
 export default styled(JoinUs)`
   margin-bottom: 1em;

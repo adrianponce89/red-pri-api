@@ -35,23 +35,21 @@ const CardCourse = styled(CardBox)`
   box-shadow: 2px 2px 4px 0px rgba(0, 0, 0, 0.3);
 `;
 
-const Course = (props) => {
-  return (
-    <Link href={`/courses/${props._id}`}>
-      <CardCourse floatingtop="0px">
-        <CenteredImage src={props.picUrl} />
-        <ContentTitleDetail>
-          <Title>
-            <a>{props.title}</a>
-          </Title>
-          <ClampedContent>
-            <a>{props.description}</a>
-          </ClampedContent>
-        </ContentTitleDetail>
-      </CardCourse>
-    </Link>
-  );
-};
+const Course = (props) => (
+  <Link href={`/courses/${props._id}`}>
+    <CardCourse floatingtop="0px">
+      <CenteredImage src={props.picUrl} />
+      <ContentTitleDetail>
+        <Title>
+          <a>{props.title}</a>
+        </Title>
+        <ClampedContent>
+          <a>{props.description}</a>
+        </ClampedContent>
+      </ContentTitleDetail>
+    </CardCourse>
+  </Link>
+);
 
 export default styled(Course)`
   margin-bottom: 1em;

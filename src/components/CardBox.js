@@ -25,16 +25,14 @@ const FloatingContainer = styled.div`
   bottom: 0;
 `;
 
-const CardBox = (props) => {
-  return (
-    <OuterSize {...props}>
-      <InnerSize />
-      <FloatingContainer floatingtop={props.floatingtop}>
-        {props.children}
-      </FloatingContainer>
-    </OuterSize>
-  );
-};
+const CardBox = (props) => (
+  <OuterSize {...props}>
+    <InnerSize />
+    <FloatingContainer floatingtop={props.floatingtop}>
+      {props.children}
+    </FloatingContainer>
+  </OuterSize>
+);
 
 export default styled(CardBox)`
   margin-bottom: 1em;
