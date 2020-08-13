@@ -7,7 +7,7 @@ import Badge from 'react-bootstrap/Badge';
 import { server } from '../../config';
 import Container from '../../components/Container';
 import CenteredImage from '../../components/CenteredImage';
-import ContactInfo from '../../components/Search/ProfesionalCard/ContactInfo';
+import ContactInfo from '../../components/ProfesionalCard/ContactInfo';
 
 const TopContainer = styled.div`
   display: flex;

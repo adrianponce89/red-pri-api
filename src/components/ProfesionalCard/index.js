@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import Card from 'react-bootstrap/Card';
 import Link from 'next/link';
-import CenteredImage from '../../CenteredImage';
+import CenteredImage from '../CenteredImage';
 import ContactInfo from './ContactInfo';
 
 const CardTitle = styled.h4`
