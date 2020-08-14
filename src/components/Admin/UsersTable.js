@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import Table from 'react-bootstrap/Table';
 import Button from 'react-bootstrap/Button';
+import FormCheck from 'react-bootstrap/FormCheck';
+import ToggleButton from 'react-bootstrap/ToggleButton';
 import { LoadableButton } from '../Loadable';
 import Router from 'next/router';
 
@@ -8,6 +10,8 @@ const UserRow = ({ key, user }) => {
   const [email, setEmail] = useState(user.email);
   const [password, setPassword] = useState('');
   const [role, setRole] = useState(user.role);
+  const [write, setWrite] = useState(user.permits);
+  const [index, setIndex] = useState(user.permits);
   const [loading, setLoading] = useState(false);
   const [modified, setModified] = useState(false);
 
@@ -107,6 +111,28 @@ const UserRow = ({ key, user }) => {
         </select>
       </td>
       <td>
+        <FormCheck
+          loading={loading}
+          type="checkbox"
+          label="Escritura"
+          value={write}
+          onChange={(e) => {
+            setWrite(e.target.checked);
+            setModified(true);
+          }}
+        />
+        <FormCheck
+          loading={loading}
+          type="checkbox"
+          label="Indexada"
+          value={index}
+          onChange={(e) => {
+            setIndex(e.target.checked);
+            setModified(true);
+          }}
+        />
+      </td>
+      <td>
         {modified ? (
           <LoadableButton
             loading={loading}
@@ -145,6 +171,7 @@ const UsersTable = ({ users }) => (
         <th>Mail</th>
         <th>Password</th>
         <th>Rol</th>
+        <th>Permisos</th>
         <th>Acciones</th>
       </tr>
     </thead>
