@@ -3,6 +3,8 @@ import Card from 'react-bootstrap/Card';
 import Link from 'next/link';
 import CenteredImage from '../CenteredImage';
 import ContactInfo from './ContactInfo';
+import ShareSocialNetworks from '../../components/ShareSocialNetworks';
+import { server } from '../../config';
 
 const CardTitle = styled.h4`
   font-weight: bold;
@@ -35,14 +37,19 @@ const ShowOnSm = styled.div`
   }
 `;
 
+const ShareSocialNetwork = styled(ShareSocialNetworks)`
+  position: absolute;
+  bottom: 5px;
+  right: 5px;
+  width: 125px;
+`;
+
 const ProfesionalCard = (props) => {
   return (
     <Card className={`d-flex ${props.className}`}>
-      <div className="d-flex">
+      <div className="d-flex" style={{ position: 'relative' }}>
         <Link href={`/perfil/${props.username}`}>
-          <a>
-            <CenteredImage src="/imgs/ph_bebe_1.jpeg" />
-          </a>
+          <CenteredImage src={props.picUrl} />
         </Link>
         <div style={{ zIndex: 1, padding: '1em' }}>
           <CardTitle>
@@ -60,6 +67,9 @@ const ProfesionalCard = (props) => {
             email={props.email}
           />
         </div>
+        <ShareSocialNetwork
+          url={`${server}/perfil/${props.username}`}
+        />
       </div>
       <ShowOnSm>
         <div style={{ padding: '1em' }}>
