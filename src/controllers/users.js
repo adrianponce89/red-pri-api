@@ -1,10 +1,11 @@
-const textVersion = require('textversionjs');
-const sanitizeHtml = require('sanitize-html');
-const User = require('../models/user');
-const { sanitizeConfig } = require('../config');
-const { isImage, getFileExtension } = require('../utils');
+const path = require('path');
 const fs = require('fs');
-const { pipeline } = require('stream');
+const imgur = require('imgur');
+const User = require('../models/user');
+const { isImage } = require('../utils');
+
+imgur.setClientId(process.env.IMGUR_CLIENT);
+imgur.setAPIUrl('https://api.imgur.com/3/');
 
 module.exports = {
   index: async (req, res, next) => {
@@ -64,10 +65,29 @@ module.exports = {
             error: 'Tipo de imagen invalido',
           });
         }
-        console.log(
-          'Se recibe imagen para subir a imgur:',
+        const filePath = path.join(
+          __dirname,
+          '../../uploads',
           req.file.filename,
         );
+
+        // Delete previous image from Imgur
+        if (req.user.deletehash) {
+          await imgur.deleteImage(deletehash);
+        }
+        // Upload new Image to Imgur
+        const imgurRes = await imgur.uploadFile(filePath);
+
+        // Save Imgur data on user
+        newUser['picUrl'] = imgurRes.data.link;
+        newUser['deletehash'] = imgurRes.data.deletehash;
+
+        // Delete temporal image server
+        fs.unlink(filePath, (err) => {
+          if (err) {
+            console.error(err);
+          }
+        });
       }
       if (data.name)
         newUser['name'] = data.name.toLowerCase().replace(/-/g, ' ');
