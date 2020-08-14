@@ -9,8 +9,8 @@ const UserRow = ({ key, user }) => {
   const [email, setEmail] = useState(user.email);
   const [password, setPassword] = useState('');
   const [role, setRole] = useState(user.role);
-  const [write, setWrite] = useState(
-    user.permit && user.permits.writes,
+  const [writes, setWrite] = useState(
+    user.permits && user.permits.writes,
   );
   const [index, setIndex] = useState(
     user.permits && user.permits.index,
@@ -22,7 +22,7 @@ const UserRow = ({ key, user }) => {
     event.preventDefault();
     setLoading(true);
 
-    const params = { email, role, permit: { write, index } };
+    const params = { email, role, permits: { writes, index } };
     if (password.length > 0) params['password'] = password;
 
     const res = await fetch(`/api/users/${user._id}`, {
@@ -69,6 +69,8 @@ const UserRow = ({ key, user }) => {
     event.preventDefault();
     setEmail(user.email);
     setRole(user.role);
+    setWrite(user.permits.writes);
+    setIndex(user.permits.index);
     setModified(false);
     setPassword('');
   };
@@ -118,7 +120,7 @@ const UserRow = ({ key, user }) => {
           loading={loading}
           type="checkbox"
           label="Escritura"
-          value={write}
+          checked={writes}
           onChange={(e) => {
             setWrite(e.target.checked);
             setModified(true);
@@ -128,7 +130,7 @@ const UserRow = ({ key, user }) => {
           loading={loading}
           type="checkbox"
           label="Indexada"
-          value={index}
+          checked={index}
           onChange={(e) => {
             setIndex(e.target.checked);
             setModified(true);

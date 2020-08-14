@@ -7,5 +7,5 @@ const messageSchema = new Schema({
   content: String,
 });
 
-const Message = mongoose.model('massage', messageSchema);
+const Message = mongoose.model('message', messageSchema);
 module.exports = Message;
