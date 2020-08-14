@@ -5,7 +5,7 @@ const User = require('../models/user');
 const { isImage } = require('../utils');
 
 imgur.setClientId(process.env.IMGUR_CLIENT);
-imgur.setAPIUrl('https://api.imgur.com/3/');
+imgur.setAPIUrl(process.env.IMGUR_API_URL);
 
 module.exports = {
   index: async (req, res, next) => {
