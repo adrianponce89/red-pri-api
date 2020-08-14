@@ -2,7 +2,7 @@ const express = require('express');
 const router = require('express-promise-router')();
 
 const ArticleController = require('../controllers/articles');
-const { restrictAccess } = require('./utils');
+const { restrictAccess } = require('../utils/access');
 
 router
   .route('/')

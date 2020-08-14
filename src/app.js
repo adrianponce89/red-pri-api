@@ -32,7 +32,7 @@ nextApp.prepare().then(() => {
     }),
   );
   app.use(express.json());
-  app.use(express.urlencoded({ extended: false }));
+  app.use(express.urlencoded({ extended: true }));
   app.use(cookieParser());
 
   // Adding Passport and initialise Authentication
