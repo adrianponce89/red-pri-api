@@ -8,6 +8,7 @@ import { server } from '../../config';
 import Container from '../../components/Container';
 import CenteredImage from '../../components/CenteredImage';
 import ContactInfo from '../../components/ProfesionalCard/ContactInfo';
+import ShareSocialNetworks from '../../components/ShareSocialNetworks';
 
 const TopContainer = styled.div`
   display: flex;
@@ -63,9 +64,15 @@ const SubTitle = styled.h5`
   font-weight: bold;
 `;
 
+const ShareSocialNetwork = styled(ShareSocialNetworks)`
+  margin-left: auto;
+  width: 125px;
+`;
+
 const Perfil = ({ className, user }) => {
   const fullName = `${user.name} ${user.surname} `;
   const matricula = `(Mat.${user.matricula})`;
+  const urlUser = `${server}/perfil/${user.username} `;
   return (
     <Container className={className}>
       <Row>
@@ -73,7 +80,7 @@ const Perfil = ({ className, user }) => {
           <Card>
             <Card.Body>
               <TopContainer>
-                <CenteredImage src="/imgs/ph_bebe_1.jpeg" />
+                <CenteredImage src={user.picUrl} />
                 <InfoContainer>
                   <TitleContainer>
                     <h2>
@@ -90,7 +97,7 @@ const Perfil = ({ className, user }) => {
                   />
                 </InfoContainer>
               </TopContainer>
-
+              <ShareSocialNetwork url={urlUser} />
               <hr></hr>
               <AboutContainer>
                 <SubTitle>Acerca de mí</SubTitle>
