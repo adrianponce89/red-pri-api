@@ -4,11 +4,13 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Card from 'react-bootstrap/Card';
 import Badge from 'react-bootstrap/Badge';
+import Button from 'react-bootstrap/Button';
 import { server } from '../../config';
 import Container from '../../components/Container';
 import CenteredImage from '../../components/CenteredImage';
 import ContactInfo from '../../components/ProfesionalCard/ContactInfo';
 import ShareSocialNetworks from '../../components/ShareSocialNetworks';
+import FAIcon from '../../components/FAIcon';
 
 const TopContainer = styled.div`
   display: flex;
@@ -69,7 +71,13 @@ const ShareSocialNetwork = styled(ShareSocialNetworks)`
   width: 125px;
 `;
 
-const Perfil = ({ className, user }) => {
+const FixedButton = styled(Button)`
+  position: absolute;
+  right: 1em;
+  top: 1em;
+`;
+
+const Perfil = ({ className, user, profile }) => {
   const fullName = `${user.name} ${user.surname} `;
   const matricula = `(Mat.${user.matricula})`;
   const urlUser = `${server}/perfil/${user.username} `;
@@ -96,6 +104,20 @@ const Perfil = ({ className, user }) => {
                     addressList={user.addressList}
                   />
                 </InfoContainer>
+                {profile && profile._id === user._id ? (
+                  <FixedButton
+                    variant="success"
+                    href={`/editar-perfil`}
+                  >
+                    <FAIcon
+                      className="fa fa-pencil-square-o"
+                      style={{ verticalAlign: 'middle' }}
+                    />{' '}
+                    Editar
+                  </FixedButton>
+                ) : (
+                  ''
+                )}
               </TopContainer>
               <ShareSocialNetwork url={urlUser} />
               <hr></hr>
