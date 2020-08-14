@@ -30,7 +30,6 @@ const ShareSocialNetworks = (props) => (
 );
 
 export default styled(ShareSocialNetworks)`
-  margin-bottom: 1em;
   overflow: hidden;
   p {
     margin: 0;
