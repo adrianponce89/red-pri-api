@@ -36,6 +36,7 @@ const userSchema = new Schema({
       attentionHours: String,
     },
   ],
+  permits: { writes: Boolean, index: Boolean },
 });
 
 userSchema.methods.encryptPassword = (password) => {
@@ -64,6 +65,7 @@ userSchema.methods.secured = function () {
     practice: this.practice,
     addressList: this.addressList,
     phoneList: this.phoneList,
+    permits: this.permits,
   };
 };
 

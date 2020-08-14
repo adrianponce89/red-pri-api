@@ -109,6 +109,7 @@ module.exports = {
         }));
       if (req.body.phoneList)
         newUser['phoneList'] = req.body.phoneList;
+      if (req.body.permits) newUser['permits'] = req.body.permits;
 
       const oldUser = await User.findByIdAndUpdate(userId, {
         $set: newUser,
