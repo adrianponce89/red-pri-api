@@ -13,7 +13,8 @@ const ProfesionalForm = (props) => {
   const profile = props.profile || {};
   const [email, setEmail] = useState(profile.email);
   const [password, setPassword] = useState('');
-  const [picUrl, setPicUrl] = useState(profile.picUrl);
+  const [file, setFile] = useState(null);
+  const [fileURL, setFileURL] = useState(null);
   const [name, setName] = useState(profile.name);
   const [surname, setSurname] = useState(profile.surname);
   const [username, setUsername] = useState(profile.username);
@@ -36,9 +37,8 @@ const ProfesionalForm = (props) => {
 
   const postProfileChanges = async () => {
     setLoading(true);
-    const params = {
+    const data = {
       email,
-      picUrl,
       name,
       surname,
       username,
@@ -52,14 +52,17 @@ const ProfesionalForm = (props) => {
       addressList,
       phoneList,
     };
-    if (password.length > 0) params['password'] = password;
+    if (password.length > 0) data['password'] = password;
+
+    const fd = new FormData();
+    if (file) {
+      fd.append('file', file, file.name);
+    }
+    fd.append('data', JSON.stringify(data));
 
     const res = await fetch(`/api/users/${props.profile._id}`, {
       method: 'PATCH',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(params),
+      body: fd,
     });
 
     if (res.status === 200) {
@@ -85,7 +88,13 @@ const ProfesionalForm = (props) => {
     <Form noValidate validated={validated} onSubmit={handleSubmit}>
       <Form.Row className="d-flex align-items-end">
         <Form.Group as={Col} md="4" controlId="formGridImage">
-          <ImageSelection src="/imgs/ph_bebe_1.jpeg" />
+          <ImageSelection
+            src={fileURL || profile.picUrl}
+            onChange={(event) => {
+              setFile(event.target.files[0]);
+              setFileURL(URL.createObjectURL(event.target.files[0]));
+            }}
+          />
         </Form.Group>
         <Col md="8">
           <Form.Row>

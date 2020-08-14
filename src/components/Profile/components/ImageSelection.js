@@ -38,11 +38,22 @@ const ImageSelectorContainer = styled.div`
   margin: auto;
 `;
 
-const ImageSelection = ({ src }) => (
-  <ImageSelectorContainer>
-    <CenteredImage src={src} />
-    <HoverMessage>Seleccionar Imagen</HoverMessage>
-  </ImageSelectorContainer>
-);
+const ImageSelection = ({ src, onChange }) => {
+  let fileInput;
+  return (
+    <ImageSelectorContainer>
+      <CenteredImage src={src} />
+      <input
+        style={{ display: 'none' }}
+        type="file"
+        onChange={onChange}
+        ref={(ref) => (fileInput = ref)}
+      />
+      <HoverMessage onClick={() => fileInput.click()}>
+        Seleccionar Imagen
+      </HoverMessage>
+    </ImageSelectorContainer>
+  );
+};
 
 export default ImageSelection;

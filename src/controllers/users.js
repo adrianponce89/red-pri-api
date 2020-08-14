@@ -1,7 +1,11 @@
-const textVersion = require('textversionjs');
-const sanitizeHtml = require('sanitize-html');
+const path = require('path');
+const fs = require('fs');
+const imgur = require('imgur');
 const User = require('../models/user');
-const { sanitizeConfig } = require('../config');
+const { isImage } = require('../utils');
+
+imgur.setClientId(process.env.IMGUR_CLIENT);
+imgur.setAPIUrl(process.env.IMGUR_API_URL);
 
 module.exports = {
   index: async (req, res, next) => {
@@ -47,29 +51,57 @@ module.exports = {
 
     if (req.user.role === 'admin' || req.user._id.equals(userId)) {
       const newUser = {};
-      if (req.body.email)
-        newUser['email'] = req.body.email.toLowerCase();
-      if (req.body.password)
-        newUser['password'] = req.user.encryptPassword(
-          req.body.password,
+      const data = JSON.parse(req.body.data);
+
+      if (data.email) newUser['email'] = data.email.toLowerCase();
+      if (data.password)
+        newUser['password'] = req.user.encryptPassword(data.password);
+      if (data.role) newUser['role'] = data.role;
+      if (data.picUrl) newUser['picUrl'] = data.picUrl;
+      if (req.file) {
+        if (!isImage(req.file)) {
+          return res.status(400).json({
+            success: false,
+            error: 'Tipo de imagen invalido',
+          });
+        }
+        const filePath = path.join(
+          __dirname,
+          '../../uploads',
+          req.file.filename,
         );
-      if (req.body.role) newUser['role'] = req.body.role;
-      if (req.body.picUrl) newUser['picUrl'] = req.body.picUrl;
-      if (req.body.name)
-        newUser['name'] = req.body.name
+
+        // Delete previous image from Imgur
+        if (req.user.deletehash) {
+          await imgur.deleteImage(deletehash);
+        }
+        // Upload new Image to Imgur
+        const imgurRes = await imgur.uploadFile(filePath);
+
+        // Save Imgur data on user
+        newUser['picUrl'] = imgurRes.data.link;
+        newUser['deletehash'] = imgurRes.data.deletehash;
+
+        // Delete temporal image server
+        fs.unlink(filePath, (err) => {
+          if (err) {
+            console.error(err);
+          }
+        });
+      }
+      if (data.name)
+        newUser['name'] = data.name.toLowerCase().replace(/-/g, ' ');
+      if (data.surname)
+        newUser['surname'] = data.surname
           .toLowerCase()
           .replace(/-/g, ' ');
-      if (req.body.surname)
-        newUser['surname'] = req.body.surname
-          .toLowerCase()
-          .replace(/-/g, ' ');
-      const name = req.body.name || req.user.name;
-      const surname = req.body.surname || req.user.surname;
+      const name = data.name || req.user.name;
+      const surname = data.surname || req.user.surname;
       newUser[
         'fullName'
       ] = `${name} ${surname}`.toLowerCase().replace(/-/g, ' ');
-      if (req.body.username) {
-        const username = req.body.username
+      if (data.username) {
+        const username = data.username
           .toLowerCase()
           .replace(/-/g, ' ');
         newUser['username'] = username;
@@ -81,35 +113,37 @@ module.exports = {
           });
         }
       }
-      if (req.body.matricula)
-        newUser['matricula'] = req.body.matricula;
-      if (req.body.title)
-        newUser['title'] = req.body.title
+      if (data.matricula) newUser['matricula'] = data.matricula;
+      if (data.title)
+        newUser['title'] = data.title
           .toLowerCase()
           .replace(/-/g, ' ');
-      if (req.body.about) newUser['about'] = req.body.about;
-      if (req.body.specialities)
-        newUser['specialities'] = req.body.specialities.map((st) =>
+      if (data.about) newUser['about'] = data.about;
+      if (data.specialities) {
+        newUser['specialities'] = data.specialities.map((st) =>
           st.toLowerCase().replace(/-/g, ' '),
         );
-      if (req.body.themes)
-        newUser['themes'] = req.body.themes.map((st) =>
+      }
+      if (data.themes) {
+        newUser['themes'] = data.themes.map((st) =>
           st.toLowerCase().replace(/-/g, ' '),
         );
-      if (req.body.atentionType)
-        newUser['atentionType'] = req.body.atentionType.map((st) =>
+      }
+      if (data.atentionType) {
+        newUser['atentionType'] = data.atentionType.map((st) =>
           st.toLowerCase().replace(/-/g, ' '),
         );
-      if (req.body.practice) newUser['practice'] = req.body.practice;
-      if (req.body.addressList)
-        newUser['addressList'] = req.body.addressList.map((ob) => ({
+      }
+      if (data.practice) newUser['practice'] = data.practice;
+      if (data.addressList) {
+        newUser['addressList'] = data.addressList.map((ob) => ({
           ...ob,
           province: ob.province.toLowerCase().replace(/-/g, ' '),
           locality: ob.locality.toLowerCase().replace(/-/g, ' '),
         }));
-      if (req.body.phoneList)
-        newUser['phoneList'] = req.body.phoneList;
-      if (req.body.permits) newUser['permits'] = req.body.permits;
+      }
+      if (data.phoneList) newUser['phoneList'] = data.phoneList;
+      if (data.permits) newUser['permits'] = req.body.permits;
 
       const oldUser = await User.findByIdAndUpdate(userId, {
         $set: newUser,
