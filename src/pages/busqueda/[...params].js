@@ -8,7 +8,7 @@ import fetch from 'isomorphic-fetch';
 import { server } from '../../config';
 import { hyphenToSpace, getKeysFromSlugParams } from '../../utils';
 import Container from '../../components/Container';
-import ProfesionalCard from '../../components/Search/ProfesionalCard';
+import ProfesionalCard from '../../components/ProfesionalCard';
 import Filters from '../../components/Search/Filters';
 import AvailableFilters from '../../components/Search/AvailableFilters';
 import FAIcon from '../../components/FAIcon';

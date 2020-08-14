@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
-import FAIcon from '../../FAIcon';
+import FAIcon from '../FAIcon';
 
 const RevealContainer = styled.div`
   display: ${(props) => (props.display ? 'block' : 'none')};
