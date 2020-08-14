@@ -2,6 +2,8 @@ import styled from 'styled-components';
 import Card from 'react-bootstrap/Card';
 import Link from 'next/link';
 import { timeSince } from '../utils';
+import { server } from '../config/';
+import ShareSocialNetworks from '../components/ShareSocialNetworks';
 
 const CenteredImage = styled.div`
   width: 160px;
@@ -35,12 +37,19 @@ const AuthorName = styled.cite`
   text-transform: capitalize;
 `;
 
+const ShareSocialNetwork = styled(ShareSocialNetworks)`
+  position: absolute;
+  bottom: 5px;
+  right: 5px;
+  width: 125px;
+`;
+
 const ArticleCard = (props) => {
   return (
     <Card className={`d-flex flex-sm-row ${props.className}`}>
       <Link href={`/articulos/${props.uid}`}>
         <a>
-          <CenteredImage src="/imgs/ph_bebe_1.jpeg" />
+          <CenteredImage src={props.picUrl} />
         </a>
       </Link>
       <div style={{ zIndex: 1, padding: '1em' }}>
@@ -66,6 +75,9 @@ const ArticleCard = (props) => {
             Actualizado hace {timeSince(new Date(props.updatedAt))}
           </small>
         </Card.Text>
+        <ShareSocialNetwork
+          url={`${server}/articulos/${props.uid}`}
+        />
       </div>
     </Card>
   );
