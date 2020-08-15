@@ -174,32 +174,12 @@ const Perfil = ({ className, user, profile }) => {
   );
 };
 
-// This function gets called at build time
-export async function getStaticPaths() {
-  // Call an external API endpoint to get posts
-  const res = await fetch(`${server}/api/users`);
-  const users = await res.json();
-
-  // Get the paths we want to pre-render based on users
-  const paths = users.map(({ username }) => ({
-    params: { username },
-  }));
-
-  // We'll pre-render only these paths at build time.
-  // { fallback: false } means other routes should 404.
-  return { paths, fallback: false };
-}
-
-// This also gets called at build time
-export async function getStaticProps({ params }) {
-  // params contains the user `id`.
-  // If the route is like /users/1, then params.id is 1
+export async function getServerSideProps({ params }) {
   const resUser = await fetch(
     `${server}/api/users/${params.username}`,
   );
   const user = await resUser.json();
 
-  // Pass user data to the page via props
   return {
     props: {
       user,

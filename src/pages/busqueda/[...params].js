@@ -110,8 +110,8 @@ const Busqueda = ({ results, filters, paging, availableFilters }) => {
   );
 };
 
-export async function getServerSideProps(context) {
-  const params = getKeysFromSlugParams(context.query.params);
+export async function getServerSideProps({ query }) {
+  const params = getKeysFromSlugParams(query.params);
   const qs = Object.keys(params)
     .map((key) => `${key}=${params[key]}`)
     .join('&');
