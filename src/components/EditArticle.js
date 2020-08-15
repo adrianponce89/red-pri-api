@@ -51,6 +51,7 @@ const EditArticle = (props) => {
                       height: 300,
                       menubar: false,
                       language: 'es',
+                      images_upload_url: 'api/articles/upload-image',
                       plugins: [
                         'advlist autolink lists link image',
                         'fullscreen',

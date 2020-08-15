@@ -1,20 +1,9 @@
 const express = require('express');
 const router = require('express-promise-router')();
-const multer = require('multer');
 
 const UserController = require('../controllers/users');
 const { restrictAccess } = require('../utils/access');
-const { getFileExtension } = require('../utils');
-
-var storage = multer.diskStorage({
-  destination: function (req, file, cb) {
-    cb(null, 'uploads/');
-  },
-  filename: function (req, file, cb) {
-    cb(null, Date.now() + getFileExtension(file));
-  },
-});
-const upload = multer({ storage });
+const { upload } = require('../utils/upload');
 
 router
   .route('/')

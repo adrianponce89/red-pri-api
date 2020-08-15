@@ -3,6 +3,7 @@ const router = require('express-promise-router')();
 
 const ArticleController = require('../controllers/articles');
 const { restrictAccess } = require('../utils/access');
+const { upload } = require('../utils/upload');
 
 router
   .route('/')
@@ -15,5 +16,13 @@ router
   .put(restrictAccess('author'), ArticleController.replaceArticle)
   .patch(restrictAccess('author'), ArticleController.updateArticle)
   .delete(restrictAccess('admin'), ArticleController.removeArticle);
+
+router
+  .route('/upload-image')
+  .post(
+    restrictAccess('author'),
+    upload.single('file'),
+    ArticleController.uploadImage,
+  );
 
 module.exports = router;

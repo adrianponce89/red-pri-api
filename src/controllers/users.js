@@ -143,7 +143,7 @@ module.exports = {
         }));
       }
       if (data.phoneList) newUser['phoneList'] = data.phoneList;
-      if (data.permits) newUser['permits'] = req.body.permits;
+      if (data.permits) newUser['permits'] = data.permits;
 
       const oldUser = await User.findByIdAndUpdate(userId, {
         $set: newUser,

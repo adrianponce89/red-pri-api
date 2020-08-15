@@ -1,8 +1,14 @@
+const path = require('path');
+const fs = require('fs');
+const imgur = require('imgur');
 const textVersion = require('textversionjs');
 const sanitizeHtml = require('sanitize-html');
 const Article = require('../models/article');
-const User = require('../models/user');
 const { sanitizeConfig } = require('../config');
+const { isImage } = require('../utils');
+
+imgur.setClientId(process.env.IMGUR_CLIENT);
+imgur.setAPIUrl(process.env.IMGUR_API_URL);
 
 module.exports = {
   index: async (req, res, next) => {
@@ -72,5 +78,35 @@ module.exports = {
     const { articleId } = req.params;
     const article = await Article.deleteOne({ _id: articleId });
     res.status(200).json({ article, success: true });
+  },
+  uploadImage: async (req, res, next) => {
+    if (req.file) {
+      if (!isImage(req.file)) {
+        return res.status(400).json({
+          success: false,
+          error: 'Tipo de imagen invalido',
+        });
+      }
+      const filePath = path.join(
+        __dirname,
+        '../../uploads',
+        req.file.filename,
+      );
+      // Upload new Image to Imgur
+      const imgurRes = await imgur.uploadFile(filePath);
+
+      // Delete temporal image server
+      fs.unlink(filePath, (err) => {
+        if (err) {
+          console.error(err);
+        }
+      });
+
+      return res.status(200).json({
+        location: imgurRes.data.link,
+      });
+    }
+
+    return res.status(400).json({ success: false });
   },
 };
