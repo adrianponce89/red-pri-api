@@ -4,7 +4,7 @@ import Col from 'react-bootstrap/Col';
 import Card from 'react-bootstrap/Card';
 import Form from 'react-bootstrap/Form';
 import { Editor } from '@tinymce/tinymce-react';
-import { tinyAPIKey } from '../config';
+import { tinyAPIKey, server } from '../config';
 import Container from './Container';
 import { LoadableButton } from './Loadable';
 import ImageSelection from './ImageSelection';
@@ -55,7 +55,7 @@ const EditArticle = (props) => {
                       height: 460,
                       menubar: false,
                       language: 'es',
-                      images_upload_url: 'api/articles/upload-image',
+                      images_upload_url: `${server}/api/articles/upload-image`,
                       plugins: [
                         'advlist autolink lists link image',
                         'fullscreen',
