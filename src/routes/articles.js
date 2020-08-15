@@ -8,13 +8,21 @@ const { upload } = require('../utils/upload');
 router
   .route('/')
   .get(ArticleController.index)
-  .post(restrictAccess('author'), ArticleController.newArticle);
+  .post(
+    restrictAccess('author'),
+    upload.single('file'),
+    ArticleController.newArticle,
+  );
 
 router
   .route('/:articleId')
   .get(ArticleController.getArticle)
   .put(restrictAccess('author'), ArticleController.replaceArticle)
-  .patch(restrictAccess('author'), ArticleController.updateArticle)
+  .patch(
+    restrictAccess('author'),
+    upload.single('file'),
+    ArticleController.updateArticle,
+  )
   .delete(restrictAccess('admin'), ArticleController.removeArticle);
 
 router

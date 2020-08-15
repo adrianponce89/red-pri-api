@@ -19,6 +19,15 @@ const FixedButton = styled(Button)`
   top: 1em;
 `;
 
+const MainImage = styled.img`
+  width: 60%;
+`;
+
+const Center = styled.div`
+  display: flex;
+  justify-content: center;
+`;
+
 const Articulo = ({ className, article, articles, profile }) => {
   return (
     <div className={className}>
@@ -26,6 +35,9 @@ const Articulo = ({ className, article, articles, profile }) => {
         <Col lg="8" className="pb-2">
           <Card>
             <Card.Body>
+              <Center>
+                <MainImage src={article.picUrl} />
+              </Center>
               <Card.Title>
                 <CenterTitle>{article.title}</CenterTitle>
               </Card.Title>

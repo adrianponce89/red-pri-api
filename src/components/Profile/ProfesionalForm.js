@@ -4,7 +4,7 @@ import fetch from 'isomorphic-fetch';
 import Col from 'react-bootstrap/Col';
 import Form from 'react-bootstrap/Form';
 import InputGroup from 'react-bootstrap/InputGroup';
-import ImageSelection from './components/ImageSelection';
+import ImageSelection from '../ImageSelection';
 import AddressGroup from './components/AddressGroup';
 import PhoneGroup from './components/PhoneGroup';
 import { LoadableButton } from '../Loadable';

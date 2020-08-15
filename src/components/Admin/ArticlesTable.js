@@ -16,12 +16,11 @@ const ArticleRow = ({ article }) => {
 
     const params = { title };
 
+    const fd = new FormData();
+    fd.append('data', JSON.stringify(params));
     const res = await fetch(`/api/articles/${article._id}`, {
       method: 'PATCH',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(params),
+      body: fd,
     });
 
     if (res.status === 200) {
