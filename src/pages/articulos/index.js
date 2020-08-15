@@ -33,8 +33,7 @@ const Articulos = ({ articles, profile }) => (
               },
             ]}
           />
-          {profile &&
-          (profile.role === 'author' || profile.role === 'admin') ? (
+          {profile && profile.permits && profile.permits.writes ? (
             <Button
               variant="success"
               href="/crear-articulo"

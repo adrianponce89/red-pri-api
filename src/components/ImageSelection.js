@@ -1,8 +1,7 @@
 import styled from 'styled-components';
 
 const CenteredImage = styled.div`
-width: 160px;
-max-width: 160px;
+width: 100%;
 padding-bottom: 100%;
 background-image: url("${(props) => props.src}");
 background-color: #cccccc;
@@ -38,10 +37,10 @@ const ImageSelectorContainer = styled.div`
   margin: auto;
 `;
 
-const ImageSelection = ({ src, onChange }) => {
+const ImageSelection = ({ src, onChange, className, style }) => {
   let fileInput;
   return (
-    <ImageSelectorContainer>
+    <ImageSelectorContainer className={className} style={style}>
       <CenteredImage src={src} />
       <input
         style={{ display: 'none' }}

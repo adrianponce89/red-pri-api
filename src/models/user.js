@@ -7,6 +7,7 @@ const userSchema = new Schema({
   password: String,
   role: String,
   picUrl: String,
+  deletehash: String,
   name: String,
   surname: String,
   fullName: String,

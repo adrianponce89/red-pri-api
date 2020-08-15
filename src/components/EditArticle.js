@@ -7,9 +7,12 @@ import { Editor } from '@tinymce/tinymce-react';
 import { tinyAPIKey } from '../config';
 import Container from './Container';
 import { LoadableButton } from './Loadable';
+import ImageSelection from './ImageSelection';
 
 const EditArticle = (props) => {
   const [title, setTitle] = useState(props.title || '');
+  const [file, setFile] = useState(null);
+  const [fileURL, setFileURL] = useState(null);
   const [content, setContent] = useState(props.content || '');
   const [category, setCategory] = useState(props.category || '');
   const [tags, setTags] = useState(
@@ -24,6 +27,7 @@ const EditArticle = (props) => {
       content,
       category,
       tags: tags.split(',').map((v) => v.trim()),
+      file,
     });
   };
 
@@ -48,9 +52,10 @@ const EditArticle = (props) => {
                     apiKey={`${tinyAPIKey}`}
                     initialValue={content}
                     init={{
-                      height: 300,
+                      height: 460,
                       menubar: false,
                       language: 'es',
+                      images_upload_url: 'api/articles/upload-image',
                       plugins: [
                         'advlist autolink lists link image',
                         'fullscreen',
@@ -71,6 +76,20 @@ const EditArticle = (props) => {
             <Card>
               <Card.Header>Completa la publicación</Card.Header>
               <Card.Body>
+                <Form.Group controlId="formGridImage">
+                  <Form.Label>Imagen principal</Form.Label>
+                  <ImageSelection
+                    style={{ borderRadius: '1em', width: '100%' }}
+                    src={fileURL || props.picUrl}
+                    onChange={(event) => {
+                      setFile(event.target.files[0]);
+                      setFileURL(
+                        URL.createObjectURL(event.target.files[0]),
+                      );
+                    }}
+                  />
+                </Form.Group>
+
                 <Form.Group controlId="exampleForm.ControlSelect1">
                   <Form.Label>Categoria</Form.Label>
                   <Form.Control

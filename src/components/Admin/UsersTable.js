@@ -25,12 +25,11 @@ const UserRow = ({ key, user }) => {
     const params = { email, role, permits: { writes, index } };
     if (password.length > 0) params['password'] = password;
 
+    const fd = new FormData();
+    fd.append('data', JSON.stringify(params));
     const res = await fetch(`/api/users/${user._id}`, {
       method: 'PATCH',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(params),
+      body: fd,
     });
 
     if (res.status === 200) {
@@ -69,8 +68,8 @@ const UserRow = ({ key, user }) => {
     event.preventDefault();
     setEmail(user.email);
     setRole(user.role);
-    setWrite(user.permits.writes);
-    setIndex(user.permits.index);
+    setWrite(user.permits && user.permits.writes);
+    setIndex(user.permits && user.permits.index);
     setModified(false);
     setPassword('');
   };

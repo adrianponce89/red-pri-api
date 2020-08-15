@@ -6,14 +6,17 @@ import EditArticle from '../components/EditArticle';
 const CrearArticulo = () => {
   const [loading, setLoading] = useState(false);
 
-  const handleSubmit = async (params) => {
+  const handleSubmit = async ({ file, ...data }) => {
     setLoading(true);
+    const fd = new FormData();
+    if (file) {
+      fd.append('file', file, file.name);
+    }
+    fd.append('data', JSON.stringify(data));
+
     const res = await fetch('/api/articles', {
       method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(params),
+      body: fd,
     });
 
     if (res.status === 201) {

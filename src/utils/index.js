@@ -152,45 +152,6 @@ const isImage = (file) => {
   return imagesTypes.includes(mimetype);
 };
 
-const mimeToExt = {
-  'audio/3gpp': '.3gp',
-  'audio/amr': '.amr',
-  'audio/amr-wb': '.awb',
-  'audio/midi': '.midi',
-  'audio/mpeg': '.mp3',
-  'audio/mp4': '.mp4',
-  'audio/wav': '.wav',
-  'audio/x-wav': '.wav',
-  'text/html': '.html',
-  'image/bmp': '.bmp',
-  'image/x-bmp': '.bmp',
-  'image/gif': '.gif',
-  'image/jpeg': '.jpg',
-  'image/png': '.png',
-  'image/tiff': '.tiff',
-  'image/vnd.wap.wbmp': '.wbmp',
-  'application/java': '.jar',
-  'application/java-archive': '.jar',
-  'application/x-java-archive': '.jar',
-  'text/vnd.sun.j2me.app-descriptor': '.jad',
-  'text/plain': '.txt',
-  'application/vnd.symbian.install': '.sis',
-  'video/3gpp': '.3gp',
-  'video/mp4': '.mp4',
-  'application/vnd.wap.wmlc': '.wmlc',
-  'text/vnd.wap.wml': '.wml',
-  'application/vnd.wap.wmlscriptc': '.wmlsc',
-  'text/vnd.wap.wmlscript': '.wmls',
-  'application/vnd.wap.xhtml+xml': '.xhtml',
-  'application/xhtml+xml': '.xhtml',
-  'text/html': '.html',
-};
-
-const getFileExtension = (file) => {
-  const { mimetype } = file;
-  return mimeToExt[mimetype];
-};
-
 module.exports = {
   hyphenToSpace,
   getKeysFromSlugParams,
@@ -198,5 +159,4 @@ module.exports = {
   getFilters,
   timeSince,
   isImage,
-  getFileExtension,
 };
