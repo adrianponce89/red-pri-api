@@ -39,9 +39,9 @@ const EditarArticulo = ({ article }) => {
   );
 };
 
-export async function getServerSideProps(context) {
+export async function getServerSideProps({ params }) {
   const resArticle = await fetch(
-    `${server}/api/articles/${context.params.uid}`,
+    `${server}/api/articles/${params.uid}`,
   );
   const article = await resArticle.json();
   return {

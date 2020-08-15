@@ -43,7 +43,7 @@ const Admin = ({ users, articles }) => {
   );
 };
 
-export async function getStaticProps() {
+export async function getServerSideProps() {
   const resArticles = await fetch(`${server}/api/articles`);
   const resUsers = await fetch(`${server}/api/users`);
   const articles = await resArticles.json();

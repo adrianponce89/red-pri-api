@@ -29,7 +29,7 @@ const Cursos = ({ courses }) => (
   </Container>
 );
 
-export async function getStaticProps() {
+export async function getServerSideProps() {
   const res = await fetch(`${server}/api/courses`);
   const courses = await res.json();
   return {

@@ -59,7 +59,7 @@ const Articulos = ({ articles, profile }) => (
   </Container>
 );
 
-export async function getStaticProps() {
+export async function getServerSideProps() {
   const res = await fetch(`${server}/api/articles`);
   const articles = await res.json();
   return {

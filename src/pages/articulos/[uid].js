@@ -69,26 +69,7 @@ const Articulo = ({ className, article, articles, profile }) => {
   );
 };
 
-// This function gets called at build time
-export async function getStaticPaths() {
-  // Call an external API endpoint to get posts
-  const res = await fetch(`${server}/api/articles`);
-  const articles = await res.json();
-
-  // Get the paths we want to pre-render based on articles
-  const paths = articles.map((post) => ({
-    params: { uid: post.uid },
-  }));
-
-  // We'll pre-render only these paths at build time.
-  // { fallback: false } means other routes should 404.
-  return { paths, fallback: false };
-}
-
-// This also gets called at build time
-export async function getStaticProps({ params }) {
-  // params contains the article `uid`.
-  // If the route is like /articles/1, then params.uid is 1
+export async function getServerSideProps({ params }) {
   const resArticle = await fetch(
     `${server}/api/articles/${params.uid}`,
   );
@@ -97,7 +78,6 @@ export async function getStaticProps({ params }) {
   const resArticles = await fetch(`${server}/api/articles`);
   const articles = await resArticles.json();
 
-  // Pass article data to the page via props
   return {
     props: {
       article,
