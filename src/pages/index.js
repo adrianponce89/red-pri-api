@@ -2,6 +2,7 @@ import styled from 'styled-components';
 import Landing from '../components/Landing';
 import Contact from '../components/Contact';
 import JoinUs from '../components/JoinUs';
+import Carousel from '../components/Carousel';
 import ShareSocialNetworks from '../components/ShareSocialNetworks';
 import { server } from '../config';
 
@@ -37,6 +38,7 @@ const ShareSocialNetwork = styled(ShareSocialNetworks)`
 
 const Home = () => (
   <>
+    <Carousel />
     <LandingBackground>
       <LandingContainer>
         <Landing
