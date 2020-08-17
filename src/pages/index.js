@@ -36,9 +36,30 @@ const ShareSocialNetwork = styled(ShareSocialNetworks)`
   bottom: 20px;
 `;
 
+const Slides = [
+  {
+    picUrl: '',
+    title: 'Titulo1',
+    description:
+      'Nostrud aute ut sunt excepteur officia incididunt et.',
+  },
+  {
+    picUrl: '/imgs/ph_bebe_1.jpeg',
+    title: 'Titulo2',
+    description:
+      'Nostrud aute ut sunt excepteur officia incididunt et.',
+  },
+  {
+    picUrl: '/imgs/ph_bebe_1.jpeg',
+    title: 'Titulo3',
+    description:
+      'Nostrud aute ut sunt excepteur officia incididunt et.',
+  },
+];
+
 const Home = () => (
   <>
-    <Carousel />
+    <Carousel slides={Slides} />
     <LandingBackground>
       <LandingContainer>
         <Landing
