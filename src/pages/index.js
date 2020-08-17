@@ -2,6 +2,7 @@ import styled from 'styled-components';
 import Landing from '../components/Landing';
 import Contact from '../components/Contact';
 import JoinUs from '../components/JoinUs';
+import Carousel from '../components/Carousel';
 import ShareSocialNetworks from '../components/ShareSocialNetworks';
 import { server } from '../config';
 
@@ -35,8 +36,30 @@ const ShareSocialNetwork = styled(ShareSocialNetworks)`
   bottom: 20px;
 `;
 
+const slides = [
+  {
+    picUrl: '',
+    title: 'Titulo1',
+    description:
+      'Nostrud aute ut sunt excepteur officia incididunt et.',
+  },
+  {
+    picUrl: '/imgs/ph_bebe_1.jpeg',
+    title: 'Titulo2',
+    description:
+      'Nostrud aute ut sunt excepteur officia incididunt et.',
+  },
+  {
+    picUrl: '/imgs/ph_bebe_1.jpeg',
+    title: 'Titulo3',
+    description:
+      'Nostrud aute ut sunt excepteur officia incididunt et.',
+  },
+];
+
 const Home = () => (
   <>
+    <Carousel slides={slides} />
     <LandingBackground>
       <LandingContainer>
         <Landing
