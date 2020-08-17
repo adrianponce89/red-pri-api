@@ -28,7 +28,7 @@ const Description = styled.p`
   text-shadow: 0px 0px 5px #000;
 `;
 
-const Carousels = ({ slides }) => (
+export default ({ slides }) => (
   <Carousel>
     {slides.map((slide) => (
       <Carousel.Item>
@@ -41,5 +41,3 @@ const Carousels = ({ slides }) => (
     ))}
   </Carousel>
 );
-
-export default Carousels;

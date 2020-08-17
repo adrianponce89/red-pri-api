@@ -36,7 +36,7 @@ const ShareSocialNetwork = styled(ShareSocialNetworks)`
   bottom: 20px;
 `;
 
-const Slides = [
+const slides = [
   {
     picUrl: '',
     title: 'Titulo1',
@@ -59,7 +59,7 @@ const Slides = [
 
 const Home = () => (
   <>
-    <Carousel slides={Slides} />
+    <Carousel slides={slides} />
     <LandingBackground>
       <LandingContainer>
         <Landing
