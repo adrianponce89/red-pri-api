@@ -46,6 +46,7 @@
     "passport-local": "^1.0.0",
     "react": "^16.13.1",
     "react-bootstrap": "^1.2.0",
+    "react-bootstrap-typeahead": "^5.1.1",
     "react-dom": "^16.13.1",
     "react-share": "^4.2.1",
     "sanitize-html": "^1.27.1",
