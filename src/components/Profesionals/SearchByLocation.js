@@ -6,7 +6,7 @@ import { Typeahead } from 'react-bootstrap-typeahead';
 import { LoadableButton as Button } from '../Loadable';
 
 import {
-  specialities,
+  specialitiesList,
   provincias_large,
   localidades_map,
   obrasSociales,
@@ -38,7 +38,7 @@ const SearchByLocation = () => {
           <Form.Label>Especialidad</Form.Label>
           <Typeahead
             onChange={setSpecility}
-            options={specialities}
+            options={specialitiesList}
             placeholder="Especialidad..."
             selected={specility}
           />

@@ -4,10 +4,16 @@ import fetch from 'isomorphic-fetch';
 import Col from 'react-bootstrap/Col';
 import Form from 'react-bootstrap/Form';
 import InputGroup from 'react-bootstrap/InputGroup';
+import { Typeahead } from 'react-bootstrap-typeahead';
 import ImageSelection from '../ImageSelection';
 import AddressGroup from './components/AddressGroup';
 import PhoneGroup from './components/PhoneGroup';
 import { LoadableButton } from '../Loadable';
+import {
+  specialitiesList,
+  themesList,
+  atentionTypesList,
+} from '../../config/data';
 
 const ProfesionalForm = (props) => {
   const profile = props.profile || {};
@@ -22,11 +28,11 @@ const ProfesionalForm = (props) => {
   const [title, setTitle] = useState(profile.title);
   const [about, setAbout] = useState(profile.about);
   const [specialities, setSpecialities] = useState(
-    profile.specialities.join(),
+    profile.specialities,
   );
-  const [themes, setThemes] = useState(profile.themes.join());
+  const [themes, setThemes] = useState(profile.themes);
   const [atentionType, setAtentionType] = useState(
-    profile.atentionType.join(),
+    profile.atentionType,
   );
   const [practice, setPractice] = useState(profile.practice);
   const [addressList, setAddressList] = useState(
@@ -45,9 +51,9 @@ const ProfesionalForm = (props) => {
       matricula,
       title,
       about,
-      specialities: specialities.split(',').map((v) => v.trim()),
-      themes: themes.split(',').map((v) => v.trim()),
-      atentionType: atentionType.split(',').map((v) => v.trim()),
+      specialities,
+      themes,
+      atentionType,
       practice,
       addressList,
       phoneList,
@@ -225,38 +231,32 @@ const ProfesionalForm = (props) => {
       <Form.Row>
         <Form.Group as={Col} md="4" controlId="especialidades">
           <Form.Label>Especialidades</Form.Label>
-          <Form.Control
-            required
-            type="text"
-            placeholder="Especialidades"
-            value={specialities}
-            onChange={(event) => {
-              setSpecialities(event.target.value);
-            }}
+          <Typeahead
+            onChange={setSpecialities}
+            options={specialitiesList}
+            placeholder="Especialidades..."
+            selected={specialities}
+            multiple
           />
         </Form.Group>
         <Form.Group as={Col} md="4" controlId="temas">
           <Form.Label>Temas</Form.Label>
-          <Form.Control
-            required
-            type="text"
-            placeholder="Temas"
-            value={themes}
-            onChange={(event) => {
-              setThemes(event.target.value);
-            }}
+          <Typeahead
+            onChange={setThemes}
+            options={themesList}
+            placeholder="Temas..."
+            selected={themes}
+            multiple
           />
         </Form.Group>
         <Form.Group as={Col} md="4" controlId="orientaciones">
           <Form.Label>Tipo de atención</Form.Label>
-          <Form.Control
-            required
-            type="text"
-            placeholder="Tipo de atención"
-            value={atentionType}
-            onChange={(event) => {
-              setAtentionType(event.target.value);
-            }}
+          <Typeahead
+            onChange={setAtentionType}
+            options={atentionTypesList}
+            placeholder="Tipos de atención..."
+            selected={atentionType}
+            multiple
           />
         </Form.Group>
       </Form.Row>
