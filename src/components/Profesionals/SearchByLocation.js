@@ -2,7 +2,9 @@ import React, { useState } from 'react';
 import Router from 'next/router';
 import Form from 'react-bootstrap/Form';
 import Col from 'react-bootstrap/Col';
+import { Typeahead } from 'react-bootstrap-typeahead';
 import { LoadableButton as Button } from '../Loadable';
+
 import {
   specialities,
   provincias_large,
@@ -11,8 +13,8 @@ import {
 } from '../../config/data';
 
 const SearchByLocation = () => {
-  const [specility, setSpecility] = useState('');
-  const [social, setSocial] = useState('Particular');
+  const [specility, setSpecility] = useState([]);
+  const [social, setSocial] = useState([]);
   const [address, setAddress] = useState('');
   const [loading, setLoading] = useState(false);
 
@@ -21,9 +23,9 @@ const SearchByLocation = () => {
     setLoading(true);
     const slug =
       '/busqueda/especialidades-' +
-      specility.toLowerCase().replace(/ /g, '-') +
+      specility.join().toLowerCase().replace(/ /g, '-') +
       '/obrasocial-' +
-      social.toLowerCase().replace(/ /g, '-') +
+      social.join().toLowerCase().replace(/ /g, '-') +
       '/direccion-' +
       address.toLowerCase();
     Router.push(slug);
@@ -34,28 +36,22 @@ const SearchByLocation = () => {
       <Form.Row>
         <Form.Group as={Col} sm={4} controlId="especialidad">
           <Form.Label>Especialidad</Form.Label>
-          <Form.Control
-            as="select"
-            value={specility}
-            onChange={(e) => setSpecility(e.target.value)}
-          >
-            {specialities.map((name) => (
-              <option key={name}>{name}</option>
-            ))}
-          </Form.Control>
+          <Typeahead
+            onChange={setSpecility}
+            options={specialities}
+            placeholder="Especialidad..."
+            selected={specility}
+          />
         </Form.Group>
 
         <Form.Group as={Col} sm={4} controlId="social">
           <Form.Label>Obra Social</Form.Label>
-          <Form.Control
-            as="select"
-            value={social}
-            onChange={(e) => setSocial(e.target.value)}
-          >
-            {obrasSociales.map((name) => (
-              <option key={name}>{name}</option>
-            ))}
-          </Form.Control>
+          <Typeahead
+            onChange={setSocial}
+            options={obrasSociales}
+            placeholder="Obra Social..."
+            selected={social}
+          />
         </Form.Group>
 
         <Form.Group as={Col} sm={4} controlId="direccion">

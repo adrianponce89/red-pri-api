@@ -4,6 +4,7 @@ import GlobalStyle from '../components/GlobalStyle';
 import Navigation from '../components/Navigation';
 import SignInModal from '../components/Modals/SignInModal';
 import Background from '../components/Background';
+import 'react-bootstrap-typeahead/css/Typeahead.css';
 
 const theme = {
   colors: {
