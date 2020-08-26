@@ -48,6 +48,7 @@
     "react-bootstrap": "^1.2.0",
     "react-bootstrap-typeahead": "^5.1.1",
     "react-dom": "^16.13.1",
+    "react-geocode": "^0.2.1",
     "react-share": "^4.2.1",
     "sanitize-html": "^1.27.1",
     "styled-components": "^5.1.1",
