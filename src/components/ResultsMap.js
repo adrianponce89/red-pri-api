@@ -8,11 +8,10 @@ import {
 import styled from 'styled-components';
 import ProfesionalCard from './ProfesionalCard';
 import { googleMapsAPIKey, mapOptions } from '../config';
-
-const center = {
-  lat: -34.6157437,
-  lng: -58.5733832,
-};
+import {
+  getLatLngBounds,
+  getCenterAndZoom,
+} from '../utils/geocoding';
 
 const ResultMap = ({ className, results }) => {
   const [infoWindow, setInfoWindow] = useState(null);
@@ -23,12 +22,15 @@ const ResultMap = ({ className, results }) => {
     [],
   );
 
+  const bounds = getLatLngBounds(flatResults.map((r) => r.location));
+  const { center, zoom } = getCenterAndZoom(bounds);
+
   return (
     <LoadScript googleMapsApiKey={googleMapsAPIKey}>
       <GoogleMap
         mapContainerClassName={className}
         center={center}
-        zoom={10}
+        zoom={zoom}
         options={mapOptions}
       >
         {flatResults.map((result) => (
