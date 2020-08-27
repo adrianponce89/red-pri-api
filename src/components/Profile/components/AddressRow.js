@@ -88,7 +88,7 @@ const AddressRow = (props) => {
             labelKey="street"
             minLength={5}
             onSearch={handleSearch}
-            filterBy={['street']}
+            filterBy={() => true}
             defaultSelected={[
               {
                 street: address.street,
