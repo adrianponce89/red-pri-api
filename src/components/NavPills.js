@@ -1,11 +1,15 @@
 import Nav from 'react-bootstrap/Nav';
 import FAIcon from './FAIcon';
 
-const NavPills = ({ items, defaultActiveKey }) => (
-  <Nav variant="pills" defaultActiveKey={defaultActiveKey}>
+const NavPills = ({ items, activeKey }) => (
+  <Nav variant="pills" activeKey={activeKey}>
     {items.map((item) => (
       <Nav.Item key={item.title}>
-        <Nav.Link href={item.link}>
+        <Nav.Link
+          href={item.href}
+          eventKey={item.eventKey}
+          onClick={item.onClick}
+        >
           {item.icon && (
             <>
               <FAIcon

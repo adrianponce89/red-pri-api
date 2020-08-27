@@ -21,6 +21,7 @@
   },
   "homepage": "https://github.com/adrianponce89/red-pri-api#readme",
   "dependencies": {
+    "@react-google-maps/api": "^1.9.12",
     "@tinymce/tinymce-react": "^3.6.0",
     "@types/express": "^4.17.6",
     "await-to-js": "^2.1.1",

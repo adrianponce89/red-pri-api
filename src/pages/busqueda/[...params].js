@@ -13,6 +13,8 @@ import Filters from '../../components/Search/Filters';
 import AvailableFilters from '../../components/Search/AvailableFilters';
 import FAIcon from '../../components/FAIcon';
 import NavPills from '../../components/NavPills';
+import ResultsMap from '../../components/ResultsMap';
+import { Marker } from '@react-google-maps/api';
 
 const FiltersTitle = styled.h4`
   margin: 0.2em 0;
@@ -40,10 +42,15 @@ const FilterButtonContainer = styled.div`
   display: flex;
   justify-content: center;
   padding: 1em;
+  pointer-events: none;
+  button {
+    pointer-events: all;
+  }
 `;
 
 const Busqueda = ({ results, filters, paging, availableFilters }) => {
   const [show, setShow] = useState(false);
+  const [resultType, setResultType] = useState('list');
   return (
     <Container>
       <Row>
@@ -60,26 +67,32 @@ const Busqueda = ({ results, filters, paging, availableFilters }) => {
         <Col md="9">
           <div className="d-flex justify-content-end pb-2">
             <NavPills
-              defaultActiveKey="/busqueda#listado"
+              activeKey={resultType}
               items={[
                 {
-                  link: '/busqueda#listado',
+                  onClick: () => setResultType('list'),
+                  eventKey: 'list',
                   icon: 'fa fa-list',
                   title: 'Listado',
                 },
                 {
-                  link: '/busqueda#mapa',
+                  onClick: () => setResultType('map'),
+                  eventKey: 'map',
                   icon: 'fa fa-map-marker',
                   title: 'Mapa',
                 },
               ]}
             />
           </div>
-          <div>
-            {results.map((user) => (
-              <ProfesionalCard key={user._id} {...user} />
-            ))}
-          </div>
+          {resultType === 'list' ? (
+            <div>
+              {results.map((user) => (
+                <ProfesionalCard key={user._id} {...user} />
+              ))}
+            </div>
+          ) : (
+            <ResultsMap results={results} />
+          )}
         </Col>
       </Row>
       <ShowOnSm>

@@ -83,9 +83,17 @@ const sanitizeConfig = {
   },
 };
 
+const mapOptions = {
+  clickableIcons: false,
+  fullscreenControl: false,
+  mapTypeControl: false,
+  maxZoom: 20,
+};
+
 module.exports = {
   server,
   tinyAPIKey,
   googleMapsAPIKey,
+  mapOptions,
   sanitizeConfig,
 };
