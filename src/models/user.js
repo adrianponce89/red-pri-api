@@ -28,6 +28,10 @@ const userSchema = new Schema({
       province: String,
       locality: String,
       zipCode: String,
+      location: {
+        lat: Number,
+        lng: Number,
+      },
     },
   ],
   phoneList: [

@@ -28,7 +28,10 @@ const AddressGroup = (props) => {
   };
 
   const onAdd = () => {
-    const newList = [...addressList, { key: `${Math.random()}` }];
+    const newList = [
+      ...addressList,
+      { key: `${Math.random()}`, street: '' },
+    ];
     props.onChange(newList);
   };
 

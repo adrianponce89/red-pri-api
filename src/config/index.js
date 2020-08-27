@@ -4,6 +4,8 @@ const server = dev ? process.env.DEV_SERVER : process.env.PROD_SERVER;
 
 const tinyAPIKey = process.env.TINY_API_KEY;
 
+const googleMapsAPIKey = process.env.GOOGLE_MAPS_API_KEY;
+
 const sanitizeConfig = {
   allowedTags: [
     'h1',
@@ -81,8 +83,17 @@ const sanitizeConfig = {
   },
 };
 
+const mapOptions = {
+  clickableIcons: false,
+  fullscreenControl: false,
+  mapTypeControl: false,
+  maxZoom: 20,
+};
+
 module.exports = {
   server,
   tinyAPIKey,
+  googleMapsAPIKey,
+  mapOptions,
   sanitizeConfig,
 };

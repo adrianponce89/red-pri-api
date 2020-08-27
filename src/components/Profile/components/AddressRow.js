@@ -2,7 +2,15 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 import Col from 'react-bootstrap/Col';
 import Form from 'react-bootstrap/Form';
+import { AsyncTypeahead } from 'react-bootstrap-typeahead';
+import Geocode from 'react-geocode';
+import { googleMapsAPIKey } from '../../../config';
+import { extractType } from '../../../utils/geocoding';
 import RoundButton from './RoundButton';
+
+Geocode.setApiKey(googleMapsAPIKey);
+Geocode.setLanguage('es');
+Geocode.setRegion('ar');
 
 const AddressRowContainer = styled.div`
   border-bottom: 1px solid gray;
@@ -24,6 +32,45 @@ const AddressRow = (props) => {
     });
   };
 
+  const onChangeSelection = (selection) => {
+    props.onChange({
+      ...props.address,
+      ...selection,
+    });
+  };
+
+  const [isLoading, setIsLoading] = useState(false);
+  const [options, setOptions] = useState([]);
+
+  const handleSearch = (street) => {
+    setIsLoading(true);
+
+    Geocode.fromAddress(street).then(
+      (response) => {
+        const newOptions = response.results.map((i) => ({
+          street: i.formatted_address,
+          location: i.geometry.location,
+          province: extractType(
+            'administrative_area_level_1',
+            i.address_components,
+          ),
+          locality:
+            extractType('locality', i.address_components) ||
+            extractType('sublocality', i.address_components),
+          zipCode: extractType('postal_code', i.address_components),
+        }));
+        if (newOptions.length > 0) {
+          setOptions(newOptions);
+          onChange('options', newOptions);
+        }
+        setIsLoading(false);
+      },
+      (error) => {
+        console.log(error);
+      },
+    );
+  };
+
   return (
     <AddressRowContainer>
       <FormRow>
@@ -33,18 +80,32 @@ const AddressRow = (props) => {
         >
           -
         </RoundButton>
-        <Form.Group required as={Col} md="4" controlId="direccion">
-          <Form.Label>Calle</Form.Label>
-          <Form.Control
-            type="text"
-            value={address.street}
-            onChange={(event) => {
-              onChange('street', event.target.value);
+        <Form.Group required as={Col} md="6" controlId="direccion">
+          <Form.Label>Dirección</Form.Label>
+          <AsyncTypeahead
+            id="direccion"
+            isLoading={isLoading}
+            labelKey="street"
+            minLength={5}
+            onSearch={handleSearch}
+            filterBy={() => true}
+            defaultSelected={[
+              {
+                street: address.street,
+                location: address.location,
+                province: address.province,
+                locality: address.locality,
+                zipCode: address.zipCode,
+              },
+            ]}
+            onChange={(selection) => {
+              onChangeSelection(selection[0]);
             }}
+            options={options}
             placeholder="Calle 1234"
           />
         </Form.Group>
-        <Form.Group as={Col} md="4" controlId="departamento">
+        <Form.Group as={Col} md="2" controlId="departamento">
           <Form.Label>Departamento</Form.Label>
           <Form.Control
             type="text"
@@ -67,53 +128,6 @@ const AddressRow = (props) => {
           />
         </Form.Group>
       </FormRow>
-      <Form.Row>
-        <Form.Group md="4" as={Col} controlId="localidad">
-          <Form.Label>Localidad</Form.Label>
-          <Form.Control
-            type="text"
-            placeholder="Localidad"
-            value={address.locality}
-            onChange={(event) => {
-              onChange('locality', event.target.value);
-            }}
-            required
-          />
-          <Form.Control.Feedback type="invalid">
-            Ingrese una localidad valida.
-          </Form.Control.Feedback>
-        </Form.Group>
-        <Form.Group md="4" as={Col} controlId="provincia">
-          <Form.Label>Provincia</Form.Label>
-          <Form.Control
-            type="text"
-            placeholder="Provincia"
-            value={address.province}
-            onChange={(event) => {
-              onChange('province', event.target.value);
-            }}
-            required
-          />
-          <Form.Control.Feedback type="invalid">
-            Ingrese una provincia valida.
-          </Form.Control.Feedback>
-        </Form.Group>
-        <Form.Group md="4" as={Col} controlId="codigopostal">
-          <Form.Label>Código Postal</Form.Label>
-          <Form.Control
-            type="text"
-            placeholder="Código Postal"
-            value={address.zipCode}
-            onChange={(event) => {
-              onChange('zipCode', event.target.value);
-            }}
-            required
-          />
-          <Form.Control.Feedback type="invalid">
-            Ingrese un código postal valido.
-          </Form.Control.Feedback>
-        </Form.Group>
-      </Form.Row>
     </AddressRowContainer>
   );
 };
