@@ -8,6 +8,7 @@ const keyMap = {
   ['provincia']: 'addressList.province',
   ['localidad']: 'addressList.locality',
   ['orden']: 'sort',
+  ['coordenadas']: 'location',
 };
 
 const nameMap = {
@@ -20,6 +21,7 @@ const nameMap = {
   ['addressList.province']: 'provincia',
   ['addressList.locality']: 'localidad',
   ['sort']: 'orden',
+  ['location']: 'coordenadas',
 };
 
 const hyphenToSpace = (str) => {
@@ -152,6 +154,15 @@ const isImage = (file) => {
   return imagesTypes.includes(mimetype);
 };
 
+const getLatLng = (location) => {
+  const [lat, lng] = location
+    .slice(1)
+    .replace(/ /g, '-')
+    .split(',')
+    .map((text) => parseFloat(text));
+  return { lat, lng };
+};
+
 module.exports = {
   hyphenToSpace,
   getKeysFromSlugParams,
@@ -159,4 +170,5 @@ module.exports = {
   getFilters,
   timeSince,
   isImage,
+  getLatLng,
 };
