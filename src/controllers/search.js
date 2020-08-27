@@ -1,9 +1,13 @@
 const User = require('../models/user');
-const { getFilters, getAvailableFilters } = require('../utils');
+const {
+  getFilters,
+  getAvailableFilters,
+  getLatLng,
+} = require('../utils');
 
 module.exports = {
   index: async (req, res, next) => {
-    const { text, ...otherQuery } = req.query;
+    const { text, location, ...otherQuery } = req.query;
     let query = otherQuery;
     if (text) {
       const splitText = text.split(' ');
@@ -21,6 +25,22 @@ module.exports = {
           { about: { $regex: text } },
           { practice: { $regex: text } },
         ],
+      };
+    }
+
+    if (location) {
+      const range = 0.045;
+      const { lat, lng } = getLatLng(location);
+      query = {
+        ...query,
+        'addressList.location.lat': {
+          $gt: lat - range,
+          $lt: lat + range,
+        },
+        'addressList.location.lng': {
+          $gt: lng - range,
+          $lt: lng + range,
+        },
       };
     }
 
