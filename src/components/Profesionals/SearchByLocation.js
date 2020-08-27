@@ -122,7 +122,9 @@ const SearchByLocation = () => {
           className="btn-lg"
           type="submit"
           loading={loading}
-          disabled={specility.length === 0 || loading}
+          disabled={
+            specility.length === 0 || address === null || loading
+          }
         >
           Buscar
         </Button>
