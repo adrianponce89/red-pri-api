@@ -36,30 +36,9 @@ const ShareSocialNetwork = styled(ShareSocialNetworks)`
   bottom: 20px;
 `;
 
-const slides = [
-  {
-    picUrl: '',
-    title: 'Titulo1',
-    description:
-      'Nostrud aute ut sunt excepteur officia incididunt et.',
-  },
-  {
-    picUrl: '/imgs/ph_bebe_1.jpeg',
-    title: 'Titulo2',
-    description:
-      'Nostrud aute ut sunt excepteur officia incididunt et.',
-  },
-  {
-    picUrl: '/imgs/ph_bebe_1.jpeg',
-    title: 'Titulo3',
-    description:
-      'Nostrud aute ut sunt excepteur officia incididunt et.',
-  },
-];
-
-const Home = () => (
+const Home = ({ slides }) => (
   <>
-    <Carousel slides={slides} />
+    {slides.length > 0 ? <Carousel slides={slides} /> : ''}
     <LandingBackground>
       <LandingContainer>
         <Landing
@@ -86,5 +65,15 @@ const Home = () => (
     <ShareSocialNetwork url={server} />
   </>
 );
+
+export async function getServerSideProps() {
+  const resSlides = await fetch(`${server}/api/slides`);
+  const slides = await resSlides.json();
+  return {
+    props: {
+      slides,
+    },
+  };
+}
 
 export default Home;

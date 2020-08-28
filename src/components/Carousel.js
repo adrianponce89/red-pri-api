@@ -35,7 +35,7 @@ export default ({ slides }) => (
         <CarouselImage src={slide.picUrl} />
         <Carousel.Caption>
           <Title>{slide.title}</Title>
-          <Description>{slide.description}</Description>
+          <Description>{slide.content}</Description>
         </Carousel.Caption>
       </Carousel.Item>
     ))}
