@@ -17,6 +17,7 @@ const SelectionContainer = styled.div`
   margin: -2px;
   margin-top: 2.5px;
   background: white;
+  min-height: 220px;
 `;
 
 const SMDisplay = styled.p`
@@ -32,10 +33,10 @@ const NoSMDisplay = styled.p`
   }
 `;
 
-const Profesionals = () => {
+const Profesionals = (props) => {
   const [selected, setSelected] = useState('bySpeciality');
   return (
-    <Card>
+    <Card {...props}>
       <Card.Body>
         <Title>Encontrá tu profesional</Title>
         <SMDisplay>Buscar por: </SMDisplay>

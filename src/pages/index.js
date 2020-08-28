@@ -1,8 +1,10 @@
 import styled, { withTheme } from 'styled-components';
 import Landing from '../components/Landing';
+import Profesionals from '../components/Profesionals';
 import Contact from '../components/Contact';
 import JoinUs from '../components/JoinUs';
 import Carousel from '../components/Carousel';
+import Container from '../components/Container';
 import ShareSocialNetworks from '../components/ShareSocialNetworks';
 import { server } from '../config';
 
@@ -29,6 +31,9 @@ const ShareSocialNetwork = styled(ShareSocialNetworks)`
 const Home = ({ slides, theme }) => (
   <>
     {slides.length > 0 ? <Carousel slides={slides} /> : ''}
+    <Container id="profesionales">
+      <Profesionals />
+    </Container>
     <LandingBackground>
       <LandingContainer>
         <Landing
