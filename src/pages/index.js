@@ -1,20 +1,12 @@
-import styled from 'styled-components';
+import styled, { withTheme } from 'styled-components';
 import Landing from '../components/Landing';
+import Profesionals from '../components/Profesionals';
 import Contact from '../components/Contact';
 import JoinUs from '../components/JoinUs';
 import Carousel from '../components/Carousel';
+import Container from '../components/Container';
 import ShareSocialNetworks from '../components/ShareSocialNetworks';
 import { server } from '../config';
-
-const Title = styled.h1`
-  font-size: 30px;
-  text-align: baseline;
-`;
-
-const ContainTitle = styled.div`
-  display: flex;
-  justify-content: center;
-`;
 
 const LandingContainer = styled.div`
   max-width: 1032px;
@@ -36,48 +28,34 @@ const ShareSocialNetwork = styled(ShareSocialNetworks)`
   bottom: 20px;
 `;
 
-const slides = [
-  {
-    picUrl: '',
-    title: 'Titulo1',
-    description:
-      'Nostrud aute ut sunt excepteur officia incididunt et.',
-  },
-  {
-    picUrl: '/imgs/ph_bebe_1.jpeg',
-    title: 'Titulo2',
-    description:
-      'Nostrud aute ut sunt excepteur officia incididunt et.',
-  },
-  {
-    picUrl: '/imgs/ph_bebe_1.jpeg',
-    title: 'Titulo3',
-    description:
-      'Nostrud aute ut sunt excepteur officia incididunt et.',
-  },
-];
-
-const Home = () => (
+const Home = ({ slides, theme }) => (
   <>
-    <Carousel slides={slides} />
+    {slides.length > 0 ? <Carousel slides={slides} /> : ''}
+    <Container id="profesionales">
+      <Profesionals />
+    </Container>
     <LandingBackground>
       <LandingContainer>
         <Landing
-          borderRadius="50%"
-          picUrl="/imgs/ph_bebe_1.jpeg"
-          title="Titulo1"
-          description="description1"
+          icon="fa fa-search"
+          title="BUSCÁ"
+          description="Completa el formulario y encontra el profesional que estés buscando"
+          href="/#profesionales"
+          color={theme.colors.mainOrange}
         />
         <Landing
-          picUrl="/imgs/ph_bebe_1.jpeg"
-          title="Titulo2"
-          description="description2"
+          icon="fa fa-newspaper-o"
+          title="INFORMATE"
+          description="Visitá nuestro blog y encuentra articulos y noticias relevantes a la crianza"
+          href="/articulos"
+          color={theme.colors.mainGreen}
         />
         <Landing
-          borderRadius="10px"
-          picUrl="/imgs/ph_bebe_1.jpeg"
-          title="Titulo3"
-          description="description3"
+          icon="fa fa-sign-in"
+          title="FORMAR PARTE"
+          description="Unite a Red-Pri y forma parte de nuestra red de profesionales"
+          href="/unirse"
+          color={theme.colors.mainRed}
         />
       </LandingContainer>
     </LandingBackground>
@@ -87,4 +65,14 @@ const Home = () => (
   </>
 );
 
-export default Home;
+export async function getServerSideProps() {
+  const resSlides = await fetch(`${server}/api/slides`);
+  const slides = await resSlides.json();
+  return {
+    props: {
+      slides,
+    },
+  };
+}
+
+export default withTheme(Home);

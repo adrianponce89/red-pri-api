@@ -46,7 +46,11 @@ const JoinUs = (props) => (
   <JoinBackgound src="/imgs/ph_bebe_1.jpeg">
     <JoinJustify>
       <JoinMessage>{MESSAGE_TEXT}</JoinMessage>
-      <JoinButton size="lg" variant="btn btn-outline-info">
+      <JoinButton
+        size="lg"
+        variant="btn btn-outline-info"
+        href="/unirse"
+      >
         {BUTTON_TEXT}
       </JoinButton>
     </JoinJustify>

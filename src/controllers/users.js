@@ -160,6 +160,10 @@ module.exports = {
 
   removeUser: async (req, res, next) => {
     const { userId } = req.params;
+    const oldUser = await User.findOne({ _id: userId });
+    if (oldUser.deletehash) {
+      await imgur.deleteImage(oldUser.deletehash);
+    }
     await User.deleteOne({ _id: userId });
     res.status(200).json({ success: true });
   },

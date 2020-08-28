@@ -11,9 +11,9 @@ const Inner = styled.div`
   width: 100%;
 `;
 
-const Container = (props) => (
-  <External className={props.className}>
-    <Inner>{props.children}</Inner>
+const Container = ({ children, ...otherProps }) => (
+  <External {...otherProps}>
+    <Inner>{children}</Inner>
   </External>
 );
 

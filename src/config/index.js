@@ -87,7 +87,7 @@ const mapOptions = {
   clickableIcons: false,
   fullscreenControl: false,
   mapTypeControl: false,
-  maxZoom: 20,
+  maxZoom: 16,
 };
 
 module.exports = {

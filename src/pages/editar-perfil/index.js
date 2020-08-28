@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import Card from 'react-bootstrap/Card';
-import Container from '../components/Container';
-import ProfesionalForm from '../components/Profile/ProfesionalForm';
-import { contentOnLoad } from '../components/Loadable';
+import Container from '../../components/Container';
+import ProfesionalForm from '../../components/Profile/ProfesionalForm';
+import { contentOnLoad } from '../../components/Loadable';
 
 const EditarPerfil = (props) => {
   const [role, setRole] = useState('');

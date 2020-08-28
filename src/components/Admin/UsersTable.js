@@ -4,6 +4,7 @@ import Button from 'react-bootstrap/Button';
 import FormCheck from 'react-bootstrap/FormCheck';
 import { LoadableButton } from '../Loadable';
 import Router from 'next/router';
+import Link from 'next/link';
 
 const UserRow = ({ key, user }) => {
   const [email, setEmail] = useState(user.email);
@@ -45,8 +46,12 @@ const UserRow = ({ key, user }) => {
 
   const handleDelete = async (event) => {
     event.preventDefault();
-    setLoading(true);
+    const msg = `¿Seguro que querés borrar el usuario ${user.email}?`;
+    if (!confirm(msg)) {
+      return;
+    }
 
+    setLoading(true);
     const res = await fetch(`/api/users/${user._id}`, {
       method: 'DELETE',
       headers: {
@@ -138,30 +143,40 @@ const UserRow = ({ key, user }) => {
       </td>
       <td>
         {modified ? (
-          <LoadableButton
-            loading={loading}
-            variant="success"
-            onClick={handleSave}
-          >
-            Guardar
-          </LoadableButton>
+          <>
+            <LoadableButton
+              disabled={loading}
+              loading={loading}
+              variant="success"
+              onClick={handleSave}
+            >
+              Guardar
+            </LoadableButton>
+            <Button
+              disabled={loading}
+              variant="secondary"
+              onClick={handleCancel}
+            >
+              Cancelar
+            </Button>
+          </>
         ) : (
-          <LoadableButton
-            loading={loading}
-            variant="danger"
-            onClick={handleDelete}
-          >
-            Eliminar
-          </LoadableButton>
+          <>
+            <LoadableButton
+              disabled={loading}
+              loading={loading}
+              variant="danger"
+              onClick={handleDelete}
+            >
+              Eliminar
+            </LoadableButton>
+            <Link href={`/editar-perfil/${user.username}`}>
+              <Button disabled={loading} variant="primary">
+                Editar
+              </Button>
+            </Link>
+          </>
         )}
-        <Button
-          loading={loading}
-          variant="secondary"
-          onClick={handleCancel}
-          style={{ visibility: modified ? 'visible' : 'hidden' }}
-        >
-          Cancelar
-        </Button>
       </td>
     </tr>
   );
