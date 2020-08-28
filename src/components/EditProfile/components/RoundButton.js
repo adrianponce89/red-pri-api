@@ -13,7 +13,6 @@ const RoundButton = styled(Button)`
   align-content: center;
   z-index: 1;
   margin: 0 5px;
-  text-height: 100%;
 `;
 
 export default RoundButton;

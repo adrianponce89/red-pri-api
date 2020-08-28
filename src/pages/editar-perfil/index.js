@@ -1,7 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import Card from 'react-bootstrap/Card';
-import Container from '../../components/Container';
-import ProfesionalForm from '../../components/Profile/ProfesionalForm';
+import EditProfile from '../../components/EditProfile';
 import { contentOnLoad } from '../../components/Loadable';
 
 const EditarPerfil = (props) => {
@@ -13,23 +11,19 @@ const EditarPerfil = (props) => {
   }, [props]);
 
   return (
-    <Container>
-      <Card>
-        <Card.Body>
-          {role === 'author' ? (
-            <ProfesionalForm
-              profile={props.profile}
-              setProfile={props.setProfile}
-            />
-          ) : (
-            <ProfesionalForm
-              profile={props.profile}
-              setProfile={props.setProfile}
-            />
-          )}
-        </Card.Body>
-      </Card>
-    </Container>
+    <>
+      {role === 'author' ? (
+        <EditProfile
+          profile={props.profile}
+          setProfile={props.setProfile}
+        />
+      ) : (
+        <EditProfile
+          profile={props.profile}
+          setProfile={props.setProfile}
+        />
+      )}
+    </>
   );
 };
 
