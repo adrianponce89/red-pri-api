@@ -1,6 +1,4 @@
 import React, { useState } from 'react';
-import Router from 'next/router';
-import fetch from 'isomorphic-fetch';
 import Col from 'react-bootstrap/Col';
 import Card from 'react-bootstrap/Card';
 import Form from 'react-bootstrap/Form';
@@ -41,53 +39,34 @@ const EditProfile = (props) => {
     profile.addressList || [],
   );
   const [phoneList, setPhoneList] = useState(profile.phoneList || []);
-  const [loading, setLoading] = useState(false);
 
-  const postProfileChanges = async () => {
-    setLoading(true);
-    const data = {
-      email,
-      name,
-      surname,
-      username,
-      matricula,
-      title,
-      about,
-      specialities,
-      themes,
-      atentionType,
-      practice,
-      addressList,
-      phoneList,
-    };
-    if (password.length > 0) data['password'] = password;
-
-    const fd = new FormData();
-    if (file) {
-      fd.append('file', file, file.name);
-    }
-    fd.append('data', JSON.stringify(data));
-
-    const res = await fetch(`/api/users/${props.profile._id}`, {
-      method: 'PATCH',
-      body: fd,
-    });
-
-    if (res.status === 200) {
-      const resJson = await res.json();
-      props.setProfile(resJson.user);
-      Router.push(`/perfil/${resJson.user.username}`);
-    } else {
-      setLoading(false);
-    }
-  };
+  const { loading, onSubmit } = props;
 
   const [validated, setValidated] = useState(false);
   const handleSubmit = (event) => {
     event.preventDefault();
     const form = event.currentTarget;
     if (form.checkValidity()) {
-      postProfileChanges();
+      const data = {
+        email,
+        name,
+        surname,
+        username,
+        matricula,
+        title,
+        about,
+        specialities,
+        themes,
+        atentionType,
+        practice,
+        addressList,
+        phoneList,
+      };
+      if (password.length > 0) data['password'] = password;
+      onSubmit({
+        ...data,
+        file,
+      });
     }
     setValidated(true);
   };

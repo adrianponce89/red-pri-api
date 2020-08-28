@@ -53,10 +53,14 @@ module.exports = {
       const newUser = {};
       const data = JSON.parse(req.body.data);
 
+      const oldUser = await User.findOne({ _id: userId });
+
       if (data.email) newUser['email'] = data.email.toLowerCase();
       if (data.password)
         newUser['password'] = req.user.encryptPassword(data.password);
-      if (data.role) newUser['role'] = data.role;
+      if (req.user.role === 'admin' && data.role) {
+        newUser['role'] = data.role;
+      }
       if (data.picUrl) newUser['picUrl'] = data.picUrl;
       if (req.file) {
         if (!isImage(req.file)) {
@@ -72,8 +76,8 @@ module.exports = {
         );
 
         // Delete previous image from Imgur
-        if (req.user.deletehash) {
-          await imgur.deleteImage(deletehash);
+        if (oldUser.deletehash) {
+          await imgur.deleteImage(oldUser.deletehash);
         }
         // Upload new Image to Imgur
         const imgurRes = await imgur.uploadFile(filePath);
@@ -105,8 +109,8 @@ module.exports = {
           .toLowerCase()
           .replace(/-/g, ' ');
         newUser['username'] = username;
-        const oldUser = await User.findOne({ username });
-        if (oldUser && !req.user._id.equals(oldUser._id)) {
+        const otherUser = await User.findOne({ username });
+        if (otherUser && !oldUser._id.equals(otherUser._id)) {
           return res.status(500).json({
             success: false,
             error: 'Username is already taken',
@@ -143,9 +147,11 @@ module.exports = {
         }));
       }
       if (data.phoneList) newUser['phoneList'] = data.phoneList;
-      if (data.permits) newUser['permits'] = data.permits;
+      if (req.user.role === 'admin' && data.permits) {
+        newUser['permits'] = data.permits;
+      }
 
-      const oldUser = await User.findByIdAndUpdate(userId, {
+      await User.findByIdAndUpdate(userId, {
         $set: newUser,
       });
       const user = await User.findById(userId);
