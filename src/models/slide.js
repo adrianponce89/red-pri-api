@@ -4,6 +4,7 @@ const Schema = mongoose.Schema;
 const slideSchema = new Schema({
   title: String,
   content: String,
+  href: String,
   picUrl: String,
   deletehash: String,
 });

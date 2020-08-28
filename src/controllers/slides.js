@@ -17,6 +17,7 @@ module.exports = {
     const sanitized = {
       title: req.body.title,
       content: req.body.content,
+      href: req.body.href,
     };
     const newSlide = new Slide(sanitized);
     const slide = await newSlide.save();
@@ -43,10 +44,9 @@ module.exports = {
     const newSlide = {};
     const data = JSON.parse(req.body.data);
 
-    if (data.title) {
-      newSlide['title'] = data.title;
-    }
+    if (data.title) newSlide['title'] = data.title;
     if (data.content) newSlide['content'] = data.content;
+    if (data.href) newSlide['href'] = data.href;
 
     if (req.file) {
       if (!isImage(req.file)) {

@@ -33,10 +33,12 @@ export default ({ slides }) => (
     {slides.map((slide) => (
       <Carousel.Item>
         <CarouselImage src={slide.picUrl} />
-        <Carousel.Caption>
-          <Title>{slide.title}</Title>
-          <Description>{slide.content}</Description>
-        </Carousel.Caption>
+        <a href={slide.href || ''}>
+          <Carousel.Caption>
+            <Title>{slide.title}</Title>
+            <Description>{slide.content}</Description>
+          </Carousel.Caption>
+        </a>
       </Carousel.Item>
     ))}
   </Carousel>

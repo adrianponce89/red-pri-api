@@ -9,6 +9,7 @@ import Router from 'next/router';
 const SlideRow = ({ slide }) => {
   const [title, setTitle] = useState(slide.title);
   const [content, setContent] = useState(slide.content);
+  const [href, setHref] = useState(slide.href);
   const [file, setFile] = useState(null);
   const [fileURL, setFileURL] = useState(null);
   const [loading, setLoading] = useState(false);
@@ -18,7 +19,7 @@ const SlideRow = ({ slide }) => {
     event.preventDefault();
     setLoading(true);
 
-    const params = { title, content };
+    const params = { title, content, href };
 
     const fd = new FormData();
     if (file) {
@@ -102,6 +103,16 @@ const SlideRow = ({ slide }) => {
         />
       </td>
       <td>
+        <input
+          disabled={loading}
+          value={href}
+          onChange={(e) => {
+            setHref(e.target.value);
+            setModified(true);
+          }}
+        />
+      </td>
+      <td>
         {modified ? (
           <LoadableButton
             loading={loading}
@@ -153,6 +164,7 @@ const SlidesTable = ({ slides }) => {
       body: JSON.stringify({
         title: '',
         content: '',
+        href: '',
       }),
     });
 
@@ -181,6 +193,7 @@ const SlidesTable = ({ slides }) => {
           <th>Image</th>
           <th>Title</th>
           <th>Content</th>
+          <th>Link URL</th>
           <th>Acciones</th>
         </tr>
       </thead>
