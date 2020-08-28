@@ -141,8 +141,12 @@ module.exports = {
   },
   removeArticle: async (req, res, next) => {
     const { articleId } = req.params;
-    const article = await Article.deleteOne({ _id: articleId });
-    res.status(200).json({ article, success: true });
+    const oldArticle = await Article.findOne({ _id: articleId });
+    if (oldArticle.deletehash) {
+      await imgur.deleteImage(oldArticle.deletehash);
+    }
+    await Article.deleteOne({ _id: articleId });
+    res.status(200).json({ success: true });
   },
   uploadImage: async (req, res, next) => {
     if (req.file) {

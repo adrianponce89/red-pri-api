@@ -88,7 +88,11 @@ module.exports = {
   },
   removeSlide: async (req, res, next) => {
     const { slideId } = req.params;
-    const slide = await Slide.deleteOne({ _id: slideId });
-    res.status(200).json({ slide, success: true });
+    const oldSlide = await Slide.findOne({ _id: slideId });
+    if (oldSlide.deletehash) {
+      await imgur.deleteImage(oldSlide.deletehash);
+    }
+    await Slide.deleteOne({ _id: slideId });
+    res.status(200).json({ success: true });
   },
 };
