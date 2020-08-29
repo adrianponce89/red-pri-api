@@ -5,17 +5,14 @@ import Col from 'react-bootstrap/Col';
 import { Typeahead } from 'react-bootstrap-typeahead';
 import { LoadableButton as Button } from '../Loadable';
 import {
-  specialitiesList,
   provincias_large,
   localidades_map,
   obrasSociales,
 } from '../../config/data';
 
-const SearchBySpeciality = () => {
+const SearchBySpeciality = ({ specialitiesList }) => {
   const [specility, setSpecility] = useState([]);
-  const [provincia, setProvincia] = useState(
-    'Ciudad de Buenos Aires',
-  );
+  const [provincia, setProvincia] = useState('CABA');
   const [localidad, setLocalidad] = useState([]);
   const [social, setSocial] = useState([]);
   const [loading, setLoading] = useState(false);

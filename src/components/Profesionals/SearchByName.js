@@ -8,9 +8,7 @@ import { provincias, obrasSociales } from '../../config/data';
 
 const SearchByName = () => {
   const [query, setQuery] = useState('');
-  const [provincia, setProvincia] = useState(
-    'Ciudad de Buenos Aires y GBA',
-  );
+  const [provincia, setProvincia] = useState('CABA');
   const [social, setSocial] = useState([]);
   const [loading, setLoading] = useState(false);
 

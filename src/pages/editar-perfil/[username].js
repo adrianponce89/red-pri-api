@@ -44,6 +44,9 @@ const EditarPerfil = (props) => {
           profile={props.user}
           onSubmit={handleSubmit}
           buttonName="Editar"
+          specialitiesList={props.specialitiesList}
+          themesList={props.themesList}
+          atentionTypesList={props.atentionTypesList}
         />
       ) : (
         <EditProfile
@@ -51,6 +54,9 @@ const EditarPerfil = (props) => {
           profile={props.user}
           onSubmit={handleSubmit}
           buttonName="Editar"
+          specialitiesList={props.specialitiesList}
+          themesList={props.themesList}
+          atentionTypesList={props.atentionTypesList}
         />
       )}
     </>
@@ -62,9 +68,20 @@ export async function getServerSideProps({ params }) {
     `${server}/api/users/${params.username}`,
   );
   const user = await resUser.json();
+
+  const resSuggestions = await fetch(`${server}/api/suggestions`);
+  const {
+    specialitiesList,
+    themesList,
+    atentionTypesList,
+  } = await resSuggestions.json();
+
   return {
     props: {
       user,
+      specialitiesList,
+      themesList,
+      atentionTypesList,
     },
   };
 }

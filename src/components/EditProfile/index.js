@@ -9,11 +9,6 @@ import ImageSelection from '../ImageSelection';
 import AddressGroup from './components/AddressGroup';
 import PhoneGroup from './components/PhoneGroup';
 import { LoadableButton } from '../Loadable';
-import {
-  specialitiesList,
-  themesList,
-  atentionTypesList,
-} from '../../config/data';
 
 const EditProfile = (props) => {
   const profile = props.profile || {};
@@ -40,7 +35,13 @@ const EditProfile = (props) => {
   );
   const [phoneList, setPhoneList] = useState(profile.phoneList || []);
 
-  const { loading, onSubmit } = props;
+  const {
+    specialitiesList,
+    themesList,
+    atentionTypesList,
+    loading,
+    onSubmit,
+  } = props;
 
   const [validated, setValidated] = useState(false);
   const handleSubmit = (event) => {
@@ -222,30 +223,36 @@ const EditProfile = (props) => {
               <Form.Group as={Col} md="4" controlId="especialidades">
                 <Form.Label>Especialidades</Form.Label>
                 <Typeahead
+                  allowNew
                   onChange={setSpecialities}
                   options={specialitiesList}
                   placeholder="Especialidades..."
                   selected={specialities}
+                  newSelectionPrefix="Otra: "
                   multiple
                 />
               </Form.Group>
               <Form.Group as={Col} md="4" controlId="temas">
                 <Form.Label>Temas</Form.Label>
                 <Typeahead
+                  allowNew
                   onChange={setThemes}
                   options={themesList}
                   placeholder="Temas..."
                   selected={themes}
+                  newSelectionPrefix="Otro: "
                   multiple
                 />
               </Form.Group>
               <Form.Group as={Col} md="4" controlId="orientaciones">
                 <Form.Label>Tipo de atención</Form.Label>
                 <Typeahead
+                  allowNew
                   onChange={setAtentionType}
                   options={atentionTypesList}
                   placeholder="Tipos de atención..."
                   selected={atentionType}
+                  newSelectionPrefix="Otro: "
                   multiple
                 />
               </Form.Group>
