@@ -44,23 +44,34 @@ const ShareSocialNetwork = styled(ShareSocialNetworks)`
   width: 125px;
 `;
 
+const StyledLink = styled.a`
+  color: ${({ theme }) => theme.colors.mainText};
+`;
+
 const ProfesionalCard = (props) => {
   return (
     <Card className={`d-flex ${props.className}`}>
       <div className="d-flex" style={{ position: 'relative' }}>
         <Link href={`/perfil/${props.username}`}>
-          <CenteredImage src={props.picUrl} />
+          <StyledLink>
+            <CenteredImage src={props.picUrl} />
+          </StyledLink>
         </Link>
         <div style={{ zIndex: 1, padding: '1em' }}>
-          <CardTitle>
-            {props.name} {props.surname}
-          </CardTitle>
-          <MatrTitle>
-            {props.title} - Mat. {props.matricula}
-          </MatrTitle>
-          <HideOnSm>
-            <ClampedContent>{props.about}</ClampedContent>
-          </HideOnSm>
+          <Link href={`/perfil/${props.username}`}>
+            <StyledLink>
+              <CardTitle>
+                {props.name} {props.surname}
+              </CardTitle>
+              <MatrTitle>
+                {props.title} - Mat. {props.matricula}
+              </MatrTitle>
+              <HideOnSm>
+                <ClampedContent>{props.about}</ClampedContent>
+              </HideOnSm>
+            </StyledLink>
+          </Link>
+
           <ContactInfo
             price={props.price}
             phoneList={props.phoneList}
@@ -72,9 +83,13 @@ const ProfesionalCard = (props) => {
         />
       </div>
       <ShowOnSm>
-        <div style={{ padding: '1em' }}>
-          <ClampedContent>{props.about}</ClampedContent>
-        </div>
+        <Link href={`/perfil/${props.username}`}>
+          <StyledLink>
+            <div style={{ padding: '1em' }}>
+              <ClampedContent>{props.about}</ClampedContent>
+            </div>
+          </StyledLink>
+        </Link>
       </ShowOnSm>
     </Card>
   );
