@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
-import Card from 'react-bootstrap/Card';
 import Nav from 'react-bootstrap/Nav';
 import SearchByName from './SearchByName';
 import SearchBySpeciality from './SearchBySpeciality';
@@ -67,11 +66,15 @@ const Profesionals = (props) => {
       </Nav>
       <SelectionContainer>
         {selected === 'bySpeciality' ? (
-          <SearchBySpeciality />
+          <SearchBySpeciality
+            specialitiesList={props.specialitiesList}
+          />
         ) : selected === 'byName' ? (
-          <SearchByName />
+          <SearchByName specialitiesList={props.specialitiesList} />
         ) : (
-          <SearchByLocation />
+          <SearchByLocation
+            specialitiesList={props.specialitiesList}
+          />
         )}
       </SelectionContainer>
     </ProfesionalsContainer>

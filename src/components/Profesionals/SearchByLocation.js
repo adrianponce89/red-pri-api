@@ -7,18 +7,13 @@ import { Typeahead, AsyncTypeahead } from 'react-bootstrap-typeahead';
 import { googleMapsAPIKey } from '../../config';
 import { extractType } from '../../utils/geocoding';
 import { LoadableButton as Button } from '../Loadable';
-import {
-  specialitiesList,
-  provincias_large,
-  localidades_map,
-  obrasSociales,
-} from '../../config/data';
+import { obrasSociales } from '../../config/data';
 
 Geocode.setApiKey(googleMapsAPIKey);
 Geocode.setLanguage('es');
 Geocode.setRegion('ar');
 
-const SearchByLocation = () => {
+const SearchByLocation = ({ specialitiesList }) => {
   const [specility, setSpecility] = useState([]);
   const [social, setSocial] = useState([]);
   const [address, setAddress] = useState(null);

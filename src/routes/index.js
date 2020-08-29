@@ -9,5 +9,6 @@ router.use('/courses', require('./courses'));
 router.use('/search', require('./search'));
 router.use('/messages', require('./messages'));
 router.use('/slides', require('./slides'));
+router.use('/suggestions', require('./suggestions'));
 
 module.exports = router;

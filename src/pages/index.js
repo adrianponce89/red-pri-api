@@ -1,4 +1,5 @@
 import styled, { withTheme } from 'styled-components';
+import fetch from 'isomorphic-fetch';
 import Landing from '../components/Landing';
 import Profesionals from '../components/Profesionals';
 import Contact from '../components/Contact';
@@ -28,11 +29,11 @@ const ShareSocialNetwork = styled(ShareSocialNetworks)`
   bottom: 20px;
 `;
 
-const Home = ({ slides, theme }) => (
+const Home = ({ slides, theme, specialitiesList }) => (
   <>
     {slides.length > 0 ? <Carousel slides={slides} /> : ''}
     <Container id="profesionales">
-      <Profesionals />
+      <Profesionals specialitiesList={specialitiesList} />
     </Container>
     <LandingBackground>
       <LandingContainer>
@@ -68,9 +69,14 @@ const Home = ({ slides, theme }) => (
 export async function getServerSideProps() {
   const resSlides = await fetch(`${server}/api/slides`);
   const slides = await resSlides.json();
+
+  const resSuggestions = await fetch(`${server}/api/suggestions`);
+  const { specialitiesList } = await resSuggestions.json();
+
   return {
     props: {
       slides,
+      specialitiesList,
     },
   };
 }

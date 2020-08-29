@@ -3,6 +3,7 @@ import Router from 'next/router';
 import fetch from 'isomorphic-fetch';
 import EditProfile from '../../components/EditProfile';
 import { contentOnLoad } from '../../components/Loadable';
+import { server } from '../../config';
 
 const EditarPerfil = (props) => {
   const [role, setRole] = useState('');
@@ -44,6 +45,9 @@ const EditarPerfil = (props) => {
           profile={props.profile}
           onSubmit={handleSubmit}
           buttonName="Editar"
+          specialitiesList={props.specialitiesList}
+          themesList={props.themesList}
+          atentionTypesList={props.atentionTypesList}
         />
       ) : (
         <EditProfile
@@ -51,10 +55,30 @@ const EditarPerfil = (props) => {
           profile={props.profile}
           onSubmit={handleSubmit}
           buttonName="Editar"
+          specialitiesList={props.specialitiesList}
+          themesList={props.themesList}
+          atentionTypesList={props.atentionTypesList}
         />
       )}
     </>
   );
 };
+
+export async function getServerSideProps() {
+  const resSuggestions = await fetch(`${server}/api/suggestions`);
+  const {
+    specialitiesList,
+    themesList,
+    atentionTypesList,
+  } = await resSuggestions.json();
+
+  return {
+    props: {
+      specialitiesList,
+      themesList,
+      atentionTypesList,
+    },
+  };
+}
 
 export default contentOnLoad(EditarPerfil);
