@@ -15,22 +15,83 @@ module.exports = {
   },
 
   newUser: async (req, res, next) => {
-    const { email, password } = req.body;
+    const data = JSON.parse(req.body.data);
 
-    const oldUser = await User.findById({ email });
+    const oldUser = await User.findOne({ email: data.email });
     if (oldUser) {
       return res
         .status(500)
         .json({ success: false, error: 'Email is already taken' });
     }
 
-    const newUser = await new User();
-    newUser.email = email;
-    newUser.password = newUser.encryptPassword(password);
-    newUser.username = await User.getUsernameUidFor(email);
+    const sanitized = {
+      _id: data._id,
+      email: data.email,
+      password: data.password,
+      role: data.role,
+      name: data.name,
+      surname: data.surname,
+      fullname: data.fullName,
+      username: data.username,
+      matricula: data.matricula,
+      title: data.title,
+      about: data.about,
+      specialities: data.specialities,
+      themes: data.themes,
+      atentionType: data.atentionType,
+      practice: data.practice,
+      addressList: data.addressList,
+      phoneList: data.phoneList,
+      permits: data.permits,
+    };
 
+    if (req.file) {
+      if (!isImage(req.file)) {
+        return res.status(400).json({
+          success: false,
+          error: 'Tipo de imagen invalido',
+        });
+      }
+      const filePath = path.join(
+        __dirname,
+        '../../uploads',
+        req.file.filename,
+      );
+
+      // Upload new Image to Imgur
+      const imgurRes = await imgur.uploadFile(filePath);
+
+      // Save Imgur data on article
+      sanitized['picUrl'] = imgurRes.data.link;
+      sanitized['deletehash'] = imgurRes.data.deletehash;
+
+      // Delete temporal image server
+      fs.unlink(filePath, (err) => {
+        if (err) {
+          console.error(err);
+        }
+      });
+    }
+
+    const newUser = await new User(sanitized);
+
+    newUser.password = newUser.encryptPassword(data.password);
+
+    if (data.username) {
+      const username = data.username.toLowerCase().replace(/-/g, ' ');
+      newUser['username'] = username;
+      const otherUser = await User.findOne({ username });
+      if (otherUser && !oldUser._id.equals(otherUser._id)) {
+        return res.status(500).json({
+          success: false,
+          error: 'Username is already taken',
+        });
+      }
+    } else {
+      newUser['username'] = await User.getUsernameUidFor(data.email);
+    }
     const user = await newUser.save();
-    res.status(201).json(user.secured());
+    res.status(201).json({ user: user.secured(), success: true });
   },
 
   getUser: async (req, res, next) => {
@@ -53,10 +114,14 @@ module.exports = {
       const newUser = {};
       const data = JSON.parse(req.body.data);
 
+      const oldUser = await User.findOne({ _id: userId });
+
       if (data.email) newUser['email'] = data.email.toLowerCase();
       if (data.password)
         newUser['password'] = req.user.encryptPassword(data.password);
-      if (data.role) newUser['role'] = data.role;
+      if (req.user.role === 'admin' && data.role) {
+        newUser['role'] = data.role;
+      }
       if (data.picUrl) newUser['picUrl'] = data.picUrl;
       if (req.file) {
         if (!isImage(req.file)) {
@@ -72,8 +137,8 @@ module.exports = {
         );
 
         // Delete previous image from Imgur
-        if (req.user.deletehash) {
-          await imgur.deleteImage(deletehash);
+        if (oldUser.deletehash) {
+          await imgur.deleteImage(oldUser.deletehash);
         }
         // Upload new Image to Imgur
         const imgurRes = await imgur.uploadFile(filePath);
@@ -105,8 +170,8 @@ module.exports = {
           .toLowerCase()
           .replace(/-/g, ' ');
         newUser['username'] = username;
-        const oldUser = await User.findOne({ username });
-        if (oldUser && !req.user._id.equals(oldUser._id)) {
+        const otherUser = await User.findOne({ username });
+        if (otherUser && !oldUser._id.equals(otherUser._id)) {
           return res.status(500).json({
             success: false,
             error: 'Username is already taken',
@@ -143,9 +208,11 @@ module.exports = {
         }));
       }
       if (data.phoneList) newUser['phoneList'] = data.phoneList;
-      if (data.permits) newUser['permits'] = data.permits;
+      if (req.user.role === 'admin' && data.permits) {
+        newUser['permits'] = data.permits;
+      }
 
-      const oldUser = await User.findByIdAndUpdate(userId, {
+      await User.findByIdAndUpdate(userId, {
         $set: newUser,
       });
       const user = await User.findById(userId);

@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import Table from 'react-bootstrap/Table';
 import Button from 'react-bootstrap/Button';
 import FormCheck from 'react-bootstrap/FormCheck';
+import styled from 'styled-components';
 import { LoadableButton } from '../Loadable';
 import Router from 'next/router';
 import Link from 'next/link';
@@ -182,24 +183,40 @@ const UserRow = ({ key, user }) => {
   );
 };
 
-const UsersTable = ({ users }) => (
-  <Table striped bordered hover>
-    <thead>
-      <tr>
-        <th>#</th>
-        <th>Mail</th>
-        <th>Password</th>
-        <th>Rol</th>
-        <th>Permisos</th>
-        <th>Acciones</th>
-      </tr>
-    </thead>
-    <tbody>
-      {users.map((user) => (
-        <UserRow key={user._id} user={user} />
-      ))}
-    </tbody>
-  </Table>
-);
+const FloatingButton = styled(LoadableButton)`
+  position: absolute;
+  right: 0;
+  top: -4em;
+  padding: 1em;
+`;
+
+const UsersTable = ({ users }) => {
+  return (
+    <Table striped bordered hover>
+      <FloatingButton
+        href="/crear-perfil"
+        variant="success"
+        style={{ position: 'absolute' }}
+      >
+        Crear Nuevo Perfil
+      </FloatingButton>
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Mail</th>
+          <th>Password</th>
+          <th>Rol</th>
+          <th>Permisos</th>
+          <th>Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        {users.map((user) => (
+          <UserRow key={user._id} user={user} />
+        ))}
+      </tbody>
+    </Table>
+  );
+};
 
 export default UsersTable;

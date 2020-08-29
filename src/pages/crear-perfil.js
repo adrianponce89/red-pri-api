@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import Router from 'next/router';
 import fetch from 'isomorphic-fetch';
-import EditArticle from '../components/EditArticle';
+import EditProfile from '../components/EditProfile';
 
-const CrearArticulo = () => {
+const CrearPerfil = (props) => {
   const [loading, setLoading] = useState(false);
 
   const handleSubmit = async ({ file, ...data }) => {
@@ -14,27 +14,26 @@ const CrearArticulo = () => {
     }
     fd.append('data', JSON.stringify(data));
 
-    const res = await fetch('/api/articles', {
+    const res = await fetch(`/api/users`, {
       method: 'POST',
       body: fd,
     });
 
     if (res.status === 201) {
-      Router.push('/articulos');
-    } else {
       const resJson = await res.json();
-      alert(resJson.error);
+      Router.push(`/perfil/${resJson.user.username}`);
+    } else {
       setLoading(false);
     }
   };
 
   return (
-    <EditArticle
+    <EditProfile
       loading={loading}
-      onSubmit={(params) => handleSubmit(params)}
-      buttonTitle="Publicar"
+      onSubmit={handleSubmit}
+      buttonName="Crear"
     />
   );
 };
 
-export default CrearArticulo;
+export default CrearPerfil;
