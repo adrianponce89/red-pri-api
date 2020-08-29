@@ -32,6 +32,7 @@ const CrearArticulo = () => {
     <EditArticle
       loading={loading}
       onSubmit={(params) => handleSubmit(params)}
+      buttonTitle="Publicar"
     />
   );
 };
