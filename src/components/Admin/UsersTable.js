@@ -194,7 +194,7 @@ const UsersTable = ({ users }) => {
   return (
     <Table striped bordered hover>
       <FloatingButton
-        href="/crear-usuario"
+        href="/crear-perfil"
         variant="success"
         style={{ position: 'absolute' }}
       >

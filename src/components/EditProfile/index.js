@@ -95,7 +95,7 @@ const EditProfile = (props) => {
               <Col md="8">
                 <Form.Row>
                   <Col md="6">
-                    <h2>Editar perfil</h2>
+                    <h2>{props.buttonName} perfil</h2>
                   </Col>
                 </Form.Row>
                 <Form.Row>
@@ -279,7 +279,7 @@ const EditProfile = (props) => {
                 type="submit"
                 size="lg"
               >
-                Guardar
+                {props.buttonName}
               </LoadableButton>
             </div>
           </Form>

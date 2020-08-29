@@ -43,12 +43,14 @@ const EditarPerfil = (props) => {
           loading={loading}
           profile={props.profile}
           onSubmit={handleSubmit}
+          buttonName="Editar"
         />
       ) : (
         <EditProfile
           loading={loading}
           profile={props.profile}
           onSubmit={handleSubmit}
+          buttonName="Editar"
         />
       )}
     </>

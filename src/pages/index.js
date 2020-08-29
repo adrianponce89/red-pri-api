@@ -54,7 +54,7 @@ const Home = ({ slides, theme }) => (
           icon="fa fa-sign-in"
           title="FORMAR PARTE"
           description="Unite a Red-Pri y forma parte de nuestra red de profesionales"
-          href="/unirse"
+          href="/crear-perfil"
           color={theme.colors.mainRed}
         />
       </LandingContainer>

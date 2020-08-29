@@ -50,7 +50,7 @@ const JoinUs = (props) => (
       <JoinButton
         size="lg"
         variant="btn btn-outline-info"
-        href="/unirse"
+        href="/crear-perfil"
       >
         {BUTTON_TEXT}
       </JoinButton>
