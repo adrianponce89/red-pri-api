@@ -112,7 +112,6 @@ const provincias_large = [
 
 const localidades_map = {
   CABA: [
-    'Todos los Barrios',
     'Belgrano',
     'Colegiales',
     'Boedo',
@@ -159,7 +158,6 @@ const localidades_map = {
     'Villa Urquiza',
   ],
   'Provincia de Buenos Aires': [
-    'Todas las Localidades',
     'Acassuso',
     'Beccar',
     'Benavídez',
@@ -571,7 +569,6 @@ const localidades_map = {
     'Zárate',
   ],
   Catamarca: [
-    'Todas las Localidades',
     'Andalgalá',
     'Belén y alrededores',
     'Capayán y alrededores',
@@ -586,7 +583,6 @@ const localidades_map = {
     'Valle Viejo y alrededores',
   ],
   Chaco: [
-    'Todas las Localidades',
     'Avia Terai',
     'Barranqueras',
     'Basail',
@@ -632,7 +628,6 @@ const localidades_map = {
     'Villa Berthet',
   ],
   Chubut: [
-    'Todas las Localidades',
     'Camarones',
     'Comodoro Rivadavia',
     'Dique Florentino Ameghino',
@@ -662,7 +657,6 @@ const localidades_map = {
     'Trevelín',
   ],
   Córdoba: [
-    'Todas las Localidades',
     'Achiras',
     'Adelia María',
     'Agua de Oro',
@@ -882,7 +876,6 @@ const localidades_map = {
     'Washington',
   ],
   Corrientes: [
-    'Todas las Localidades',
     'Alvear',
     'Bella Vista y alrededores',
     'Berón de Astrada',
@@ -905,7 +898,6 @@ const localidades_map = {
     'Yapeyú y alrededores',
   ],
   'Entre Ríos': [
-    'Todas las Localidades',
     'Alcaráz',
     'Aldea Brasilera',
     'Aldea Valle María',
@@ -964,7 +956,6 @@ const localidades_map = {
     'Villaguay',
   ],
   Formosa: [
-    'Todas las Localidades',
     'Clorinda',
     'Comandante Fontana',
     'El Colorado',
@@ -988,7 +979,6 @@ const localidades_map = {
     'Villa Gral. Güemes',
   ],
   Jujuy: [
-    'Todas las Localidades',
     'Abra Pampa',
     'El Carmen',
     'Fraile Pintado',
@@ -1008,7 +998,6 @@ const localidades_map = {
     'Yuto',
   ],
   'La Pampa': [
-    'Todas las Localidades',
     'Alpachiri',
     'Alta Italia',
     'Anguil',
@@ -1058,7 +1047,6 @@ const localidades_map = {
     'Winifreda',
   ],
   'La Rioja': [
-    'Todas las Localidades',
     'Aimogasta y alrededores',
     'Anillaco',
     'Chamical y alrededores',
@@ -1079,7 +1067,6 @@ const localidades_map = {
     'Vinchina y alrededores',
   ],
   Mendoza: [
-    'Todas las Localidades',
     'Ciudad de Mendoza',
     'Departamento Godoy Cruz',
     'Departamento Gral. Alvear',
@@ -1100,7 +1087,6 @@ const localidades_map = {
     'Departamento Tupungato',
   ],
   Misiones: [
-    'Todas las Localidades',
     '2 de Mayo',
     '25 de Mayo',
     '9 de Julio',
@@ -1150,7 +1136,6 @@ const localidades_map = {
     'Wanda',
   ],
   Neuquén: [
-    'Todas las Localidades',
     'Aluminé-Copahue-El Huecú-Las Lajas-Loncopue-Zapala',
     'Andacollo-Buta Ranquil-Chos Malal',
     'Añelo - San Patricio del Chañar',
@@ -1165,7 +1150,6 @@ const localidades_map = {
     'Villa La Angostura',
   ],
   'Río Negro': [
-    'Todas las Localidades',
     'Catriel',
     'Cervantes-General Roca',
     'Chimpay-Choele Choel-Cnel. Belisle-Darwin',
@@ -1186,7 +1170,6 @@ const localidades_map = {
     'Viedma y alrededores',
   ],
   Salta: [
-    'Todas las Localidades',
     'Aguaray',
     'Apolinario Saravia y Alrededores',
     'Cachi y Alrededores',
@@ -1223,7 +1206,6 @@ const localidades_map = {
     'Tartagal',
   ],
   'San Juan': [
-    'Todas las Localidades',
     'Departamento 25 de Mayo',
     'Departamento 9 de Julio',
     'Departamento Albardón',
@@ -1246,7 +1228,6 @@ const localidades_map = {
     'San Juan Capital y alrededores',
   ],
   'San Luis': [
-    'Todas las Localidades',
     'Arizona',
     'Buena Esperanza y alrededores',
     'Candelaria',
@@ -1271,7 +1252,6 @@ const localidades_map = {
     'Villa Mercedes y alrededores',
   ],
   'Santa Cruz': [
-    'Todas las Localidades',
     '28 de Noviembre',
     'Caleta Olivia',
     'Cmte. Luis Piedra Buena',
@@ -1288,7 +1268,6 @@ const localidades_map = {
     'Río Turbio',
   ],
   'Santa Fe': [
-    'Todas las Localidades',
     'Acebal',
     'Alcorta',
     'Aldao',
@@ -1556,7 +1535,6 @@ const localidades_map = {
     'Zenón Pereyra',
   ],
   'Santiago del Estero': [
-    'Todas las Localidades',
     'Añatuya',
     'Bandera',
     'Beltran',
@@ -1586,14 +1564,8 @@ const localidades_map = {
     'Villa Atamisqui',
     'Villa San Martín',
   ],
-  'Tierra del Fuego': [
-    'Todas las Localidades',
-    'Río Grande',
-    'Tolhuin',
-    'Ushuaia',
-  ],
+  'Tierra del Fuego': ['Río Grande', 'Tolhuin', 'Ushuaia'],
   Tucumán: [
-    'Todas las Localidades',
     'Aguilares y alrededores',
     'Alderetes y alrededores',
     'Amaicha del Valle y alrededores',

@@ -8,7 +8,7 @@ import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import SearchBar from './components/SearchBar';
 import FAIcon from '../FAIcon';
-import { withRouter } from 'next/router';
+import Router, { withRouter } from 'next/router';
 
 const Navigation = (props) => {
   const navbarStyle = { marginBottom: '25px' };
@@ -17,6 +17,7 @@ const Navigation = (props) => {
     props.setProfile(null);
     const cookies = new Cookies();
     cookies.set('jwt', null, { path: '/' });
+    Router.push('/');
   };
 
   return (

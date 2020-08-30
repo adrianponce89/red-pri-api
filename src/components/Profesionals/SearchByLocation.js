@@ -25,8 +25,10 @@ const SearchByLocation = ({ specialitiesList }) => {
     const slug =
       '/busqueda/especialidades-' +
       specility.join().toLowerCase().replace(/ /g, '-') +
-      '/obrasocial-' +
-      social.join().toLowerCase().replace(/ /g, '-') +
+      (social.length > 0
+        ? '/obrasocial-' +
+          social.join().toLowerCase().replace(/ /g, '-')
+        : '') +
       '/coordenadas-@' +
       address.location.lat +
       ',' +
@@ -84,7 +86,7 @@ const SearchByLocation = ({ specialitiesList }) => {
           <Typeahead
             onChange={setSocial}
             options={obrasSociales}
-            placeholder="Obra Social..."
+            placeholder="Todas las obras Sociales..."
             selected={social}
           />
         </Form.Group>

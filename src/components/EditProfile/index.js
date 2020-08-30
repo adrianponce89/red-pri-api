@@ -141,7 +141,6 @@ const EditProfile = (props) => {
                   <Form.Group as={Col} sd="6" controlId="matricula">
                     <Form.Label>Matricula</Form.Label>
                     <Form.Control
-                      required
                       type="text"
                       placeholder="Matricula"
                       value={matricula}

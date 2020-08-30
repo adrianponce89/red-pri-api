@@ -29,8 +29,11 @@ const SearchBySpeciality = ({ specialitiesList }) => {
         ? '/localidad-' +
           localidad.join().toLowerCase().replace(/ /g, '-')
         : '') +
-      '/obrasocial-' +
-      social.join().toLowerCase().replace(/ /g, '-');
+      (social.length > 0
+        ? '/obrasocial-' +
+          social.join().toLowerCase().replace(/ /g, '-')
+        : '');
+
     Router.push(slug);
   }
 
@@ -73,7 +76,7 @@ const SearchBySpeciality = ({ specialitiesList }) => {
           <Typeahead
             onChange={setLocalidad}
             options={localidades_map[provincia]}
-            placeholder="Localidad..."
+            placeholder="Todas las localidades..."
             selected={localidad}
           />
         </Form.Group>
@@ -83,7 +86,7 @@ const SearchBySpeciality = ({ specialitiesList }) => {
           <Typeahead
             onChange={setSocial}
             options={obrasSociales}
-            placeholder="Obra Social..."
+            placeholder="Todas las obras Sociales..."
             selected={social}
           />
         </Form.Group>

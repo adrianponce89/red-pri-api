@@ -20,8 +20,10 @@ const SearchByName = () => {
       query.toLowerCase().replace(/ /g, '-') +
       '/provincia-' +
       provincia.toLowerCase().replace(/ /g, '-') +
-      '/obrasocial-' +
-      social.join().toLowerCase().replace(/ /g, '-');
+      (social.length > 0
+        ? '/obrasocial-' +
+          social.join().toLowerCase().replace(/ /g, '-')
+        : '');
     Router.push(slug);
   }
 
@@ -59,7 +61,7 @@ const SearchByName = () => {
           <Typeahead
             onChange={setSocial}
             options={obrasSociales}
-            placeholder="Obra Social..."
+            placeholder="Todas las obras Sociales..."
             selected={social}
           />
         </Form.Group>
