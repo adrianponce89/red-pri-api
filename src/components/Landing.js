@@ -1,6 +1,7 @@
 import styled from 'styled-components';
-import CardBox from '../components/CardBox';
 import CenteredImage from '../components/CenteredImage';
+import FAIcon from '../components/FAIcon';
+import Link from 'next/link';
 
 const Title = styled.h5`
   height: 10px;
@@ -11,40 +12,64 @@ const Title = styled.h5`
 
 const ClampedContent = styled.p`
   margin: 20px 10px 10px 0px;
-  overflow: hidden;
   color: rgba(0, 0, 0, 0.42);
-  text-overflow: ellipsis;
-  display: -webkit-box;
-  -webkit-line-clamp: 4; /* number of lines to show */
-  -webkit-box-orient: horizontal;
-  cursor: pointer;
+  font-size: 1.4em;
+  text-align: center;
 `;
 
-const ComponentLinding = styled.div`
+const ComponentLanding = styled.a`
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
+  flex: 1;
 `;
 
-const CardLanding = styled(CardBox)`
-  height: 324.75px;
+const CardLanding = styled.div`
+  flex: 1;
+  padding: 3em;
+  display: flex;
+  justify-content: center;
+  a {
+    text-decoration: none;
+    cursor: pointer;
+  }
+  :hover i {
+    text-shadow: 0 0 5px black;
+  }
+`;
+
+const BigIcon = styled(FAIcon)`
+  font-size: 140px;
+  color: ${({ color, theme }) => color || theme.colors.mainText};
 `;
 
 const Landing = (props) => {
   return (
     <CardLanding floatingtop="10px">
-      <ComponentLinding>
-        <CenteredImage
-          src={props.picUrl}
-          borderRadius={props.borderRadius}
-        />
-        <Title>
-          <a>{props.title}</a>
-        </Title>
-        <ClampedContent>
-          <a>{props.description}</a>
-        </ClampedContent>
-      </ComponentLinding>
+      <Link href={props.href}>
+        <ComponentLanding>
+          {props.picUrl ? (
+            <CenteredImage
+              src={props.picUrl}
+              borderRadius={props.borderRadius}
+            />
+          ) : (
+            ''
+          )}
+          {props.icon ? (
+            <BigIcon className={props.icon} color={props.color} />
+          ) : (
+            ''
+          )}
+          <Title>
+            <a>{props.title}</a>
+          </Title>
+          <ClampedContent>
+            <a>{props.description}</a>
+          </ClampedContent>
+        </ComponentLanding>
+      </Link>
     </CardLanding>
   );
 };

@@ -8,7 +8,7 @@ import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import SearchBar from './components/SearchBar';
 import FAIcon from '../FAIcon';
-import { withRouter } from 'next/router';
+import Router, { withRouter } from 'next/router';
 
 const Navigation = (props) => {
   const navbarStyle = { marginBottom: '25px' };
@@ -17,6 +17,7 @@ const Navigation = (props) => {
     props.setProfile(null);
     const cookies = new Cookies();
     cookies.set('jwt', null, { path: '/' });
+    Router.push('/');
   };
 
   return (
@@ -39,20 +40,21 @@ const Navigation = (props) => {
         <Nav className="mr-auto" activeKey={pathname}>
           <Nav.Link href="/">Inicio</Nav.Link>
           <Nav.Link href="/articulos">Articulos</Nav.Link>
-          <Nav.Link href="/profesionales">Profesionales</Nav.Link>
-          <NavDropdown title="Capacitacion" id="basic-nav-dropdown">
-            <NavDropdown.Item href="/cursos">Cursos</NavDropdown.Item>
-            <NavDropdown.Item href="/seminarios">
-              Seminarios
-            </NavDropdown.Item>
-          </NavDropdown>
+          <Nav.Link href="/#profesionales">Profesionales</Nav.Link>
+          {!!props.profile && props.profile.role === 'admin' ? (
+            <Nav.Link href="/administrar">
+              <FAIcon className="fa fa-unlock-alt" /> Administrar
+            </Nav.Link>
+          ) : (
+            ''
+          )}
         </Nav>
         <div className="m-2">
           <SearchBar />
         </div>
         {!!props.profile ? (
           <Nav>
-            <Nav.Link>
+            {/* <Nav.Link>
               <FAIcon className="fa fa-bookmark" />
             </Nav.Link>
             <Nav.Link>
@@ -60,7 +62,7 @@ const Navigation = (props) => {
             </Nav.Link>
             <Nav.Link>
               <FAIcon className="fa fa-shopping-cart" />
-            </Nav.Link>
+            </Nav.Link> */}
             <NavDropdown
               title={props.profile.email}
               id="basic-nav-dropdown"

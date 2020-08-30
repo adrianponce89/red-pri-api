@@ -32,10 +32,11 @@ background:  linear-gradient(
       rgba(20, 20, 20, 0.65)
     ), url("${(props) => props.src}");
 background-repeat: no-repeat;
-background-size: 100%;
+background-size: cover;
 background-position: center;
 display: flex;
 align-items:center;
+padding: 3em 0;
 `;
 
 const BUTTON_TEXT = 'Unirse a la red';
@@ -43,10 +44,14 @@ const MESSAGE_TEXT =
   '¿Sos profesional y querés formar parte de nuestra comunidad?';
 
 const JoinUs = (props) => (
-  <JoinBackgound src="/imgs/ph_bebe_1.jpeg">
+  <JoinBackgound src="/imgs/profesionals.jpg">
     <JoinJustify>
       <JoinMessage>{MESSAGE_TEXT}</JoinMessage>
-      <JoinButton size="lg" variant="btn btn-outline-info">
+      <JoinButton
+        size="lg"
+        variant="btn btn-outline-info"
+        href="/crear-perfil"
+      >
         {BUTTON_TEXT}
       </JoinButton>
     </JoinJustify>

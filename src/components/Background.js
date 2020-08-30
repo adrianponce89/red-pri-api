@@ -180,8 +180,7 @@ const range = (min, max) => {
 
 const BackgroundContainer = styled.div`
   z-index: -1;
-  background: ${({ theme, path }) =>
-    path === '' ? theme.colors.lightGreen : theme.colors.lightGrey};
+  background: ${({ theme }) => theme.colors.lightGrey};
   position: absolute;
   left: 0;
   right: 0;
@@ -191,16 +190,11 @@ const BackgroundContainer = styled.div`
   overflow: hidden;
 `;
 
-const Background = () => {
-  const router = useRouter();
-  const path = router.asPath.split('/')[1];
-  return (
-    <BackgroundContainer path={path}>
-      {range(0, 5).map((pos) => (
-        <ShapedPattern key={pos} pos={pos} />
-      ))}
-    </BackgroundContainer>
-  );
-};
-
+const Background = () => (
+  <BackgroundContainer>
+    {range(0, 5).map((pos) => (
+      <ShapedPattern key={pos} pos={pos} />
+    ))}
+  </BackgroundContainer>
+);
 export default Background;

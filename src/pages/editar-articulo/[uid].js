@@ -35,6 +35,7 @@ const EditarArticulo = ({ article }) => {
       loading={loading}
       onSubmit={(params) => handleSubmit(params)}
       {...article}
+      buttonTitle="Editar"
     />
   );
 };

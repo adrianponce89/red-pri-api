@@ -24,11 +24,11 @@ const Articulos = ({ articles, profile }) => (
             defaultActiveKey="/articulos#destacados"
             items={[
               {
-                link: '/articulos#destacados',
+                href: '/articulos#destacados',
                 title: 'Destacados',
               },
               {
-                link: '/articulos#recientes',
+                href: '/articulos#recientes',
                 title: 'Recientes',
               },
             ]}

@@ -18,7 +18,7 @@ const EditArticle = (props) => {
   const [tags, setTags] = useState(
     (props.tags && props.tags.join()) || '',
   );
-  const { loading, onSubmit } = props;
+  const { loading, onSubmit, buttonTitle } = props;
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -122,7 +122,7 @@ const EditArticle = (props) => {
                   type="submit"
                   block
                 >
-                  Publicar
+                  {buttonTitle}
                 </LoadableButton>
               </Card.Body>
             </Card>

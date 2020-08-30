@@ -2,15 +2,14 @@ import React, { useState } from 'react';
 import Router from 'next/router';
 import Form from 'react-bootstrap/Form';
 import Col from 'react-bootstrap/Col';
+import { Typeahead } from 'react-bootstrap-typeahead';
 import { LoadableButton as Button } from '../Loadable';
 import { provincias, obrasSociales } from '../../config/data';
 
 const SearchByName = () => {
   const [query, setQuery] = useState('');
-  const [provincia, setProvincia] = useState(
-    'Ciudad de Buenos Aires y GBA',
-  );
-  const [social, setSocial] = useState('Particular');
+  const [provincia, setProvincia] = useState('CABA');
+  const [social, setSocial] = useState([]);
   const [loading, setLoading] = useState(false);
 
   async function handleSubmit(event) {
@@ -21,8 +20,10 @@ const SearchByName = () => {
       query.toLowerCase().replace(/ /g, '-') +
       '/provincia-' +
       provincia.toLowerCase().replace(/ /g, '-') +
-      '/obrasocial-' +
-      social.toLowerCase().replace(/ /g, '-');
+      (social.length > 0
+        ? '/obrasocial-' +
+          social.join().toLowerCase().replace(/ /g, '-')
+        : '');
     Router.push(slug);
   }
 
@@ -57,15 +58,12 @@ const SearchByName = () => {
 
         <Form.Group as={Col} sm={4} controlId="social">
           <Form.Label>Obra Social</Form.Label>
-          <Form.Control
-            as="select"
-            value={social}
-            onChange={(e) => setSocial(e.target.value)}
-          >
-            {obrasSociales.map((name) => (
-              <option key={name}>{name}</option>
-            ))}
-          </Form.Control>
+          <Typeahead
+            onChange={setSocial}
+            options={obrasSociales}
+            placeholder="Todas las obras Sociales..."
+            selected={social}
+          />
         </Form.Group>
       </Form.Row>
 

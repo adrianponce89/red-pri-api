@@ -93,7 +93,11 @@ const Perfil = ({ className, user, profile }) => {
                   <TitleContainer>
                     <h2>
                       {fullName}
-                      <small>{matricula}</small>
+                      {!!user.matricula ? (
+                        <small>{matricula}</small>
+                      ) : (
+                        ''
+                      )}
                     </h2>
                     <>{user.title}</>
                   </TitleContainer>

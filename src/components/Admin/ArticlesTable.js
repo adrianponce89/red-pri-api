@@ -3,6 +3,7 @@ import Table from 'react-bootstrap/Table';
 import Button from 'react-bootstrap/Button';
 import { LoadableButton } from '../Loadable';
 import Router from 'next/router';
+import Link from 'next/link';
 
 const ArticleRow = ({ article }) => {
   const [title, setTitle] = useState(article.title);
@@ -85,30 +86,39 @@ const ArticleRow = ({ article }) => {
       </td>
       <td>
         {modified ? (
-          <LoadableButton
-            loading={loading}
-            variant="success"
-            onClick={handleSave}
-          >
-            Guardar
-          </LoadableButton>
+          <>
+            <LoadableButton
+              loading={loading}
+              variant="success"
+              onClick={handleSave}
+            >
+              Guardar
+            </LoadableButton>
+            <Button
+              loading={loading}
+              variant="secondary"
+              onClick={handleCancel}
+              style={{ visibility: modified ? 'visible' : 'hidden' }}
+            >
+              Cancelar
+            </Button>
+          </>
         ) : (
-          <LoadableButton
-            loading={loading}
-            variant="danger"
-            onClick={handleDelete}
-          >
-            Eliminar
-          </LoadableButton>
+          <>
+            <LoadableButton
+              loading={loading}
+              variant="danger"
+              onClick={handleDelete}
+            >
+              Eliminar
+            </LoadableButton>
+            <Link href={`/editar-articulo/${article.uid}`}>
+              <Button disabled={loading} variant="primary">
+                Editar
+              </Button>
+            </Link>
+          </>
         )}
-        <Button
-          loading={loading}
-          variant="secondary"
-          onClick={handleCancel}
-          style={{ visibility: modified ? 'visible' : 'hidden' }}
-        >
-          Cancelar
-        </Button>
       </td>
     </tr>
   );

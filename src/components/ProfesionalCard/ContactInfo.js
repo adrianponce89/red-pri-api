@@ -80,8 +80,7 @@ const ContactInfo = styled((props) => {
             props.addressList.map((address) => (
               <ContactText key={address._id} transform="capitalize">
                 <FAIcon className="fa fa-building" />{' '}
-                {address.province}, {address.locality},{' '}
-                {address.street}
+                {address.locality}, {address.street}
               </ContactText>
             ))}
         </>
