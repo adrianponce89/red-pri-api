@@ -23,20 +23,14 @@ const FiltersTitle = styled.h4`
 `;
 
 const HideOnSm = styled.div`
-  @media (max-width: 576px) and (orientation: portrait) {
-    display: none;
-  }
-  @media (max-height: 576px) and (orientation: landscape) {
+  @media (max-width: 576px) {
     display: none;
   }
 `;
 
 const ShowOnSm = styled.div`
   display: none;
-  @media (max-width: 576px) and (orientation: portrait) {
-    display: block;
-  }
-  @media (max-height: 576px) and (orientation: landscape) {
+  @media (max-width: 576px) {
     display: block;
   }
 `;
