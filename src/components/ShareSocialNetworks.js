@@ -7,16 +7,23 @@ import {
   TwitterShareButton,
   WhatsappShareButton,
 } from 'react-share';
+import FAIcon from './FAIcon';
 
 const ICON_SIZE = '66%';
 
 const ShareContainer = styled.div`
   display: flex;
   justify-content: space-around;
+  align-items: center;
+  padding-left: 1em;
 `;
 
 const ShareSocialNetworks = (props) => (
   <ShareContainer className={props.className}>
+    <FAIcon
+      className="fa fa-share-alt"
+      style={{ verticalAlign: 'middle' }}
+    />
     <FacebookShareButton url={props.url}>
       <FacebookIcon size={ICON_SIZE} round />
     </FacebookShareButton>

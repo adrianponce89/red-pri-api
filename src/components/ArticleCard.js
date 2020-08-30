@@ -2,7 +2,6 @@ import styled from 'styled-components';
 import Card from 'react-bootstrap/Card';
 import Link from 'next/link';
 import { timeSince } from '../utils';
-import { server } from '../config/';
 import ShareSocialNetworks from '../components/ShareSocialNetworks';
 
 const CenteredImage = styled.div`
@@ -76,7 +75,7 @@ const ArticleCard = (props) => {
           </small>
         </Card.Text>
         <ShareSocialNetwork
-          url={`${server}/articulos/${props.uid}`}
+          url={`https://www.red-pri.com/articulos/${props.uid}`}
         />
       </div>
     </Card>

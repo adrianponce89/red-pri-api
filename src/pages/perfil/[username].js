@@ -80,7 +80,7 @@ const FixedButton = styled(Button)`
 const Perfil = ({ className, user, profile }) => {
   const fullName = `${user.name} ${user.surname} `;
   const matricula = `(Mat.${user.matricula})`;
-  const urlUser = `${server}/perfil/${user.username} `;
+  const urlUser = `https://www.red-pri.com/perfil/${user.username} `;
   return (
     <Container className={className}>
       <Row>

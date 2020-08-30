@@ -4,7 +4,6 @@ import Link from 'next/link';
 import CenteredImage from '../CenteredImage';
 import ContactInfo from './ContactInfo';
 import ShareSocialNetworks from '../../components/ShareSocialNetworks';
-import { server } from '../../config';
 
 const CardTitle = styled.h4`
   font-weight: bold;
@@ -79,7 +78,7 @@ const ProfesionalCard = (props) => {
           />
         </div>
         <ShareSocialNetwork
-          url={`${server}/perfil/${props.username}`}
+          url={`https://www.red-pri.com/perfil/${props.username}`}
         />
       </div>
       <ShowOnSm>
