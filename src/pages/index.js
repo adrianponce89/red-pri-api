@@ -62,7 +62,7 @@ const Home = ({ slides, theme, specialitiesList }) => (
     </LandingBackground>
     <JoinUs />
     <Contact />
-    <ShareSocialNetwork url={server} />
+    <ShareSocialNetwork url="https://www.red-pri.com" />
   </>
 );
 
