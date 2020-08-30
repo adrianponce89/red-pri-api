@@ -56,9 +56,15 @@ const EditProfile = (props) => {
         matricula,
         title,
         about,
-        specialities,
-        themes,
-        atentionType,
+        specialities: specialities.map((item) =>
+          item.customOption ? item.label : item,
+        ),
+        themes: themes.map((item) =>
+          item.customOption ? item.label : item,
+        ),
+        atentionType: atentionType.map((item) =>
+          item.customOption ? item.label : item,
+        ),
         practice,
         addressList,
         phoneList,
