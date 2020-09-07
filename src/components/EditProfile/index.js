@@ -91,6 +91,7 @@ const EditProfile = (props) => {
               <Form.Group as={Col} md="4" controlId="formGridImage">
                 <ImageSelection
                   src={fileURL || profile.picUrl}
+                  defaultImage="/imgs/userDefault.svg"
                   onChange={(event) => {
                     setFile(event.target.files[0]);
                     setFileURL(
