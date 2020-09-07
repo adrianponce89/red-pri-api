@@ -88,7 +88,10 @@ const Perfil = ({ className, user, profile }) => {
           <Card>
             <Card.Body>
               <TopContainer>
-                <CenteredImage src={user.picUrl} />
+                <CenteredImage
+                  src={user.picUrl}
+                  defaultImage="/imgs/userDefault.svg"
+                />
                 <InfoContainer>
                   <TitleContainer>
                     <h2>

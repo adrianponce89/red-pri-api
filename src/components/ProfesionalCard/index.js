@@ -53,7 +53,10 @@ const ProfesionalCard = (props) => {
       <div className="d-flex" style={{ position: 'relative' }}>
         <Link href={`/perfil/${props.username}`}>
           <StyledLink>
-            <CenteredImage src={props.picUrl} />
+            <CenteredImage
+              src={props.picUrl}
+              defaultImage="/imgs/userDefault.svg"
+            />
           </StyledLink>
         </Link>
         <div style={{ zIndex: 1, padding: '1em' }}>
