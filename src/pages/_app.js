@@ -1,10 +1,12 @@
 import React, { useState } from 'react';
+import { Provider } from 'react-redux';
 import { ThemeProvider } from 'styled-components';
 import GlobalStyle from '../components/GlobalStyle';
 import Navigation from '../components/Navigation';
 import SignInModal from '../components/Modals/SignInModal';
 import Background from '../components/Background';
 import 'react-bootstrap-typeahead/css/Typeahead.css';
+import store from '../redux/store';
 
 const theme = {
   colors: {
@@ -54,37 +56,39 @@ class MyApp extends React.Component {
     const { modalStep, profile, loading } = this.state;
     const { Component, pageProps } = this.props;
     return (
-      <ThemeProvider theme={theme}>
-        <GlobalStyle />
-        <Navigation
-          onShowSignUp={() => this.setModalStep('SelectSignUp')}
-          onShowSignIn={() => this.setModalStep('SelectSignIn')}
-          profile={profile}
-          setProfile={this.setProfile}
-        />
-        <SignInModal
-          initialStep={modalStep}
-          show={modalStep !== null}
-          onClose={() => this.setModalStep(null)}
-          onSetProfile={this.setProfile}
-        />
-
-        <div
-          style={{
-            position: 'relative',
-            paddingTop: '80px',
-            width: '100%',
-          }}
-        >
-          <Background />
-          <Component
-            {...pageProps}
-            loading={loading}
+      <Provider store={store}>
+        <ThemeProvider theme={theme}>
+          <GlobalStyle />
+          <Navigation
+            onShowSignUp={() => this.setModalStep('SelectSignUp')}
+            onShowSignIn={() => this.setModalStep('SelectSignIn')}
             profile={profile}
             setProfile={this.setProfile}
           />
-        </div>
-      </ThemeProvider>
+          <SignInModal
+            initialStep={modalStep}
+            show={modalStep !== null}
+            onClose={() => this.setModalStep(null)}
+            onSetProfile={this.setProfile}
+          />
+
+          <div
+            style={{
+              position: 'relative',
+              paddingTop: '80px',
+              width: '100%',
+            }}
+          >
+            <Background />
+            <Component
+              {...pageProps}
+              loading={loading}
+              profile={profile}
+              setProfile={this.setProfile}
+            />
+          </div>
+        </ThemeProvider>
+      </Provider>
     );
   }
 }
