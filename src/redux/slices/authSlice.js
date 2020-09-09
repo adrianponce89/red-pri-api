@@ -1,5 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 import authService from '../../services/authservice';
+import { hideModal } from './modalSlice';
 
 let profile = null;
 if (process.browser) {
@@ -61,6 +62,7 @@ export function login(email, password, from) {
     authService.login(email, password).then(
       (profile) => {
         dispatch(loginSuccess(profile));
+        dispatch(hideModal());
       },
       (error) => {
         dispatch(loginFailure(error.toString()));
@@ -81,6 +83,7 @@ export function register(email, password, from) {
     authService.register(email, password).then(
       (profile) => {
         dispatch(registerSuccess(profile));
+        dispatch(hideModal());
       },
       (error) => {
         dispatch(registerFailure(error.toString()));

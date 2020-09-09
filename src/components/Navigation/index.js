@@ -10,15 +10,24 @@ import { withRouter } from 'next/router';
 
 import { useDispatch, useSelector } from 'react-redux';
 import { logout } from '../../redux/slices/authSlice';
+import { showModal } from '../../redux/slices/modalSlice';
 
 const Navigation = (props) => {
   const { pathname } = props.router;
 
   const profile = useSelector((state) => state.auth.profile);
+
   const dispatch = useDispatch();
 
   const signout = () => {
     dispatch(logout());
+  };
+
+  const onShowSignUp = () => {
+    dispatch(showModal('SelectSignUp'));
+  };
+  const onShowSignIn = () => {
+    dispatch(showModal('SelectSignIn'));
   };
 
   return (
@@ -83,11 +92,11 @@ const Navigation = (props) => {
             <Button
               variant="outline-light"
               className="m-2"
-              onClick={props.onShowSignUp}
+              onClick={onShowSignUp}
             >
               Registrarse
             </Button>
-            <Button variant="success" onClick={props.onShowSignIn}>
+            <Button variant="success" onClick={onShowSignIn}>
               Ingresar
             </Button>
           </>

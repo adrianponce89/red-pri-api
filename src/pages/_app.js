@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Provider } from 'react-redux';
 import { ThemeProvider } from 'styled-components';
 import GlobalStyle from '../components/GlobalStyle';
@@ -27,34 +27,14 @@ const theme = {
 };
 
 class MyApp extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      modalStep: null,
-    };
-    this.setModalStep = this.setModalStep.bind(this);
-  }
-
-  setModalStep(modalStep) {
-    this.setState({ modalStep });
-  }
-
   render() {
-    const { modalStep } = this.state;
     const { Component, pageProps } = this.props;
     return (
       <Provider store={store}>
         <ThemeProvider theme={theme}>
           <GlobalStyle />
-          <Navigation
-            onShowSignUp={() => this.setModalStep('SelectSignUp')}
-            onShowSignIn={() => this.setModalStep('SelectSignIn')}
-          />
-          <SignInModal
-            initialStep={modalStep}
-            show={modalStep !== null}
-            onClose={() => this.setModalStep(null)}
-          />
+          <Navigation />
+          <SignInModal />
 
           <div
             style={{
