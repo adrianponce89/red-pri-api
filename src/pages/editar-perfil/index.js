@@ -1,19 +1,14 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import Router from 'next/router';
 import fetch from 'isomorphic-fetch';
+import { useSelector } from 'react-redux';
 import EditProfile from '../../components/EditProfile';
 import { contentOnLoad } from '../../components/Loadable';
 import { server } from '../../config';
 
 const EditarPerfil = (props) => {
-  const [role, setRole] = useState('');
   const [loading, setLoading] = useState(false);
-
-  useEffect(() => {
-    if (props.profile) {
-      setRole(props.profile.role);
-    }
-  }, [props]);
+  const profile = useSelector((state) => state.auth.profile);
 
   const handleSubmit = async ({ file, ...data }) => {
     setLoading(true);
@@ -23,14 +18,13 @@ const EditarPerfil = (props) => {
     }
     fd.append('data', JSON.stringify(data));
 
-    const res = await fetch(`/api/users/${props.profile._id}`, {
+    const res = await fetch(`/api/users/${profile._id}`, {
       method: 'PATCH',
       body: fd,
     });
 
     if (res.status === 200) {
       const resJson = await res.json();
-      props.setProfile(resJson.user);
       Router.push(`/perfil/${resJson.user.username}`);
     } else {
       setLoading(false);
@@ -38,29 +32,15 @@ const EditarPerfil = (props) => {
   };
 
   return (
-    <>
-      {role === 'author' ? (
-        <EditProfile
-          loading={loading}
-          profile={props.profile}
-          onSubmit={handleSubmit}
-          buttonName="Editar"
-          specialitiesList={props.specialitiesList}
-          themesList={props.themesList}
-          atentionTypesList={props.atentionTypesList}
-        />
-      ) : (
-        <EditProfile
-          loading={loading}
-          profile={props.profile}
-          onSubmit={handleSubmit}
-          buttonName="Editar"
-          specialitiesList={props.specialitiesList}
-          themesList={props.themesList}
-          atentionTypesList={props.atentionTypesList}
-        />
-      )}
-    </>
+    <EditProfile
+      loading={loading}
+      profile={profile}
+      onSubmit={handleSubmit}
+      buttonName="Editar"
+      specialitiesList={props.specialitiesList}
+      themesList={props.themesList}
+      atentionTypesList={props.atentionTypesList}
+    />
   );
 };
 
