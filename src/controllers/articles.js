@@ -28,6 +28,13 @@ module.exports = {
   },
 
   newArticle: async (req, res, next) => {
+    if (!(req.user.permits.writes || req.user.role === 'admin')) {
+      return res.status(401).json({
+        success: false,
+        error: 'El usuario no esta autorizado',
+      });
+    }
+
     const data = JSON.parse(req.body.data);
 
     const sanitized = {
@@ -81,6 +88,13 @@ module.exports = {
   },
 
   replaceArticle: async (req, res, next) => {
+    if (!(req.user.permits.writes || req.user.role === 'admin')) {
+      return res.status(401).json({
+        success: false,
+        error: 'El usuario no esta autorizado',
+      });
+    }
+
     const { articleId } = req.params;
     const newArticle = req.body;
     const oldArticle = await Article.findByIdAndUpdate(
@@ -91,6 +105,13 @@ module.exports = {
   },
 
   updateArticle: async (req, res, next) => {
+    if (!(req.user.permits.writes || req.user.role === 'admin')) {
+      return res.status(401).json({
+        success: false,
+        error: 'El usuario no esta autorizado',
+      });
+    }
+
     const { articleId } = req.params;
     const newArticle = {};
     const data = JSON.parse(req.body.data);
@@ -149,6 +170,13 @@ module.exports = {
     res.status(200).json({ success: true });
   },
   uploadImage: async (req, res, next) => {
+    if (!(req.user.permits.writes || req.user.role === 'admin')) {
+      return res.status(401).json({
+        success: false,
+        error: 'El usuario no esta autorizado',
+      });
+    }
+
     if (req.file) {
       if (!isImage(req.file)) {
         return res.status(400).json({

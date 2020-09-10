@@ -9,7 +9,7 @@ router
   .route('/')
   .get(ArticleController.index)
   .post(
-    restrictAccess('author'),
+    restrictAccess('user'),
     upload.single('file'),
     ArticleController.newArticle,
   );
@@ -17,9 +17,9 @@ router
 router
   .route('/:articleId')
   .get(ArticleController.getArticle)
-  .put(restrictAccess('author'), ArticleController.replaceArticle)
+  .put(restrictAccess('user'), ArticleController.replaceArticle)
   .patch(
-    restrictAccess('author'),
+    restrictAccess('user'),
     upload.single('file'),
     ArticleController.updateArticle,
   )
@@ -28,7 +28,7 @@ router
 router
   .route('/upload-image')
   .post(
-    restrictAccess('author'),
+    restrictAccess('user'),
     upload.single('file'),
     ArticleController.uploadImage,
   );

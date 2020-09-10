@@ -1,14 +1,5 @@
 import styled from 'styled-components';
-
-const CenteredImage = styled.div`
-width: 100%;
-padding-bottom: 100%;
-background-image: url("${(props) => props.src}");
-background-color: #cccccc;
-background-position: center;
-background-repeat: no-repeat;
-background-size: cover;
-`;
+import CenteredImage from '../components/CenteredImage';
 
 const HoverMessage = styled.div`
   position: absolute;
@@ -37,11 +28,17 @@ const ImageSelectorContainer = styled.div`
   margin: auto;
 `;
 
-const ImageSelection = ({ src, onChange, className, style }) => {
+const ImageSelection = ({
+  src,
+  defaultImage,
+  onChange,
+  className,
+  style,
+}) => {
   let fileInput;
   return (
     <ImageSelectorContainer className={className} style={style}>
-      <CenteredImage src={src} />
+      <CenteredImage src={src} defaultImage={defaultImage} />
       <input
         style={{ display: 'none' }}
         type="file"

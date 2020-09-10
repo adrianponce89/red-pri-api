@@ -1,23 +1,33 @@
 // ./src/components/Navbar.js
-import Cookies from 'universal-cookie';
 import styled from 'styled-components';
 import Navbar from 'react-bootstrap/Navbar';
 import NavDropdown from 'react-bootstrap/NavDropdown';
 import Nav from 'react-bootstrap/Nav';
-import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import SearchBar from './components/SearchBar';
 import FAIcon from '../FAIcon';
-import Router, { withRouter } from 'next/router';
+import { withRouter } from 'next/router';
+
+import { useDispatch, useSelector } from 'react-redux';
+import { logout } from '../../redux/slices/authSlice';
+import { showModal } from '../../redux/slices/modalSlice';
 
 const Navigation = (props) => {
-  const navbarStyle = { marginBottom: '25px' };
   const { pathname } = props.router;
+
+  const profile = useSelector((state) => state.auth.profile);
+
+  const dispatch = useDispatch();
+
   const signout = () => {
-    props.setProfile(null);
-    const cookies = new Cookies();
-    cookies.set('jwt', null, { path: '/' });
-    Router.push('/');
+    dispatch(logout());
+  };
+
+  const onShowSignUp = () => {
+    dispatch(showModal('SelectSignUp'));
+  };
+  const onShowSignIn = () => {
+    dispatch(showModal('SelectSignIn'));
   };
 
   return (
@@ -41,7 +51,7 @@ const Navigation = (props) => {
           <Nav.Link href="/">Inicio</Nav.Link>
           <Nav.Link href="/articulos">Articulos</Nav.Link>
           <Nav.Link href="/#profesionales">Profesionales</Nav.Link>
-          {!!props.profile && props.profile.role === 'admin' ? (
+          {!!profile && profile.role === 'admin' ? (
             <Nav.Link href="/administrar">
               <FAIcon className="fa fa-unlock-alt" /> Administrar
             </Nav.Link>
@@ -52,7 +62,7 @@ const Navigation = (props) => {
         <div className="m-2">
           <SearchBar />
         </div>
-        {!!props.profile ? (
+        {!!profile ? (
           <Nav>
             {/* <Nav.Link>
               <FAIcon className="fa fa-bookmark" />
@@ -64,12 +74,10 @@ const Navigation = (props) => {
               <FAIcon className="fa fa-shopping-cart" />
             </Nav.Link> */}
             <NavDropdown
-              title={props.profile.email}
+              title={profile.email}
               id="basic-nav-dropdown"
             >
-              <NavDropdown.Item
-                href={`/perfil/${props.profile.username}`}
-              >
+              <NavDropdown.Item href={`/perfil/${profile.username}`}>
                 Perfil
               </NavDropdown.Item>
               <NavDropdown.Divider />
@@ -84,11 +92,11 @@ const Navigation = (props) => {
             <Button
               variant="outline-light"
               className="m-2"
-              onClick={props.onShowSignUp}
+              onClick={onShowSignUp}
             >
               Registrarse
             </Button>
-            <Button variant="success" onClick={props.onShowSignIn}>
+            <Button variant="success" onClick={onShowSignIn}>
               Ingresar
             </Button>
           </>

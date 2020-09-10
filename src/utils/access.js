@@ -13,11 +13,7 @@ module.exports = {
       }
       if (req.isAuthenticated()) {
         const { role } = user;
-        if (
-          role === 'admin' ||
-          (access === 'author' && role === 'author') ||
-          access === 'user'
-        ) {
+        if (role === 'admin' || access === 'user') {
           return next();
         }
       }

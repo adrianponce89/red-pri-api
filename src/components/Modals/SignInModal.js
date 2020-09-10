@@ -1,20 +1,26 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import Modal from 'react-bootstrap/Modal';
+import { useDispatch, useSelector } from 'react-redux';
 import SelectSignInMethod from './components/SelectSignInMethod';
 import EmailSignInMethod from './components/EmailSignInMethod';
 import SelectSignUpMethod from './components/SelectSignUpMethod';
 import EmailSignUpMethod from './components/EmailSignUpMethod';
 
-const SignInModal = (props) => {
-  const [step, setStep] = useState(null);
-  const [last, setLast] = useState(null);
-  useEffect(() => {
-    setLast(step);
-    setStep(props.initialStep);
-  }, [props]);
+import { showModal, hideModal } from '../../redux/slices/modalSlice';
 
-  // Keep last state on sceen on fade-out.
-  const current = step || last;
+const SignInModal = (props) => {
+  const dispatch = useDispatch();
+
+  const onClose = () => {
+    dispatch(hideModal());
+  };
+
+  const setStep = (step) => {
+    dispatch(showModal(step));
+  };
+
+  const show = useSelector((state) => state.modal.show);
+  const current = useSelector((state) => state.modal.step);
 
   const renderSteps = () => {
     if (current === 'SelectSignIn')
@@ -52,12 +58,7 @@ const SignInModal = (props) => {
     else return <h1>Ocurrio un Error!</h1>;
   };
   return (
-    <Modal
-      show={props.show}
-      onHide={props.onClose}
-      keyboard={false}
-      centered
-    >
+    <Modal show={show} onHide={onClose} keyboard={false} centered>
       {renderSteps()}
     </Modal>
   );

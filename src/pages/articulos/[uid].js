@@ -8,6 +8,7 @@ import Card from 'react-bootstrap/Card';
 import { server } from '../../config';
 import FAIcon from '../../components/FAIcon';
 import Popular from '../../components/Popular';
+import { useSelector } from 'react-redux';
 
 const CenterTitle = styled.h1`
   text-align: center;
@@ -28,7 +29,8 @@ const Center = styled.div`
   justify-content: center;
 `;
 
-const Articulo = ({ className, article, articles, profile }) => {
+const Articulo = ({ className, article, articles }) => {
+  const profile = useSelector((state) => state.auth.profile);
   return (
     <div className={className}>
       <Row>

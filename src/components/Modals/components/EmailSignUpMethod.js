@@ -2,36 +2,22 @@ import React, { useState } from 'react';
 import Container from 'react-bootstrap/Container';
 import Modal from 'react-bootstrap/Modal';
 import Form from 'react-bootstrap/Form';
-import fetch from 'isomorphic-fetch';
 import { LoadableButton } from '../../Loadable';
+
+import { useDispatch, useSelector } from 'react-redux';
+import { register } from '../../../redux/slices/authSlice';
 
 const EmailSignUpMethod = (props) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [message, setMessage] = useState('');
-  const [loading, setLoading] = useState(false);
+
+  const loading = useSelector((state) => state.auth.signingIn);
+  const message = useSelector((state) => state.auth.error);
+  const dispatch = useDispatch();
 
   async function submit(event) {
     event.preventDefault();
-    setLoading(true);
-    const res = await fetch('/api/auth/signup', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        email,
-        password,
-      }),
-    });
-    const resJson = await res.json();
-    setLoading(false);
-    if (res.status === 200) {
-      props.onSetProfile(resJson.user);
-      props.onClose();
-    } else {
-      setMessage(resJson.error);
-    }
+    dispatch(register(email, password));
   }
   return (
     <>
