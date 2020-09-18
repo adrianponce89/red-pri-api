@@ -28,6 +28,9 @@ const Filters = ({ filters }) => {
     const newFilters = flatFilters.filter(
       (f) => !(f.type === type && f.name === name),
     );
+    if (newFilters.length === 0) {
+      return '/#profesionales';
+    }
     const slug = `/busqueda${newFilters.reduce(
       (acc, val) =>
         `${acc}/${val.type}-${val.name.replace(/ /g, '-')}`,
