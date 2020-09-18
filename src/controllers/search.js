@@ -8,7 +8,7 @@ const {
 module.exports = {
   index: async (req, res, next) => {
     const { text, location, ...otherQuery } = req.query;
-    let query = otherQuery;
+    let query = { ...otherQuery, 'permits.index': true };
     if (text) {
       const splitText = text.split(' ');
       query = {
