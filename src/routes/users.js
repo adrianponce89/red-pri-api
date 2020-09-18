@@ -7,7 +7,7 @@ const { upload } = require('../utils/upload');
 
 router
   .route('/')
-  .get(UserController.index)
+  .get(restrictAccess('user'), UserController.index)
   .post(
     restrictAccess('admin'),
     upload.single('file'),

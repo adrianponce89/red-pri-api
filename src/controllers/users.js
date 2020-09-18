@@ -9,7 +9,11 @@ imgur.setAPIUrl(process.env.IMGUR_API_URL);
 
 module.exports = {
   index: async (req, res, next) => {
-    const users = await User.find({});
+    const query =
+      req.user && req.user.role === 'admin'
+        ? {}
+        : { 'permits.index': true };
+    const users = await User.find(query);
     const securedUsers = users.map((user) => user.secured());
     res.status(200).json(securedUsers);
   },
