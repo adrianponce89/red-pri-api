@@ -8,7 +8,7 @@ import { provincias, obrasSociales } from '../../config/data';
 
 const SearchByName = () => {
   const [query, setQuery] = useState('');
-  const [provincia, setProvincia] = useState('CABA');
+  const [provincia, setProvincia] = useState([]);
   const [social, setSocial] = useState([]);
   const [loading, setLoading] = useState(false);
 
@@ -18,8 +18,10 @@ const SearchByName = () => {
     const slug =
       '/busqueda/texto-' +
       query.toLowerCase().replace(/ /g, '-') +
-      '/provincia-' +
-      provincia.toLowerCase().replace(/ /g, '-') +
+      (provincia.length > 0
+        ? '/provincia-' +
+          provincia.join().toLowerCase().replace(/ /g, '-')
+        : '') +
       (social.length > 0
         ? '/obrasocial-' +
           social.join().toLowerCase().replace(/ /g, '-')
@@ -43,17 +45,14 @@ const SearchByName = () => {
           </Form.Text>
         </Form.Group>
 
-        <Form.Group as={Col} sm={4} controlId="provincia">
+        <Form.Group as={Col} sm={3} controlId="provincia">
           <Form.Label>Provincia</Form.Label>
-          <Form.Control
-            as="select"
-            value={provincia}
-            onChange={(e) => setProvincia(e.target.value)}
-          >
-            {provincias.map((name) => (
-              <option key={name}>{name}</option>
-            ))}
-          </Form.Control>
+          <Typeahead
+            onChange={setProvincia}
+            options={provincias}
+            placeholder="Todas las provincias..."
+            selected={provincia}
+          />
         </Form.Group>
 
         <Form.Group as={Col} sm={4} controlId="social">

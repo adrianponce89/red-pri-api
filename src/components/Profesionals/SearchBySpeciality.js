@@ -12,7 +12,7 @@ import {
 
 const SearchBySpeciality = ({ specialitiesList }) => {
   const [specility, setSpecility] = useState([]);
-  const [provincia, setProvincia] = useState('CABA');
+  const [provincia, setProvincia] = useState([]);
   const [localidad, setLocalidad] = useState([]);
   const [social, setSocial] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -23,8 +23,10 @@ const SearchBySpeciality = ({ specialitiesList }) => {
     const slug =
       '/busqueda/especialidades-' +
       specility.join().toLowerCase().replace(/ /g, '-') +
-      '/provincia-' +
-      provincia.toLowerCase().replace(/ /g, '-') +
+      (provincia.length > 0
+        ? '/provincia-' +
+          provincia.join().toLowerCase().replace(/ /g, '-')
+        : '') +
       (localidad.length > 0
         ? '/localidad-' +
           localidad.join().toLowerCase().replace(/ /g, '-')
@@ -36,6 +38,14 @@ const SearchBySpeciality = ({ specialitiesList }) => {
 
     Router.push(slug);
   }
+
+  const getLocalidades = () =>
+    provincia.length > 0
+      ? localidades_map[provincia[0]]
+      : Object.values(localidades_map).reduce(
+          (a, v) => a.concat(v),
+          [],
+        );
 
   return (
     <Form onSubmit={handleSubmit}>
@@ -51,22 +61,16 @@ const SearchBySpeciality = ({ specialitiesList }) => {
         </Form.Group>
         <Form.Group as={Col} sm={3} controlId="provincia">
           <Form.Label>Provincia</Form.Label>
-          <Form.Control
-            as="select"
-            value={provincia}
-            onChange={(e) => {
-              setProvincia(e.target.value);
+          <Typeahead
+            onChange={(pr) => {
+              setProvincia(pr);
               setLocalidad([]);
             }}
-          >
-            {provincias_large.map((name) => (
-              <option key={name} value={name}>
-                {name}
-              </option>
-            ))}
-          </Form.Control>
+            options={provincias_large}
+            placeholder="Todas las provincias..."
+            selected={provincia}
+          />
         </Form.Group>
-
         <Form.Group as={Col} sm={3} controlId="localidad">
           <Form.Label>
             {provincia === provincias_large[0]
@@ -75,7 +79,7 @@ const SearchBySpeciality = ({ specialitiesList }) => {
           </Form.Label>
           <Typeahead
             onChange={setLocalidad}
-            options={localidades_map[provincia]}
+            options={getLocalidades()}
             placeholder="Todas las localidades..."
             selected={localidad}
           />
