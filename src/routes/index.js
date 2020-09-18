@@ -10,5 +10,6 @@ router.use('/search', require('./search'));
 router.use('/messages', require('./messages'));
 router.use('/slides', require('./slides'));
 router.use('/suggestions', require('./suggestions'));
+router.use('/admin', require('./admin'));
 
 module.exports = router;

@@ -1,5 +1,6 @@
 const express = require('express');
 const router = require('express-promise-router')();
+const passport = require('passport');
 
 const ArticleController = require('../controllers/articles');
 const { restrictAccess } = require('../utils/access');

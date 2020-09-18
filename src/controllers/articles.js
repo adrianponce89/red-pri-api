@@ -12,7 +12,9 @@ imgur.setAPIUrl(process.env.IMGUR_API_URL);
 
 module.exports = {
   index: async (req, res, next) => {
-    const articles = await Article.find({}).populate('author');
+    const articles = await Article.find({ published: true }, null, {
+      sort: { createdAt: -1 },
+    }).populate('author');
     const plainArticles = articles.map((article) => ({
       _id: article._id,
       title: article.title,
@@ -22,6 +24,7 @@ module.exports = {
       author: article.author,
       content: textVersion(article.content).substr(0, 500),
       updatedAt: article.updatedAt,
+      createdAt: article.createdAt,
       picUrl: article.picUrl,
     }));
     res.status(200).json(plainArticles);
@@ -121,6 +124,9 @@ module.exports = {
       newArticle['uid'] = await Article.getArticleUidFor(data.title);
     }
     if (data.content) newArticle['content'] = data.content;
+
+    if (data.published != undefined)
+      newArticle['published'] = data.published;
 
     if (req.file) {
       if (!isImage(req.file)) {

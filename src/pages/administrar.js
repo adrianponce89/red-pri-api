@@ -15,9 +15,9 @@ const Admin = () => {
   const [slides, setSlides] = useState([]);
 
   useEffect(async () => {
-    const resUsers = await fetch(`/api/users`);
+    const resUsers = await fetch(`/api/admin/users`);
     setUsers(await resUsers.json());
-    const resArticles = await fetch(`/api/articles`);
+    const resArticles = await fetch(`/api/admin/articles`);
     setArticles(await resArticles.json());
     const resSlides = await fetch(`/api/slides`);
     setSlides(await resSlides.json());
