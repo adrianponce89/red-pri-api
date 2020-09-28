@@ -10,8 +10,8 @@ import {
   obrasSociales,
 } from '../../config/data';
 
-const SearchBySpeciality = ({ specialitiesList }) => {
-  const [specility, setSpecility] = useState([]);
+const SearchBySpeciality = ({ titlesList }) => {
+  const [title, setTitle] = useState([]);
   const [provincia, setProvincia] = useState([]);
   const [localidad, setLocalidad] = useState([]);
   const [social, setSocial] = useState([]);
@@ -21,8 +21,8 @@ const SearchBySpeciality = ({ specialitiesList }) => {
     event.preventDefault();
     setLoading(true);
     const slug =
-      '/busqueda/especialidades-' +
-      specility.join().toLowerCase().replace(/ /g, '-') +
+      '/busqueda/profesion-' +
+      title.join().toLowerCase().replace(/ /g, '-') +
       (provincia.length > 0
         ? '/provincia-' +
           provincia.join().toLowerCase().replace(/ /g, '-')
@@ -51,12 +51,12 @@ const SearchBySpeciality = ({ specialitiesList }) => {
     <Form onSubmit={handleSubmit}>
       <Form.Row>
         <Form.Group as={Col} sm={3} controlId="especialidad">
-          <Form.Label>Especialidad</Form.Label>
+          <Form.Label>Profesión(*)</Form.Label>
           <Typeahead
-            onChange={setSpecility}
-            options={specialitiesList}
-            placeholder="Especialidad..."
-            selected={specility}
+            onChange={setTitle}
+            options={titlesList}
+            placeholder="Profesión..."
+            selected={title}
           />
         </Form.Group>
         <Form.Group as={Col} sm={3} controlId="provincia">
@@ -102,7 +102,7 @@ const SearchBySpeciality = ({ specialitiesList }) => {
           className="btn-lg"
           type="submit"
           loading={loading}
-          disabled={specility.length === 0 || loading}
+          disabled={title.length === 0 || loading}
         >
           Buscar
         </Button>

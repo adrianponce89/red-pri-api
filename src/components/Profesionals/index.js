@@ -17,6 +17,10 @@ const SelectionContainer = styled.div`
   margin-top: -2.5px;
   background: white;
   min-height: 220px;
+  input,
+  .dropdown-menu {
+    text-transform: capitalize;
+  }
 `;
 
 const SMDisplay = styled.p`
@@ -66,15 +70,11 @@ const Profesionals = (props) => {
       </Nav>
       <SelectionContainer>
         {selected === 'bySpeciality' ? (
-          <SearchBySpeciality
-            specialitiesList={props.specialitiesList}
-          />
+          <SearchBySpeciality titlesList={props.titlesList} />
         ) : selected === 'byName' ? (
-          <SearchByName specialitiesList={props.specialitiesList} />
+          <SearchByName titlesList={props.titlesList} />
         ) : (
-          <SearchByLocation
-            specialitiesList={props.specialitiesList}
-          />
+          <SearchByLocation titlesList={props.titlesList} />
         )}
       </SelectionContainer>
     </ProfesionalsContainer>

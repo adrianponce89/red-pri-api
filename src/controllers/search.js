@@ -15,7 +15,7 @@ module.exports = {
         ...query,
         $or: [
           { title: { $in: splitText } },
-          { fullName: { $regex: text } },
+          { fullname: { $regex: text } },
           { specialities: { $in: splitText } },
           { themes: { $in: splitText } },
           { atentionType: { $in: splitText } },

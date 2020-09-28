@@ -37,13 +37,13 @@ const Anchor = styled.div`
   height: 0;
 `;
 
-const Home = ({ slides, theme, specialitiesList }) => (
+const Home = ({ slides, theme, titlesList }) => (
   <>
     {slides.length > 0 ? <Carousel slides={slides} /> : ''}
     <Container>
       <Anchor id="profesionales" />
 
-      <Profesionals specialitiesList={specialitiesList} />
+      <Profesionals titlesList={titlesList} />
     </Container>
     <LandingBackground>
       <LandingContainer>
@@ -81,12 +81,12 @@ export async function getServerSideProps() {
   const slides = await resSlides.json();
 
   const resSuggestions = await fetch(`${server}/api/suggestions`);
-  const { specialitiesList } = await resSuggestions.json();
+  const { titlesList } = await resSuggestions.json();
 
   return {
     props: {
       slides,
-      specialitiesList,
+      titlesList,
     },
   };
 }

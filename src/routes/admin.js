@@ -11,4 +11,8 @@ router
   .route('/users')
   .get(restrictAccess('admin'), AdminController.users);
 
+router
+  .route('/normalize-users')
+  .get(restrictAccess('admin'), AdminController.normalizeUsers);
+
 module.exports = router;

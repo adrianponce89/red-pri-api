@@ -68,7 +68,7 @@ const ArticleCard = (props) => {
           <ClampedContent>{props.content}</ClampedContent>
         </Link>
         <Card.Text>
-          <AuthorName>{props.author.fullName}</AuthorName>
+          <AuthorName>{props.author.fullname}</AuthorName>
 
           <small className="text-muted">
             Actualizado hace {timeSince(new Date(props.updatedAt))}

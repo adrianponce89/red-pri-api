@@ -13,8 +13,8 @@ Geocode.setApiKey(googleMapsAPIKey);
 Geocode.setLanguage('es');
 Geocode.setRegion('ar');
 
-const SearchByLocation = ({ specialitiesList }) => {
-  const [specility, setSpecility] = useState([]);
+const SearchByLocation = ({ titlesList }) => {
+  const [title, setTitle] = useState([]);
   const [social, setSocial] = useState([]);
   const [address, setAddress] = useState(null);
   const [loading, setLoading] = useState(false);
@@ -23,8 +23,8 @@ const SearchByLocation = ({ specialitiesList }) => {
     event.preventDefault();
     setLoading(true);
     const slug =
-      '/busqueda/especialidades-' +
-      specility.join().toLowerCase().replace(/ /g, '-') +
+      '/busqueda/profesion-' +
+      title.join().toLowerCase().replace(/ /g, '-') +
       (social.length > 0
         ? '/obrasocial-' +
           social.join().toLowerCase().replace(/ /g, '-')
@@ -72,12 +72,12 @@ const SearchByLocation = ({ specialitiesList }) => {
     <Form onSubmit={handleSubmit}>
       <Form.Row>
         <Form.Group as={Col} sm={4} controlId="especialidad">
-          <Form.Label>Especialidad</Form.Label>
+          <Form.Label>Profesión(*)</Form.Label>
           <Typeahead
-            onChange={setSpecility}
-            options={specialitiesList}
-            placeholder="Especialidad..."
-            selected={specility}
+            onChange={setTitle}
+            options={titlesList}
+            placeholder="Profesión..."
+            selected={title}
           />
         </Form.Group>
 
@@ -119,9 +119,7 @@ const SearchByLocation = ({ specialitiesList }) => {
           className="btn-lg"
           type="submit"
           loading={loading}
-          disabled={
-            specility.length === 0 || address === null || loading
-          }
+          disabled={title.length === 0 || address === null || loading}
         >
           Buscar
         </Button>
