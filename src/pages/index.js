@@ -29,10 +29,20 @@ const ShareSocialNetwork = styled(ShareSocialNetworks)`
   bottom: 20px;
 `;
 
+const Anchor = styled.div`
+  position: relative;
+  left: 0;
+  top: -80px;
+  right: 0;
+  height: 0;
+`;
+
 const Home = ({ slides, theme, specialitiesList }) => (
   <>
     {slides.length > 0 ? <Carousel slides={slides} /> : ''}
-    <Container id="profesionales">
+    <Container>
+      <Anchor id="profesionales" />
+
       <Profesionals specialitiesList={specialitiesList} />
     </Container>
     <LandingBackground>
