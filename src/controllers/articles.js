@@ -12,9 +12,22 @@ imgur.setAPIUrl(process.env.IMGUR_API_URL);
 
 module.exports = {
   index: async (req, res, next) => {
-    const articles = await Article.find({ published: true }, null, {
+    const { limit, sort, order, ...otherQuery } = req.query;
+    const options = {
       sort: { createdAt: -1 },
-    }).populate('author');
+    };
+    if (limit) {
+      options['limit'] = parseInt(limit);
+    }
+    if (sort) {
+      options['sort'] = { [sort]: order || -1 };
+    }
+
+    const articles = await Article.find(
+      { ...otherQuery, published: true },
+      null,
+      options,
+    ).populate('author');
     const plainArticles = articles.map((article) => ({
       _id: article._id,
       title: article.title,
@@ -26,6 +39,7 @@ module.exports = {
       updatedAt: article.updatedAt,
       createdAt: article.createdAt,
       picUrl: article.picUrl,
+      seenCounter: article.seenCounter,
     }));
     res.status(200).json(plainArticles);
   },
@@ -47,6 +61,7 @@ module.exports = {
       category: data.category,
       tags: data.tags,
       author: req.user.id,
+      seenCounter: 0,
     };
 
     if (req.file) {
@@ -174,6 +189,16 @@ module.exports = {
     }
     await Article.deleteOne({ _id: articleId });
     res.status(200).json({ success: true });
+  },
+  incrementSeenCounter: async (req, res, next) => {
+    const { articleId } = req.params;
+    await Article.findOneAndUpdate(
+      { _id: articleId },
+      {
+        $inc: { seenCounter: 1 },
+      },
+    );
+    res.status(200).json();
   },
   uploadImage: async (req, res, next) => {
     if (!(req.user.permits.writes || req.user.role === 'admin')) {

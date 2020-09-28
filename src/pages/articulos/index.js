@@ -10,13 +10,13 @@ import Popular from '../../components/Popular';
 import NavPills from '../../components/NavPills';
 import FAIcon from '../../components/FAIcon';
 
-const Articulos = ({ articles }) => {
+const Articulos = ({ articles, popular }) => {
   const profile = useSelector((state) => state.auth.profile);
   return (
     <Container>
       <Row>
         <Col md="4" className="mb-2">
-          <Popular articles={articles} />
+          <Popular articles={popular} />
         </Col>
         <Col md={{ span: 8, order: 'first' }}>
           <div className="d-flex justify-content-between pb-2">
@@ -63,9 +63,16 @@ const Articulos = ({ articles }) => {
 export async function getServerSideProps() {
   const res = await fetch(`${server}/api/articles`);
   const articles = await res.json();
+
+  const resPopular = await fetch(
+    `${server}/api/articles/?sort=seenCounter&limit=5`,
+  );
+  const popular = await resPopular.json();
+
   return {
     props: {
       articles,
+      popular,
     },
   };
 }

@@ -15,6 +15,7 @@ const articleSchema = new Schema(
     picUrl: String,
     deletehash: String,
     published: Boolean,
+    seenCounter: Number,
   },
   {
     timestamps: true,

@@ -16,6 +16,10 @@ router
   );
 
 router
+  .route('/counter/:articleId')
+  .post(ArticleController.incrementSeenCounter);
+
+router
   .route('/:articleId')
   .get(ArticleController.getArticle)
   .put(restrictAccess('user'), ArticleController.replaceArticle)
