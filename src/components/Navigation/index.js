@@ -112,6 +112,16 @@ const styledNavBar = styled(withRouter(Navigation))`
   box-shadow: 0 0 6px rgba(0, 0, 0, 0.4);
   border: none;
   text-align: center;
+  font-size: 1.3em;
+  font-weight: bold;
+  text-shadow: 0 0 3px #6c306f;
+  .navbar-nav .nav-link {
+    color: #f9f2f8;
+  }
+  .navbar-nav .nav-link.active {
+    color: #ffffff;
+    text-shadow: 0 0 5px #6c306f;
+  }
 `;
 
 export default styledNavBar;
