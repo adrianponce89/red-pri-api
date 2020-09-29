@@ -24,10 +24,10 @@ const Navigation = (props) => {
   };
 
   const onShowSignUp = () => {
-    dispatch(showModal('SelectSignUp'));
+    dispatch(showModal({ step: 'SelectSignUp' }));
   };
   const onShowSignIn = () => {
-    dispatch(showModal('SelectSignIn'));
+    dispatch(showModal({ step: 'SelectSignIn' }));
   };
 
   return (

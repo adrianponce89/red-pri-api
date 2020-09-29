@@ -5,6 +5,7 @@ import SelectSignInMethod from './components/SelectSignInMethod';
 import EmailSignInMethod from './components/EmailSignInMethod';
 import SelectSignUpMethod from './components/SelectSignUpMethod';
 import EmailSignUpMethod from './components/EmailSignUpMethod';
+import MessageRecievedMethod from './components/MessageRecievedMethod';
 
 import { showModal, hideModal } from '../../redux/slices/modalSlice';
 
@@ -16,7 +17,7 @@ const SignInModal = (props) => {
   };
 
   const setStep = (step) => {
-    dispatch(showModal(step));
+    dispatch(showModal({ step }));
   };
 
   const show = useSelector((state) => state.modal.show);
@@ -55,6 +56,8 @@ const SignInModal = (props) => {
           onSelectSignUp={() => setStep('SelectSignUp')}
         />
       );
+    else if (current === 'MessageRecieved')
+      return <MessageRecievedMethod {...props} />;
     else return <h1>Ocurrio un Error!</h1>;
   };
   return (
