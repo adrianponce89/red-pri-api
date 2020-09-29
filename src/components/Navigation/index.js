@@ -77,10 +77,21 @@ const Navigation = (props) => {
               title={profile.email}
               id="basic-nav-dropdown"
             >
-              <NavDropdown.Item href={`/perfil/${profile.username}`}>
-                Perfil
-              </NavDropdown.Item>
-              <NavDropdown.Divider />
+              {!!profile &&
+              (profile.role === 'admin' ||
+                (profile.permits && profile.permits.index)) ? (
+                <>
+                  <NavDropdown.Item
+                    href={`/perfil/${profile.username}`}
+                  >
+                    Perfil
+                  </NavDropdown.Item>
+                  <NavDropdown.Divider />
+                </>
+              ) : (
+                ''
+              )}
+
               <NavDropdown.Item onClick={() => signout()}>
                 Salir
               </NavDropdown.Item>
