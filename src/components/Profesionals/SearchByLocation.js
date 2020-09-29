@@ -7,7 +7,6 @@ import { Typeahead, AsyncTypeahead } from 'react-bootstrap-typeahead';
 import { googleMapsAPIKey } from '../../config';
 import { extractType } from '../../utils/geocoding';
 import { LoadableButton as Button } from '../Loadable';
-import { obrasSociales } from '../../config/data';
 
 Geocode.setApiKey(googleMapsAPIKey);
 Geocode.setLanguage('es');
@@ -15,7 +14,6 @@ Geocode.setRegion('ar');
 
 const SearchByLocation = ({ titlesList }) => {
   const [title, setTitle] = useState([]);
-  const [social, setSocial] = useState([]);
   const [address, setAddress] = useState(null);
   const [loading, setLoading] = useState(false);
 
@@ -25,10 +23,6 @@ const SearchByLocation = ({ titlesList }) => {
     const slug =
       '/busqueda/profesion-' +
       title.join().toLowerCase().replace(/ /g, '-') +
-      (social.length > 0
-        ? '/obrasocial-' +
-          social.join().toLowerCase().replace(/ /g, '-')
-        : '') +
       '/coordenadas-@' +
       address.location.lat +
       ',' +
@@ -81,17 +75,7 @@ const SearchByLocation = ({ titlesList }) => {
           />
         </Form.Group>
 
-        <Form.Group as={Col} sm={4} controlId="social">
-          <Form.Label>Obra Social</Form.Label>
-          <Typeahead
-            onChange={setSocial}
-            options={obrasSociales}
-            placeholder="Todas las obras Sociales..."
-            selected={social}
-          />
-        </Form.Group>
-
-        <Form.Group as={Col} sm={4} controlId="direccion">
+        <Form.Group as={Col} sm={8} controlId="direccion">
           <Form.Label>Dirección</Form.Label>
           <AsyncTypeahead
             id="direccion"

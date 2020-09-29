@@ -4,17 +4,12 @@ import Form from 'react-bootstrap/Form';
 import Col from 'react-bootstrap/Col';
 import { Typeahead } from 'react-bootstrap-typeahead';
 import { LoadableButton as Button } from '../Loadable';
-import {
-  provincias_large,
-  localidades_map,
-  obrasSociales,
-} from '../../config/data';
+import { provincias_large, localidades_map } from '../../config/data';
 
 const SearchBySpeciality = ({ titlesList }) => {
   const [title, setTitle] = useState([]);
   const [provincia, setProvincia] = useState([]);
   const [localidad, setLocalidad] = useState([]);
-  const [social, setSocial] = useState([]);
   const [loading, setLoading] = useState(false);
 
   async function handleSubmit(event) {
@@ -30,10 +25,6 @@ const SearchBySpeciality = ({ titlesList }) => {
       (localidad.length > 0
         ? '/localidad-' +
           localidad.join().toLowerCase().replace(/ /g, '-')
-        : '') +
-      (social.length > 0
-        ? '/obrasocial-' +
-          social.join().toLowerCase().replace(/ /g, '-')
         : '');
 
     Router.push(slug);
@@ -50,7 +41,7 @@ const SearchBySpeciality = ({ titlesList }) => {
   return (
     <Form onSubmit={handleSubmit}>
       <Form.Row>
-        <Form.Group as={Col} sm={3} controlId="especialidad">
+        <Form.Group as={Col} sm={4} controlId="especialidad">
           <Form.Label>Profesión(*)</Form.Label>
           <Typeahead
             onChange={setTitle}
@@ -59,7 +50,7 @@ const SearchBySpeciality = ({ titlesList }) => {
             selected={title}
           />
         </Form.Group>
-        <Form.Group as={Col} sm={3} controlId="provincia">
+        <Form.Group as={Col} sm={4} controlId="provincia">
           <Form.Label>Provincia</Form.Label>
           <Typeahead
             onChange={(pr) => {
@@ -71,7 +62,7 @@ const SearchBySpeciality = ({ titlesList }) => {
             selected={provincia}
           />
         </Form.Group>
-        <Form.Group as={Col} sm={3} controlId="localidad">
+        <Form.Group as={Col} sm={4} controlId="localidad">
           <Form.Label>
             {provincia === provincias_large[0]
               ? 'Barrio'
@@ -82,16 +73,6 @@ const SearchBySpeciality = ({ titlesList }) => {
             options={getLocalidades()}
             placeholder="Todas las localidades..."
             selected={localidad}
-          />
-        </Form.Group>
-
-        <Form.Group as={Col} sm={3} controlId="social">
-          <Form.Label>Obra Social</Form.Label>
-          <Typeahead
-            onChange={setSocial}
-            options={obrasSociales}
-            placeholder="Todas las obras Sociales..."
-            selected={social}
           />
         </Form.Group>
       </Form.Row>
