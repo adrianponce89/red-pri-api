@@ -1,15 +1,31 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Nav from 'react-bootstrap/Nav';
 import Card from 'react-bootstrap/Card';
 
-import { server } from '../config';
 import Container from '../components/Container';
 import UsersTable from '../components/Admin/UsersTable';
 import ArticlesTable from '../components/Admin/ArticlesTable';
 import SlidesTable from '../components/Admin/SlidesTable';
+import MessagesTable from '../components/Admin/MessagesTable';
 
-const Admin = ({ users, articles, slides }) => {
+const Admin = () => {
   const [selected, setSelected] = useState('users');
+  const [users, setUsers] = useState([]);
+  const [articles, setArticles] = useState([]);
+  const [slides, setSlides] = useState([]);
+  const [messages, setMessages] = useState([]);
+
+  useEffect(async () => {
+    const resUsers = await fetch(`/api/admin/users`);
+    setUsers(await resUsers.json());
+    const resArticles = await fetch(`/api/admin/articles`);
+    setArticles(await resArticles.json());
+    const resSlides = await fetch(`/api/slides`);
+    setSlides(await resSlides.json());
+    const resMessages = await fetch(`/api/messages`);
+    setMessages(await resMessages.json());
+  }, []);
+
   return (
     <Container>
       <Nav
@@ -35,6 +51,12 @@ const Admin = ({ users, articles, slides }) => {
         >
           Portada
         </Nav.Link>
+        <Nav.Link
+          eventKey="messages"
+          onClick={() => setSelected('messages')}
+        >
+          Mensajes
+        </Nav.Link>
       </Nav>
 
       <Card>
@@ -42,30 +64,14 @@ const Admin = ({ users, articles, slides }) => {
           <UsersTable users={users} />
         ) : selected === 'articles' ? (
           <ArticlesTable articles={articles} />
-        ) : (
+        ) : selected === 'slides' ? (
           <SlidesTable slides={slides} />
+        ) : (
+          <MessagesTable messages={messages} />
         )}
       </Card>
     </Container>
   );
 };
-
-export async function getServerSideProps({ params, query }) {
-  const resArticles = await fetch(`${server}/api/articles`);
-  const articles = await resArticles.json();
-  const resUsers = await fetch(`${server}/api/users`);
-  const users = await resUsers.json();
-  const resSlides = await fetch(`${server}/api/slides`);
-  const slides = await resSlides.json();
-  console.log('params', params);
-  console.log('query', query);
-  return {
-    props: {
-      articles,
-      users,
-      slides,
-    },
-  };
-}
 
 export default Admin;

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import fetch from 'isomorphic-fetch';
 import Button from 'react-bootstrap/Button';
@@ -29,8 +29,14 @@ const Center = styled.div`
   justify-content: center;
 `;
 
-const Articulo = ({ className, article, articles }) => {
+const Articulo = ({ className, article, articles, popular }) => {
   const profile = useSelector((state) => state.auth.profile);
+  useEffect(() => {
+    fetch(`/api/articles/counter/${article._id}`, {
+      method: 'POST',
+    });
+  }, []);
+
   return (
     <div className={className}>
       <Row>
@@ -64,7 +70,7 @@ const Articulo = ({ className, article, articles }) => {
           </Card>
         </Col>
         <Col lg="4" className="pb-2">
-          <Popular articles={articles} />
+          <Popular articles={popular} />
         </Col>
       </Row>
     </div>
@@ -80,10 +86,16 @@ export async function getServerSideProps({ params }) {
   const resArticles = await fetch(`${server}/api/articles`);
   const articles = await resArticles.json();
 
+  const resPopular = await fetch(
+    `${server}/api/articles/?sort=seenCounter&limit=5`,
+  );
+  const popular = await resPopular.json();
+
   return {
     props: {
       article,
       articles,
+      popular,
     },
   };
 }

@@ -9,11 +9,10 @@ imgur.setAPIUrl(process.env.IMGUR_API_URL);
 
 module.exports = {
   index: async (req, res, next) => {
-    const users = await User.find({});
+    const users = await User.find({ 'permits.index': true });
     const securedUsers = users.map((user) => user.secured());
     res.status(200).json(securedUsers);
   },
-
   newUser: async (req, res, next) => {
     const data = JSON.parse(req.body.data);
 
@@ -26,24 +25,61 @@ module.exports = {
 
     const sanitized = {
       _id: data._id,
-      email: data.email,
       password: data.password,
       role: data.role,
-      name: data.name,
-      surname: data.surname,
-      fullname: data.fullName,
-      username: data.username,
       matricula: data.matricula,
-      title: data.title,
       about: data.about,
-      specialities: data.specialities,
-      themes: data.themes,
-      atentionType: data.atentionType,
       practice: data.practice,
-      addressList: data.addressList,
       phoneList: data.phoneList,
       permits: data.permits,
     };
+
+    if (data.email) sanitized['email'] = data.email.toLowerCase();
+    if (data.name)
+      sanitized['name'] = data.name.toLowerCase().replace(/-/g, ' ');
+    if (data.surname)
+      sanitized['surname'] = data.surname
+        .toLowerCase()
+        .replace(/-/g, ' ');
+    if (data.fullname)
+      sanitized['fullname'] = data.fullname
+        .toLowerCase()
+        .replace(/-/g, ' ');
+    if (data.username)
+      sanitized['username'] = data.username
+        .toLowerCase()
+        .replace(/-/g, ' ');
+    if (data.title)
+      sanitized['title'] = data.title
+        .toLowerCase()
+        .replace(/-/g, ' ');
+    if (data.about) sanitized['about'] = data.about;
+
+    if (data.specialities) {
+      sanitized['specialities'] = data.specialities.map((st) =>
+        st.toLowerCase().replace(/-/g, ' '),
+      );
+    }
+
+    if (data.themes) {
+      sanitized['themes'] = data.themes.map((st) =>
+        st.toLowerCase().replace(/-/g, ' '),
+      );
+    }
+
+    if (data.atentionType) {
+      sanitized['atentionType'] = data.atentionType.map((st) =>
+        st.toLowerCase().replace(/-/g, ' '),
+      );
+    }
+
+    if (data.addressList) {
+      sanitized['addressList'] = data.addressList.map((ob) => ({
+        ...ob,
+        province: ob.province.toLowerCase().replace(/-/g, ' '),
+        locality: ob.locality.toLowerCase().replace(/-/g, ' '),
+      }));
+    }
 
     if (req.file) {
       if (!isImage(req.file)) {
@@ -163,7 +199,7 @@ module.exports = {
       const name = data.name || req.user.name;
       const surname = data.surname || req.user.surname;
       newUser[
-        'fullName'
+        'fullname'
       ] = `${name} ${surname}`.toLowerCase().replace(/-/g, ' ');
       if (data.username) {
         const username = data.username

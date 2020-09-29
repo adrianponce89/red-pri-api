@@ -7,15 +7,13 @@ import { Typeahead, AsyncTypeahead } from 'react-bootstrap-typeahead';
 import { googleMapsAPIKey } from '../../config';
 import { extractType } from '../../utils/geocoding';
 import { LoadableButton as Button } from '../Loadable';
-import { obrasSociales } from '../../config/data';
 
 Geocode.setApiKey(googleMapsAPIKey);
 Geocode.setLanguage('es');
 Geocode.setRegion('ar');
 
-const SearchByLocation = ({ specialitiesList }) => {
-  const [specility, setSpecility] = useState([]);
-  const [social, setSocial] = useState([]);
+const SearchByLocation = ({ titlesList }) => {
+  const [title, setTitle] = useState([]);
   const [address, setAddress] = useState(null);
   const [loading, setLoading] = useState(false);
 
@@ -23,12 +21,8 @@ const SearchByLocation = ({ specialitiesList }) => {
     event.preventDefault();
     setLoading(true);
     const slug =
-      '/busqueda/especialidades-' +
-      specility.join().toLowerCase().replace(/ /g, '-') +
-      (social.length > 0
-        ? '/obrasocial-' +
-          social.join().toLowerCase().replace(/ /g, '-')
-        : '') +
+      '/busqueda/profesion-' +
+      title.join().toLowerCase().replace(/ /g, '-') +
       '/coordenadas-@' +
       address.location.lat +
       ',' +
@@ -72,26 +66,16 @@ const SearchByLocation = ({ specialitiesList }) => {
     <Form onSubmit={handleSubmit}>
       <Form.Row>
         <Form.Group as={Col} sm={4} controlId="especialidad">
-          <Form.Label>Especialidad</Form.Label>
+          <Form.Label>Profesión(*)</Form.Label>
           <Typeahead
-            onChange={setSpecility}
-            options={specialitiesList}
-            placeholder="Especialidad..."
-            selected={specility}
+            onChange={setTitle}
+            options={titlesList}
+            placeholder="Profesión..."
+            selected={title}
           />
         </Form.Group>
 
-        <Form.Group as={Col} sm={4} controlId="social">
-          <Form.Label>Obra Social</Form.Label>
-          <Typeahead
-            onChange={setSocial}
-            options={obrasSociales}
-            placeholder="Todas las obras Sociales..."
-            selected={social}
-          />
-        </Form.Group>
-
-        <Form.Group as={Col} sm={4} controlId="direccion">
+        <Form.Group as={Col} sm={8} controlId="direccion">
           <Form.Label>Dirección</Form.Label>
           <AsyncTypeahead
             id="direccion"
@@ -119,9 +103,7 @@ const SearchByLocation = ({ specialitiesList }) => {
           className="btn-lg"
           type="submit"
           loading={loading}
-          disabled={
-            specility.length === 0 || address === null || loading
-          }
+          disabled={title.length === 0 || address === null || loading}
         >
           Buscar
         </Button>

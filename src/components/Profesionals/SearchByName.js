@@ -4,12 +4,11 @@ import Form from 'react-bootstrap/Form';
 import Col from 'react-bootstrap/Col';
 import { Typeahead } from 'react-bootstrap-typeahead';
 import { LoadableButton as Button } from '../Loadable';
-import { provincias, obrasSociales } from '../../config/data';
+import { provincias } from '../../config/data';
 
 const SearchByName = () => {
   const [query, setQuery] = useState('');
-  const [provincia, setProvincia] = useState('CABA');
-  const [social, setSocial] = useState([]);
+  const [provincia, setProvincia] = useState([]);
   const [loading, setLoading] = useState(false);
 
   async function handleSubmit(event) {
@@ -18,11 +17,9 @@ const SearchByName = () => {
     const slug =
       '/busqueda/texto-' +
       query.toLowerCase().replace(/ /g, '-') +
-      '/provincia-' +
-      provincia.toLowerCase().replace(/ /g, '-') +
-      (social.length > 0
-        ? '/obrasocial-' +
-          social.join().toLowerCase().replace(/ /g, '-')
+      (provincia.length > 0
+        ? '/provincia-' +
+          provincia.join().toLowerCase().replace(/ /g, '-')
         : '');
     Router.push(slug);
   }
@@ -30,7 +27,7 @@ const SearchByName = () => {
   return (
     <Form onSubmit={handleSubmit}>
       <Form.Row>
-        <Form.Group as={Col} sm={4} controlId="profesionales">
+        <Form.Group as={Col} sm={8} controlId="profesionales">
           <Form.Label>Buscar</Form.Label>
           <Form.Control
             value={query}
@@ -45,24 +42,11 @@ const SearchByName = () => {
 
         <Form.Group as={Col} sm={4} controlId="provincia">
           <Form.Label>Provincia</Form.Label>
-          <Form.Control
-            as="select"
-            value={provincia}
-            onChange={(e) => setProvincia(e.target.value)}
-          >
-            {provincias.map((name) => (
-              <option key={name}>{name}</option>
-            ))}
-          </Form.Control>
-        </Form.Group>
-
-        <Form.Group as={Col} sm={4} controlId="social">
-          <Form.Label>Obra Social</Form.Label>
           <Typeahead
-            onChange={setSocial}
-            options={obrasSociales}
-            placeholder="Todas las obras Sociales..."
-            selected={social}
+            onChange={setProvincia}
+            options={provincias}
+            placeholder="Todas las provincias..."
+            selected={provincia}
           />
         </Form.Group>
       </Form.Row>

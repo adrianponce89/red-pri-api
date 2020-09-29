@@ -8,10 +8,10 @@ background:  linear-gradient(
       rgba(20, 20, 20, 0.55)
     ), url("${(props) => props.src}");
     background-repeat: no-repeat;
-    background-size: 100%;
     background-position: center;
+    background-size: cover;
   width: 100%;
-  height: 60vh;
+  min-height: 75vh;
   position: relative;
   overflow: hidden;
   margin: auto;

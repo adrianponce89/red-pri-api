@@ -79,7 +79,7 @@ const FixedButton = styled(Button)`
 `;
 
 const Perfil = ({ className, user }) => {
-  const fullName = `${user.name} ${user.surname} `;
+  const fullname = `${user.name} ${user.surname} `;
   const matricula = `(Mat.${user.matricula})`;
   const urlUser = `https://www.red-pri.com/perfil/${user.username} `;
 
@@ -98,7 +98,7 @@ const Perfil = ({ className, user }) => {
                 <InfoContainer>
                   <TitleContainer>
                     <h2>
-                      {fullName}
+                      {fullname}
                       {!!user.matricula ? (
                         <small>{matricula}</small>
                       ) : (

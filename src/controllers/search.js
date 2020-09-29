@@ -8,14 +8,14 @@ const {
 module.exports = {
   index: async (req, res, next) => {
     const { text, location, ...otherQuery } = req.query;
-    let query = otherQuery;
+    let query = { ...otherQuery, 'permits.index': true };
     if (text) {
       const splitText = text.split(' ');
       query = {
         ...query,
         $or: [
           { title: { $in: splitText } },
-          { fullName: { $regex: text } },
+          { fullname: { $regex: text } },
           { specialities: { $in: splitText } },
           { themes: { $in: splitText } },
           { atentionType: { $in: splitText } },

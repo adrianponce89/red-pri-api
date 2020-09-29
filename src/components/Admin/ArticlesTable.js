@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import Table from 'react-bootstrap/Table';
 import Button from 'react-bootstrap/Button';
+import FormCheck from 'react-bootstrap/FormCheck';
 import { LoadableButton } from '../Loadable';
 import Router from 'next/router';
 import Link from 'next/link';
@@ -8,6 +9,7 @@ import Link from 'next/link';
 const ArticleRow = ({ article }) => {
   const [title, setTitle] = useState(article.title);
   const [content, setContent] = useState(article.content);
+  const [published, setPublished] = useState(article.published);
   const [loading, setLoading] = useState(false);
   const [modified, setModified] = useState(false);
 
@@ -15,7 +17,7 @@ const ArticleRow = ({ article }) => {
     event.preventDefault();
     setLoading(true);
 
-    const params = { title };
+    const params = { title, published };
 
     const fd = new FormData();
     fd.append('data', JSON.stringify(params));
@@ -58,6 +60,7 @@ const ArticleRow = ({ article }) => {
     event.preventDefault();
     setTitle(article.title);
     setContent(article.content);
+    setPublished(article.published);
     setModified(false);
   };
 
@@ -80,6 +83,18 @@ const ArticleRow = ({ article }) => {
           value={content}
           onChange={(e) => {
             setContent(e.target.value);
+            setModified(true);
+          }}
+        />
+      </td>
+      <td>
+        <FormCheck
+          loading={loading}
+          type="checkbox"
+          label="Publicado"
+          checked={published}
+          onChange={(e) => {
+            setPublished(e.target.checked);
             setModified(true);
           }}
         />
@@ -131,6 +146,7 @@ const ArticlesTable = ({ articles }) => (
         <th>#</th>
         <th>Title</th>
         <th>Content</th>
+        <th>Publish</th>
         <th>Acciones</th>
       </tr>
     </thead>

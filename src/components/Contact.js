@@ -1,10 +1,12 @@
+import React, { useState } from 'react';
+import { useDispatch } from 'react-redux';
 import styled from 'styled-components';
 import Container from '../components/Container';
 import Form from 'react-bootstrap/Form';
 import FormGroup from 'react-bootstrap/FormGroup';
 import FormControl from 'react-bootstrap/FormControl';
 import { LoadableButton } from '../components/Loadable';
-import React, { useState } from 'react';
+import { showModal } from '../redux/slices/modalSlice';
 
 const Title = styled.h2`
   font-weight: bold;
@@ -44,6 +46,8 @@ const Contact = (props) => {
   const [content, setContent] = useState('');
   const [loading, setLoading] = useState(false);
 
+  const dispatch = useDispatch();
+
   const handleSubmit = async (event) => {
     event.preventDefault();
     setLoading(true);
@@ -59,8 +63,10 @@ const Contact = (props) => {
       }),
     });
 
-    if (res.status === 200) {
-      // TODO: mostrar mensaje de recibido. Tal vez con un modal
+    if (res.status === 201) {
+      dispatch(
+        showModal({ step: 'MessageRecieved', email, content }),
+      );
     }
     setLoading(false);
     setName('');
