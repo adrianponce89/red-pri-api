@@ -1,6 +1,6 @@
 const keyMap = {
   ['texto']: 'text',
-  ['titulo']: 'title',
+  ['profesion']: 'title',
   ['especialidades']: 'specialities',
   ['temas']: 'themes',
   ['atencion']: 'atentionType',
@@ -13,7 +13,7 @@ const keyMap = {
 
 const nameMap = {
   ['text']: 'texto',
-  ['title']: 'titulo',
+  ['title']: 'profesion',
   ['specialities']: 'especialidades',
   ['themes']: 'temas',
   ['atentionType']: 'atencion',
@@ -93,7 +93,7 @@ const getAvailableFilters = (users) => {
     }
   };
 
-  addFilterFor(title, 'titulo', 'Titulo');
+  addFilterFor(title, 'profesion', 'Profesión');
   addFilterFor(specialities, 'especialidades', 'Especialidades');
   addFilterFor(themes, 'temas', 'Temas');
   addFilterFor(atentionType, 'atencion', 'Tipo de Atención');

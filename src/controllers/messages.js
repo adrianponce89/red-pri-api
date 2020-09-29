@@ -3,12 +3,7 @@ const Message = require('../models/message');
 module.exports = {
   index: async (req, res, next) => {
     const messages = await Message.find({});
-    const plainMessages = messages.map((message) => ({
-      name: message.name,
-      email: message.email,
-      content: message.content,
-    }));
-    res.status(200).json(plainMessages);
+    res.status(200).json(messages);
   },
   newMessage: async (req, res, next) => {
     const sanitized = {

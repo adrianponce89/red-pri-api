@@ -36,7 +36,7 @@ const ResultMap = ({ className, results }) => {
         {flatResults.map((result) => (
           <Marker
             position={result.location}
-            title={result.fullName}
+            title={result.fullname}
             onMouseOver={() => setInfoWindow(result)}
           />
         ))}

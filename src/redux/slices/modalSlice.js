@@ -5,10 +5,14 @@ const modalSlice = createSlice({
   initialState: {
     show: false,
     step: '',
+    email: '',
+    content: '',
   },
   reducers: {
     showModal: (state, action) => {
-      state.step = action.payload;
+      state.step = action.payload.step;
+      state.email = action.payload.email;
+      state.content = action.payload.content;
       state.show = true;
     },
     hideModal: (state) => {

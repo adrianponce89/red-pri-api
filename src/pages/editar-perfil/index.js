@@ -37,6 +37,7 @@ const EditarPerfil = (props) => {
       profile={profile}
       onSubmit={handleSubmit}
       buttonName="Editar"
+      message="(Nos contactaremos con vos previo a su aprobación)"
       specialitiesList={props.specialitiesList}
       themesList={props.themesList}
       atentionTypesList={props.atentionTypesList}

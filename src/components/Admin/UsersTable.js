@@ -115,8 +115,7 @@ const UserRow = ({ key, user }) => {
           class="form-control"
           id="role"
         >
-          <option value="">None</option>
-          <option value="author">Author</option>
+          <option value="">-</option>
           <option value="admin">Admin</option>
         </select>
       </td>
@@ -134,7 +133,7 @@ const UserRow = ({ key, user }) => {
         <FormCheck
           loading={loading}
           type="checkbox"
-          label="Indexada"
+          label="Visible"
           checked={index}
           onChange={(e) => {
             setIndex(e.target.checked);

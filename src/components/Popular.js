@@ -52,7 +52,7 @@ const Popular = ({ className, articles }) => (
               </a>
             </Link>
             <Card.Text>
-              <AuthorName>{article.author.fullName}</AuthorName>
+              <AuthorName>{article.author.fullname}</AuthorName>
 
               <small className="text-muted">
                 Actualizado hace{' '}

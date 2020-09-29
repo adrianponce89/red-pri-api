@@ -33,6 +33,7 @@ const CrearPerfil = (props) => {
       loading={loading}
       onSubmit={handleSubmit}
       buttonName="Crear"
+      message="(Nos contactaremos con vos previo a su aprobación)"
       specialitiesList={props.specialitiesList}
       themesList={props.themesList}
       atentionTypesList={props.atentionTypesList}

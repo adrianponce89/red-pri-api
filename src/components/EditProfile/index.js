@@ -102,8 +102,9 @@ const EditProfile = (props) => {
               </Form.Group>
               <Col md="8">
                 <Form.Row>
-                  <Col md="6">
+                  <Col md="12">
                     <h2>{props.buttonName} perfil</h2>
+                    {props.message ? <h4>{props.message}</h4> : ''}
                   </Col>
                 </Form.Row>
                 <Form.Row>
