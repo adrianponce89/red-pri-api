@@ -1,3 +1,4 @@
+import { useSelector } from 'react-redux';
 import styled, { withTheme } from 'styled-components';
 import fetch from 'isomorphic-fetch';
 import Landing from '../components/Landing';
@@ -37,44 +38,47 @@ const Anchor = styled.div`
   height: 0;
 `;
 
-const Home = ({ slides, theme, titlesList }) => (
-  <>
-    {slides.length > 0 ? <Carousel slides={slides} /> : ''}
-    <Container>
-      <Anchor id="profesionales" />
+const Home = ({ slides, theme, titlesList }) => {
+  const profile = useSelector((state) => state.auth.profile);
+  return (
+    <>
+      {slides.length > 0 ? <Carousel slides={slides} /> : ''}
+      <Container>
+        <Anchor id="profesionales" />
 
-      <Profesionals titlesList={titlesList} />
-    </Container>
-    <LandingBackground>
-      <LandingContainer>
-        <Landing
-          icon="fa fa-search"
-          title="BUSCÁ"
-          description="Completa el formulario y encontra el profesional que estés buscando"
-          href="/#profesionales"
-          color={theme.colors.mainOrange}
-        />
-        <Landing
-          icon="fa fa-newspaper-o"
-          title="INFORMATE"
-          description="Visitá nuestro blog y encuentra articulos y noticias relevantes a la crianza"
-          href="/articulos"
-          color={theme.colors.mainGreen}
-        />
-        <Landing
-          icon="fa fa-sign-in"
-          title="FORMAR PARTE"
-          description="Unite a Red-Pri y forma parte de nuestra red de profesionales"
-          href="/crear-perfil"
-          color={theme.colors.mainRed}
-        />
-      </LandingContainer>
-    </LandingBackground>
-    <JoinUs />
-    <Contact />
-    <ShareSocialNetwork url="https://www.red-pri.com" />
-  </>
-);
+        <Profesionals titlesList={titlesList} />
+      </Container>
+      <LandingBackground>
+        <LandingContainer>
+          <Landing
+            icon="fa fa-search"
+            title="BUSCÁ"
+            description="Completa el formulario y encontra el profesional que estés buscando"
+            href="/#profesionales"
+            color={theme.colors.mainOrange}
+          />
+          <Landing
+            icon="fa fa-newspaper-o"
+            title="INFORMATE"
+            description="Visitá nuestro blog y encuentra articulos y noticias relevantes a la crianza"
+            href="/articulos"
+            color={theme.colors.mainGreen}
+          />
+          <Landing
+            icon="fa fa-sign-in"
+            title="FORMAR PARTE"
+            description="Unite a Red-Pri y forma parte de nuestra red de profesionales"
+            href={!!profile ? '/editar-perfil' : '/crear-perfil'}
+            color={theme.colors.mainRed}
+          />
+        </LandingContainer>
+      </LandingBackground>
+      <JoinUs href={!!profile ? '/editar-perfil' : '/crear-perfil'} />
+      <Contact />
+      <ShareSocialNetwork url="https://www.red-pri.com" />
+    </>
+  );
+};
 
 export async function getServerSideProps() {
   const resSlides = await fetch(`${server}/api/slides`);

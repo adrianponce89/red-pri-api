@@ -1,3 +1,5 @@
+import React from 'react';
+import Router from 'next/router';
 import styled from 'styled-components';
 import Container from '../components/Container';
 import Button from 'react-bootstrap/Button';
@@ -43,14 +45,14 @@ const BUTTON_TEXT = 'Unirse a la red';
 const MESSAGE_TEXT =
   '¿Sos profesional y querés formar parte de nuestra comunidad?';
 
-const JoinUs = (props) => (
+const JoinUs = ({ href }) => (
   <JoinBackgound src="/imgs/profesionals.jpg">
     <JoinJustify>
       <JoinMessage>{MESSAGE_TEXT}</JoinMessage>
       <JoinButton
         size="lg"
         variant="btn btn-outline-info"
-        href="/crear-perfil"
+        onClick={() => Router.push(href)}
       >
         {BUTTON_TEXT}
       </JoinButton>
