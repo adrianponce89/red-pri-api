@@ -7,15 +7,17 @@ import Button from 'react-bootstrap/Button';
 import SearchBar from './components/SearchBar';
 import FAIcon from '../FAIcon';
 import { withRouter } from 'next/router';
-
+import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { logout } from '../../redux/slices/authSlice';
 import { showModal } from '../../redux/slices/modalSlice';
+import { getSuggestions } from '../../redux/slices/suggestionsSlice';
 
 const Navigation = (props) => {
   const { pathname } = props.router;
 
   const profile = useSelector((state) => state.auth.profile);
+  const suggestions = useSelector((state) => state.suggestions);
 
   const dispatch = useDispatch();
 
@@ -29,6 +31,12 @@ const Navigation = (props) => {
   const onShowSignIn = () => {
     dispatch(showModal({ step: 'SelectSignIn' }));
   };
+
+  useEffect(() => {
+    if (!suggestions.loaded) {
+      dispatch(getSuggestions());
+    }
+  }, []);
 
   return (
     <Navbar
@@ -60,7 +68,7 @@ const Navigation = (props) => {
           )}
         </Nav>
         <div className="m-2">
-          <SearchBar />
+          <SearchBar suggestions={suggestions} />
         </div>
         {!!profile ? (
           <Nav>

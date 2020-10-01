@@ -7,26 +7,8 @@ const {
 
 module.exports = {
   index: async (req, res, next) => {
-    const { text, location, ...otherQuery } = req.query;
+    const { location, ...otherQuery } = req.query;
     let query = { ...otherQuery, 'permits.index': true };
-    if (text) {
-      const splitText = text.split(' ');
-      query = {
-        ...query,
-        $or: [
-          { title: { $in: splitText } },
-          { fullname: { $regex: text } },
-          { specialities: { $in: splitText } },
-          { themes: { $in: splitText } },
-          { atentionType: { $in: splitText } },
-          { 'addressList.province': { $in: splitText } },
-          { 'addressList.locality': { $in: splitText } },
-          { 'phoneList.number': { $in: splitText } },
-          { about: { $regex: text } },
-          { practice: { $regex: text } },
-        ],
-      };
-    }
 
     if (location) {
       const range = 0.045;
