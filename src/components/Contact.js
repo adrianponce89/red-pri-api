@@ -75,7 +75,7 @@ const Contact = (props) => {
   };
 
   return (
-    <Container>
+    <Container {...props}>
       <ContainTitleSpam>
         <Title>
           <a>Contactanos</a>

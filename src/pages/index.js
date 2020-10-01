@@ -68,13 +68,17 @@ const Home = ({ slides, theme, titlesList }) => {
             icon="fa fa-sign-in"
             title="FORMAR PARTE"
             description="Unite a Red-Pri y forma parte de nuestra red de profesionales"
-            href={!!profile ? '/editar-perfil' : '/crear-perfil'}
+            // href={!!profile ? '/editar-perfil' : '/crear-perfil'}
+            href="/#contacto"
             color={theme.colors.mainRed}
           />
         </LandingContainer>
       </LandingBackground>
-      <JoinUs href={!!profile ? '/editar-perfil' : '/crear-perfil'} />
-      <Contact />
+      <JoinUs
+        // href={!!profile ? '/editar-perfil' : '/crear-perfil'}
+        href="/#contacto"
+      />
+      <Contact id="contacto" />
       <ShareSocialNetwork url="https://www.red-pri.com" />
     </>
   );
