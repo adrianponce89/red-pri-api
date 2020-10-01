@@ -52,11 +52,10 @@ const Popular = ({ className, articles }) => (
               </a>
             </Link>
             <Card.Text>
-              <AuthorName>{article.author.fullname}</AuthorName>
+              {/* <AuthorName>{article.author.fullname}</AuthorName> */}
 
               <small className="text-muted">
-                Actualizado hace{' '}
-                {timeSince(new Date(article.updatedAt))}
+                Creado hace {timeSince(new Date(article.createdAt))}
               </small>
             </Card.Text>
           </div>

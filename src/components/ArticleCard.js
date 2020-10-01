@@ -68,10 +68,10 @@ const ArticleCard = (props) => {
           <ClampedContent>{props.content}</ClampedContent>
         </Link>
         <Card.Text>
-          <AuthorName>{props.author.fullname}</AuthorName>
+          {/* <AuthorName>{props.author.fullname}</AuthorName> */}
 
           <small className="text-muted">
-            Actualizado hace {timeSince(new Date(props.updatedAt))}
+            Creado hace {timeSince(new Date(props.createdAt))}
           </small>
         </Card.Text>
         <ShareSocialNetwork

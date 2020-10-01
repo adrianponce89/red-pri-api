@@ -53,13 +53,13 @@ const Profesionals = (props) => {
           <SMDisplay>Especialidad</SMDisplay>
           <NoSMDisplay>Buscar por especialidad</NoSMDisplay>
         </Nav.Link>
-        <Nav.Link
+        {/* <Nav.Link
           eventKey="byName"
           onClick={() => setSelected('byName')}
         >
           <SMDisplay>Nombre</SMDisplay>
           <NoSMDisplay>Buscar por nombre</NoSMDisplay>
-        </Nav.Link>
+        </Nav.Link> */}
         <Nav.Link
           eventKey="byLocation"
           onClick={() => setSelected('byLocation')}
