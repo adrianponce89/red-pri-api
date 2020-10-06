@@ -23,7 +23,11 @@ const articleSchema = new Schema(
 );
 
 articleSchema.statics.getArticleUidFor = async (title) => {
-  let mainSlug = title.replace(/ /g, '-').toLowerCase();
+  let mainSlug = title
+    .normalize('NFD')
+    .replace(/[\u0300-\u036f]/g, '')
+    .replace(/[^a-zA-Z0-9/-]/g, '-')
+    .toLowerCase();
   let uid = mainSlug;
   let article = await Article.findOne({ uid });
   let index = 1;
