@@ -18,7 +18,7 @@ const Spam = styled.samp`
 
 const ContainTitleSpam = styled.div`
   color: ${({ theme }) => theme.colors.mainText};
-  margin-bottom: 35px;
+  margin: 35px 0;
   display: flex;
   flex-direction: column;
   align-items: center;
