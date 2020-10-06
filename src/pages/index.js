@@ -8,7 +8,7 @@ import JoinUs from '../components/JoinUs';
 import Carousel from '../components/Carousel';
 import Container from '../components/Container';
 import ShareSocialNetworks from '../components/ShareSocialNetworks';
-import { server } from '../config';
+import { server, domainURL } from '../config';
 
 const LandingContainer = styled.div`
   max-width: 1032px;
@@ -79,7 +79,7 @@ const Home = ({ slides, theme, titlesList }) => {
         href="/#contacto"
       />
       <Contact id="contacto" />
-      <ShareSocialNetwork url="https://www.red-pri.com" />
+      <ShareSocialNetwork url={domainURL} />
     </>
   );
 };

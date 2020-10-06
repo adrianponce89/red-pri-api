@@ -6,7 +6,7 @@ import Card from 'react-bootstrap/Card';
 import Badge from 'react-bootstrap/Badge';
 import Button from 'react-bootstrap/Button';
 import { useSelector } from 'react-redux';
-import { server } from '../../config';
+import { server, domainURL } from '../../config';
 import Container from '../../components/Container';
 import CenteredImage from '../../components/CenteredImage';
 import ContactInfo from '../../components/ProfesionalCard/ContactInfo';
@@ -85,7 +85,7 @@ const PreWrap = styled.p`
 const Perfil = ({ className, user }) => {
   const fullname = `${user.name} ${user.surname} `;
   const matricula = `(Mat.${user.matricula})`;
-  const urlUser = `https://www.red-pri.com/perfil/${user.username} `;
+  const urlUser = `${domainURL}/perfil/${user.username} `;
 
   const profile = useSelector((state) => state.auth.profile);
   return (
