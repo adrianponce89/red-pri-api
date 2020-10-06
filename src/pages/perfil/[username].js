@@ -78,6 +78,10 @@ const FixedButton = styled(Button)`
   top: 1em;
 `;
 
+const PreWrap = styled.p`
+  white-space: pre-wrap;
+`;
+
 const Perfil = ({ className, user }) => {
   const fullname = `${user.name} ${user.surname} `;
   const matricula = `(Mat.${user.matricula})`;
@@ -134,12 +138,12 @@ const Perfil = ({ className, user }) => {
               <AboutContainer>
                 <SubTitle>Acerca de mí</SubTitle>
                 <StyleLine />
-                <p>{user.about}</p>
+                <PreWrap>{user.about}</PreWrap>
               </AboutContainer>
               <AboutContainer>
                 <SubTitle>Sobre la práctica</SubTitle>
                 <StyleLine />
-                <p>{user.practice}</p>
+                <PreWrap>{user.practice}</PreWrap>
               </AboutContainer>
             </Card.Body>
           </Card>
