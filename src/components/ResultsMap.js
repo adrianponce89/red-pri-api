@@ -37,7 +37,7 @@ const ResultMap = ({ className, results }) => {
           <Marker
             position={result.location}
             title={result.fullname}
-            onMouseOver={() => setInfoWindow(result)}
+            onClick={() => setInfoWindow(result)}
           />
         ))}
         {infoWindow ? (

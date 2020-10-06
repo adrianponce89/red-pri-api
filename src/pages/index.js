@@ -27,7 +27,8 @@ const LandingBackground = styled.div`
 const ShareSocialNetwork = styled(ShareSocialNetworks)`
   width: 150px;
   position: sticky;
-  bottom: 20px;
+  bottom: 0;
+  padding-bottom: 20px;
 `;
 
 const Anchor = styled.div`

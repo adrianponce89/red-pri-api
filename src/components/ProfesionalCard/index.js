@@ -4,7 +4,7 @@ import Link from 'next/link';
 import CenteredImage from '../CenteredImage';
 import ContactInfo from './ContactInfo';
 import ShareSocialNetworks from '../../components/ShareSocialNetworks';
-import { domainURL } from '../config';
+import { domainURL } from '../../config';
 
 const CardTitle = styled.h4`
   font-weight: bold;
