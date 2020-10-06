@@ -1,19 +1,6 @@
 import styled from 'styled-components';
 import FAIcon from './FAIcon';
 import { Container, Col, Row, Nav } from 'react-bootstrap';
-import {
-  FacebookIcon,
-  InstapaperIcon,
-  WhatsappIcon,
-} from 'react-share';
-
-// const Container = styled.div`
-//   padding-top: 40px;
-//   padding-bottom: 40px;
-//   flex-direction: column;
-//   box-sizing: border-box;
-//   display: flex;
-// `;
 
 const ContactItem = styled.div`
   padding: 5px;
@@ -101,8 +88,6 @@ const OuterContainer = styled.div`
   box-shadow: 0 0 6px rgba(0, 0, 0, 0.4);
 `;
 
-const ICON_SIZE = '40px';
-
 const Footer = (props) => (
   <OuterContainer>
     <Container>
@@ -139,7 +124,7 @@ const Footer = (props) => (
               className="fa fa-envelope"
               style={{ verticalAlign: 'middle', fontSize: '20px' }}
             />
-            <ContactLabel>info@redprimerainfancia.com</ContactLabel>
+            <ContactLabel>info.redpri@gmail.com</ContactLabel>
           </ContactItem>
           <ContactItem>
             <FAIcon
