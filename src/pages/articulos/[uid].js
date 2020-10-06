@@ -22,6 +22,7 @@ const FixedButton = styled(Button)`
 
 const MainImage = styled.img`
   width: 60%;
+  margin-bottom: 20px;
 `;
 
 const Center = styled.div`
