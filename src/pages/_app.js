@@ -3,6 +3,7 @@ import { Provider } from 'react-redux';
 import { ThemeProvider } from 'styled-components';
 import GlobalStyle from '../components/GlobalStyle';
 import Navigation from '../components/Navigation';
+import Footer from '../components/Footer';
 import SignInModal from '../components/Modals/SignInModal';
 import Background from '../components/Background';
 import 'react-bootstrap-typeahead/css/Typeahead.css';
@@ -35,7 +36,6 @@ class MyApp extends React.Component {
           <GlobalStyle />
           <Navigation />
           <SignInModal />
-
           <div
             style={{
               position: 'relative',
@@ -46,6 +46,7 @@ class MyApp extends React.Component {
             <Background />
             <Component {...pageProps} />
           </div>
+          <Footer />
         </ThemeProvider>
       </Provider>
     );
