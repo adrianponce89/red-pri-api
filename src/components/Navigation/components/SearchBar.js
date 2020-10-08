@@ -32,6 +32,8 @@ const SearchBarContainer = styled.form`
   flex: 1;
   margin: 0 0.5em;
   justify-content: flex-end;
+  text-shadow: none;
+  text-transform: capitalize;
 `;
 
 const nameMap = {
