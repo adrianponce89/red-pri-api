@@ -6,6 +6,8 @@ const tinyAPIKey = process.env.TINY_API_KEY;
 
 const googleMapsAPIKey = process.env.GOOGLE_MAPS_API_KEY;
 
+const domainURL = process.env.DOMAIN_URL;
+
 const sanitizeConfig = {
   allowedTags: [
     'h1',
@@ -96,4 +98,5 @@ module.exports = {
   googleMapsAPIKey,
   mapOptions,
   sanitizeConfig,
+  domainURL,
 };

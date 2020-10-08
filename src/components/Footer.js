@@ -127,20 +127,15 @@ const Footer = (props) => (
             <ContactLabel>info.redpri@gmail.com</ContactLabel>
           </ContactItem>
           <ContactItem>
-            <FAIcon
-              className="fa fa-phone"
-              style={{ verticalAlign: 'middle', fontSize: '20px' }}
-            />
-            <ContactLabel>+549 11 5228 -2115</ContactLabel>
+            <a>
+              <LogoNetworkds
+                alt="obsidian"
+                lazyload="/imgs/whatsapp.svg"
+                src="/imgs/whatsapp.svg"
+              />
+              +549 11 5228 -2115
+            </a>
           </ContactItem>
-          <ContactItem>
-            <FAIcon
-              className="fa fa-globe"
-              style={{ verticalAlign: 'middle', fontSize: '20px' }}
-            />
-            <ContactLabel>CABA, Buenos Aires, Argentina</ContactLabel>
-          </ContactItem>
-
           <ContactItem>
             <a href="https://www.instagram.com/redprimerainfancia/">
               <LogoNetworkds
@@ -151,7 +146,6 @@ const Footer = (props) => (
               /redprimerainfancia
             </a>
           </ContactItem>
-
           <ContactItem>
             <a href="https://www.facebook.com/somosredpri">
               <LogoNetworkds
@@ -161,6 +155,13 @@ const Footer = (props) => (
               />
               /somosredpri
             </a>
+          </ContactItem>
+          <ContactItem>
+            <FAIcon
+              className="fa fa-globe"
+              style={{ verticalAlign: 'middle', fontSize: '20px' }}
+            />
+            <ContactLabel>Buenos Aires, Argentina</ContactLabel>
           </ContactItem>
         </Col>
         <Col xs="12" sm="4">
