@@ -21,10 +21,14 @@ module.exports = {
     });
 
     res.status(200).json({
-      titlesList: Array.from(titles),
-      specialitiesList: Array.from(specialities),
-      themesList: Array.from(themes),
-      atentionTypesList: Array.from(atentionType),
+      titlesList: Array.from(titles).filter((v) => v != null),
+      specialitiesList: Array.from(specialities).filter(
+        (v) => v != null,
+      ),
+      themesList: Array.from(themes).filter((v) => v != null),
+      atentionTypesList: Array.from(atentionType).filter(
+        (v) => v != null,
+      ),
     });
   },
 };
