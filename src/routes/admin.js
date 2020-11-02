@@ -8,6 +8,10 @@ router
   .get(restrictAccess('admin'), AdminController.articles);
 
 router
+  .route('/events')
+  .get(restrictAccess('admin'), AdminController.events);
+
+router
   .route('/users')
   .get(restrictAccess('admin'), AdminController.users);
 
