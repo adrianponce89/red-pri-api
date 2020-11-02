@@ -22,7 +22,7 @@ const EditarEvento = ({ event }) => {
     });
 
     if (res.status === 200) {
-      Router.push('/articulos');
+      Router.push('/eventos');
     } else {
       const resJson = await res.json();
       alert(resJson.error);

@@ -127,7 +127,7 @@ const EventRow = ({ event }) => {
             >
               Eliminar
             </LoadableButton>
-            <Link href={`/editar-articulo/${event.uid}`}>
+            <Link href={`/editar-evento/${event.uid}`}>
               <Button disabled={loading} variant="primary">
                 Editar
               </Button>
