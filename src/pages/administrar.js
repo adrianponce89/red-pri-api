@@ -5,6 +5,7 @@ import Card from 'react-bootstrap/Card';
 import Container from '../components/Container';
 import UsersTable from '../components/Admin/UsersTable';
 import ArticlesTable from '../components/Admin/ArticlesTable';
+import EventsTable from '../components/Admin/EventsTable';
 import SlidesTable from '../components/Admin/SlidesTable';
 import MessagesTable from '../components/Admin/MessagesTable';
 
@@ -12,6 +13,7 @@ const Admin = () => {
   const [selected, setSelected] = useState('users');
   const [users, setUsers] = useState([]);
   const [articles, setArticles] = useState([]);
+  const [events, setEvents] = useState([]);
   const [slides, setSlides] = useState([]);
   const [messages, setMessages] = useState([]);
 
@@ -20,6 +22,8 @@ const Admin = () => {
     setUsers(await resUsers.json());
     const resArticles = await fetch(`/api/admin/articles`);
     setArticles(await resArticles.json());
+    const resEvents = await fetch(`/api/admin/events`);
+    setEvents(await resEvents.json());
     const resSlides = await fetch(`/api/slides`);
     setSlides(await resSlides.json());
     const resMessages = await fetch(`/api/messages`);
@@ -46,6 +50,12 @@ const Admin = () => {
           Articulos
         </Nav.Link>
         <Nav.Link
+          eventKey="events"
+          onClick={() => setSelected('events')}
+        >
+          Events
+        </Nav.Link>
+        <Nav.Link
           eventKey="slides"
           onClick={() => setSelected('slides')}
         >
@@ -64,6 +74,8 @@ const Admin = () => {
           <UsersTable users={users} />
         ) : selected === 'articles' ? (
           <ArticlesTable articles={articles} />
+        ) : selected === 'events' ? (
+          <EventsTable events={events} />
         ) : selected === 'slides' ? (
           <SlidesTable slides={slides} />
         ) : (

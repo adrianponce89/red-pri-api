@@ -1,4 +1,5 @@
 const Article = require('../models/article');
+const Event = require('../models/event');
 const User = require('../models/user');
 
 module.exports = {
@@ -7,6 +8,12 @@ module.exports = {
       sort: { createdAt: -1 },
     }).populate('author');
     res.status(200).json(articles);
+  },
+  events: async (req, res, next) => {
+    const events = await Event.find({}, null, {
+      sort: { createdAt: -1 },
+    });
+    res.status(200).json(events);
   },
   users: async (req, res, next) => {
     const users = await User.find({});
