@@ -36,8 +36,8 @@ const EventRow = ({ event }) => {
     setModified(false);
   };
 
-  const handleDelete = async (event) => {
-    event.preventDefault();
+  const handleDelete = async (e) => {
+    e.preventDefault();
     setLoading(true);
 
     const res = await fetch(`/api/events/${event._id}`, {
@@ -56,8 +56,8 @@ const EventRow = ({ event }) => {
     setModified(false);
   };
 
-  const handleCancel = (event) => {
-    event.preventDefault();
+  const handleCancel = (e) => {
+    e.preventDefault();
     setTitle(event.title);
     setContent(event.content);
     setPublished(event.published);

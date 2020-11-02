@@ -141,6 +141,15 @@ const timeSince = (date) => {
   return Math.floor(seconds) + ' segundos';
 };
 
+const dateFormatted = (date) => {
+  return new Date(date)
+    .toISOString()
+    .slice(0, 10)
+    .split('-')
+    .reverse()
+    .join('/');
+};
+
 const isImage = (file) => {
   const { mimetype } = file;
   const imagesTypes = [
@@ -169,6 +178,7 @@ module.exports = {
   getAvailableFilters,
   getFilters,
   timeSince,
+  dateFormatted,
   isImage,
   getLatLng,
 };

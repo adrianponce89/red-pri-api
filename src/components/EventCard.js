@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import Card from 'react-bootstrap/Card';
 import Link from 'next/link';
-import { timeSince } from '../utils';
+import { timeSince, dateFormatted } from '../utils';
 import { domainURL } from '../config';
 import ShareSocialNetworks from './ShareSocialNetworks';
 
@@ -39,6 +39,16 @@ const ShareSocialNetwork = styled(ShareSocialNetworks)`
   width: 125px;
 `;
 
+const EventCardHeader = styled.div`
+  display: flex;
+  justify-content: space-between;
+`;
+
+const EventDate = styled(Card.Text)`
+  font-size: 1.2em;
+  font-weight: bold;
+`;
+
 const EventCard = (props) => {
   return (
     <Card className={`d-flex flex-sm-row ${props.className}`}>
@@ -48,13 +58,18 @@ const EventCard = (props) => {
         </a>
       </Link>
       <div style={{ zIndex: 1, padding: '1em' }}>
-        <Link
-          href={`/busqueda/temas-${props.category.toLowerCase()}`}
-        >
-          <Card.Text>
-            <a>{props.category.toUpperCase()}</a>
-          </Card.Text>
-        </Link>
+        <EventCardHeader>
+          <Link
+            href={`/busqueda/temas-${props.category.toLowerCase()}`}
+          >
+            <Card.Text>
+              <a>{props.category.toUpperCase()}</a>
+            </Card.Text>
+          </Link>
+          <EventDate>
+            <a>{props.date && dateFormatted(props.date)}</a>
+          </EventDate>
+        </EventCardHeader>
         <Link href={`/eventos/${props.uid}`}>
           <a>
             <CardTitle>{props.title}</CardTitle>
