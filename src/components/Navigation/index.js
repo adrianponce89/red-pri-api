@@ -58,6 +58,7 @@ const Navigation = (props) => {
         <Nav className="mr-auto" activeKey={pathname}>
           <Nav.Link href="/">Inicio</Nav.Link>
           <Nav.Link href="/articulos">Articulos</Nav.Link>
+          <Nav.Link href="/eventos">Eventos</Nav.Link>
           <Nav.Link href="/#profesionales">Profesionales</Nav.Link>
           {!!profile && profile.role === 'admin' ? (
             <Nav.Link href="/administrar">
