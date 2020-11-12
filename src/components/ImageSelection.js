@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import CenteredImage from '../components/CenteredImage';
+import { isImageURL } from '../utils/index';
 
 const HoverMessage = styled.div`
   position: absolute;
@@ -36,6 +37,10 @@ const ImageSelection = ({
   style,
 }) => {
   let fileInput;
+
+  if (src && !isImageURL(src)) {
+    return '';
+  }
   return (
     <ImageSelectorContainer className={className} style={style}>
       <CenteredImage src={src} defaultImage={defaultImage} />

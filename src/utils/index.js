@@ -163,6 +163,23 @@ const isImage = (file) => {
   return imagesTypes.includes(mimetype);
 };
 
+const isImageURL = (fileURL) => {
+  const match = fileURL.match(/(\.\w+$)/);
+  if (!match) return false;
+
+  const extension = match[0];
+  const imagesExt = [
+    '.bmp',
+    '.x-bmp',
+    '.gif',
+    '.jpeg',
+    '.jpg',
+    '.png',
+    '.tiff',
+  ];
+  return imagesExt.includes(extension);
+};
+
 const getLatLng = (location) => {
   const [lat, lng] = location
     .slice(1)
@@ -179,6 +196,7 @@ module.exports = {
   getFilters,
   timeSince,
   dateFormatted,
+  isImageURL,
   isImage,
   getLatLng,
 };

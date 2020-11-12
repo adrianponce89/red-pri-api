@@ -12,7 +12,7 @@ import Popular from '../../components/Popular';
 import NavPills from '../../components/NavPills';
 import FAIcon from '../../components/FAIcon';
 
-const Eventos = ({ events, popular }) => {
+const Eventos = ({ events }) => {
   const profile = useSelector((state) => state.auth.profile);
   const [category, setCategory] = useState('');
 
@@ -23,9 +23,9 @@ const Eventos = ({ events, popular }) => {
   return (
     <Container>
       <Row>
-        <Col md="4" className="mb-2">
+        {/* <Col md="4" className="mb-2">
           <Popular articles={popular} />
-        </Col>
+        </Col> */}
         <Col md={{ span: 8, order: 'first' }}>
           <div className="d-flex justify-content-between pb-2">
             <Form.Group inline controlId="inlineFormCategory">
@@ -76,15 +76,15 @@ export async function getServerSideProps() {
   const res = await fetch(`${server}/api/events/?sort=date`);
   const events = await res.json();
 
-  const resPopular = await fetch(
-    `${server}/api/articles/?sort=seenCounter&limit=5`,
-  );
-  const popular = await resPopular.json();
+  // const resPopular = await fetch(
+  //   `${server}/api/articles/?sort=seenCounter&limit=5`,
+  // );
+  // const popular = await resPopular.json();
 
   return {
     props: {
       events,
-      popular,
+      // popular,
     },
   };
 }

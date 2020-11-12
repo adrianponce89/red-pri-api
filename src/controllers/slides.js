@@ -48,6 +48,15 @@ module.exports = {
     if (data.content) newSlide['content'] = data.content;
     if (data.href) newSlide['href'] = data.href;
 
+    if (data.fileURL) {
+      newSlide['picUrl'] = data.fileURL;
+      // Delete previous image from Imgur
+      const oldSlide = Slide.findById(slideId);
+      if (oldSlide.deletehash) {
+        await imgur.deleteImage(oldSlide.deletehash);
+      }
+    }
+
     if (req.file) {
       if (!isImage(req.file)) {
         return res.status(400).json({
