@@ -19,7 +19,14 @@ const SlideRow = ({ slide }) => {
     event.preventDefault();
     setLoading(true);
 
-    const params = { title, content, href };
+    const params = file
+      ? { title, content, href }
+      : {
+          title,
+          content,
+          href,
+          fileURL,
+        };
 
     const fd = new FormData();
     if (file) {
@@ -80,6 +87,18 @@ const SlideRow = ({ slide }) => {
             setModified(true);
           }}
         />
+        {!file ? (
+          <input
+            disabled={loading}
+            value={fileURL || slide.picUrl}
+            onChange={(e) => {
+              setFileURL(e.target.value);
+              setModified(true);
+            }}
+          />
+        ) : (
+          ''
+        )}
       </td>
       <td>
         <input

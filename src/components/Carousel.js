@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 import Carousel from 'react-bootstrap/Carousel';
 import CenteredImage from '../components/CenteredImage';
+import { isImageURL } from '../utils/index';
 
 const CarouselImage = styled(CenteredImage)`
 background:  linear-gradient(
@@ -10,6 +11,14 @@ background:  linear-gradient(
     background-repeat: no-repeat;
     background-position: center;
     background-size: cover;
+  width: 100%;
+  min-height: 75vh;
+  position: relative;
+  overflow: hidden;
+  margin: auto;
+`;
+
+const CarouselVideo = styled.iframe`
   width: 100%;
   min-height: 75vh;
   position: relative;
@@ -32,7 +41,16 @@ export default ({ slides }) => (
   <Carousel>
     {slides.map((slide) => (
       <Carousel.Item>
-        <CarouselImage src={slide.picUrl} />
+        {slide.picUrl && isImageURL(slide.picUrl) ? (
+          <CarouselImage src={slide.picUrl} />
+        ) : (
+          <CarouselVideo
+            width="420"
+            height="315"
+            src={`${slide.picUrl}?autoplay=1`}
+          ></CarouselVideo>
+        )}
+
         <a href={slide.href || ''}>
           <Carousel.Caption>
             <Title>{slide.title}</Title>
