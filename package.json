@@ -51,6 +51,7 @@
     "react-bootstrap-typeahead": "^5.1.1",
     "react-dom": "^16.13.1",
     "react-geocode": "^0.2.1",
+    "react-gtm-module": "^2.0.11",
     "react-redux": "^7.2.1",
     "react-share": "^4.2.1",
     "sanitize-html": "^1.27.1",

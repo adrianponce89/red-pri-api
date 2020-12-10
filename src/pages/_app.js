@@ -1,6 +1,7 @@
 import React from 'react';
 import { Provider } from 'react-redux';
 import { ThemeProvider } from 'styled-components';
+import TagManager from 'react-gtm-module';
 import GlobalStyle from '../components/GlobalStyle';
 import Navigation from '../components/Navigation';
 import Footer from '../components/Footer';
@@ -27,7 +28,15 @@ const theme = {
   },
 };
 
+const tagManagerArgs = {
+  id: 'GTM-WXNS5V4',
+};
+
 class MyApp extends React.Component {
+  componentDidMount() {
+    TagManager.initialize(tagManagerArgs);
+  }
+
   render() {
     const { Component, pageProps } = this.props;
     return (
