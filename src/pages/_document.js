@@ -47,6 +47,17 @@ export default class MyDocument extends Document {
             integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN"
             crossOrigin="anonymous"
           />
+          <script async src="https://www.googletagmanager.com/gtag/js?id=G-32GKV97VL6"></script>
+          <script
+            dangerouslySetInnerHTML={{
+              __html: `
+              window.dataLayer = window.dataLayer || [];
+              function gtag(){dataLayer.push(arguments);}
+              gtag('js', new Date());
+              gtag('config', 'G-32GKV97VL6');
+              `
+            }}
+          />
         </Head>
         <body>
           <Main />
