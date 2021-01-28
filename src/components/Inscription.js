@@ -35,10 +35,9 @@ const ContainButton = styled.div`
   justify-content: flex-end;
 `;
 
-const Inscription = ({ idEvent }) => {
+const Inscription = ({ eventId }) => {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
-  const [uid, setUdi] = useState(idEvent);
   const [utm_source, setutmSource] = useState('');
 
   const [loading, setLoading] = useState(false);
@@ -56,7 +55,7 @@ const Inscription = ({ idEvent }) => {
       body: JSON.stringify({
         name,
         email,
-        uid,
+        eventId,
         utm_source,
       }),
     });

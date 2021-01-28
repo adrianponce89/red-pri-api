@@ -9,7 +9,7 @@ module.exports = {
     const sanitized = {
       name: req.body.name,
       email: req.body.email,
-      uid: req.body.eventid,
+      eventId: req.body.eventId,
       utm_source: req.body.utm_source,
     };
     res.status(200).json(sanitized);

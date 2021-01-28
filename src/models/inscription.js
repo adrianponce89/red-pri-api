@@ -4,7 +4,7 @@ const Schema = mongoose.Schema;
 const inscriptionSchema = new Schema({
   name: String,
   email: String,
-  uid: String,
+  eventId: String,
   utm_source: String,
 });
 

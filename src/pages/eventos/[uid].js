@@ -76,7 +76,7 @@ const Evento = ({ className, event, popular }) => {
         </Col>
         <Col lg="12" className="pb-2">
           <Card>
-            <Inscription idEvent={event.uid} />
+            <Inscription eventId={event._id} />
           </Card>
         </Col>
       </Row>
