@@ -8,10 +8,37 @@ import FormControl from 'react-bootstrap/FormControl';
 import { LoadableButton } from '../components/Loadable';
 import { showModal } from '../redux/slices/modalSlice';
 
-const Inscription = (props) => {
+const ContainTitleSpam = styled.div`
+  color: ${({ theme }) => theme.colors.mainText};
+  margin: 10px 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+`;
+const Spam = styled.samp`
+  font-size: 20px;
+`;
+const Title = styled.h2`
+  font-weight: bold;
+`;
+const FormControls = styled(FormControl)`
+  width: 45%;
+`;
+const ContainFormControl = styled.div`
+  margin-bottom: 20px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+`;
+const ContainButton = styled.div`
+  display: flex;
+  justify-content: flex-end;
+`;
+
+const Inscription = ({ idEvent }) => {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
-  const [uid, setUdi] = useState('');
+  const [uid, setUdi] = useState(idEvent);
   const [utm_source, setutmSource] = useState('');
 
   const [loading, setLoading] = useState(false);
@@ -34,6 +61,12 @@ const Inscription = (props) => {
       }),
     });
 
+    if (res.status === 201) {
+      dispatch(
+        showModal({ step: 'InscriptionRecieved', email, content }),
+      );
+    }
+
     setLoading(false);
     setName('');
     setEmail('');
@@ -42,7 +75,7 @@ const Inscription = (props) => {
   };
 
   return (
-    <Container {...props}>
+    <Container>
       <ContainTitleSpam>
         <Title>
           <a>¡Inscribite!</a>
@@ -51,7 +84,37 @@ const Inscription = (props) => {
           <a>Participa de nuestras actividades</a>
         </Spam>
       </ContainTitleSpam>
-      <Form onSubmit={handleSubmit}></Form>
+      <Form onSubmit={handleSubmit}>
+        <FormGroup>
+          <ContainFormControl>
+            <FormControls
+              tipe="text"
+              placeholder="Tu nombre"
+              size="lg"
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+            />
+            <FormControls
+              tipe="email"
+              placeholder="Tu e-mail"
+              size="lg"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+            />
+          </ContainFormControl>
+        </FormGroup>
+        <ContainButton>
+          <LoadableButton
+            loading={loading}
+            disabled={loading}
+            variant="primary"
+            type="submit"
+            size="lg"
+          >
+            Inscribirse
+          </LoadableButton>
+        </ContainButton>
+      </Form>
     </Container>
   );
 };
