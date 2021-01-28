@@ -24,7 +24,7 @@ module.exports = {
     }
 
     const events = await Event.find(
-      { ...otherQuery, published: true },
+      { ...otherQuery, date: { $gte: new Date() }, published: true },
       null,
       options,
     );

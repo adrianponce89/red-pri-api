@@ -1,14 +1,15 @@
 import React, { useState, useEffect } from 'react';
-import styled from 'styled-components';
-import fetch from 'isomorphic-fetch';
+import { useSelector } from 'react-redux';
 import Button from 'react-bootstrap/Button';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Card from 'react-bootstrap/Card';
+import fetch from 'isomorphic-fetch';
+import styled from 'styled-components';
 import { server } from '../../config';
 import FAIcon from '../../components/FAIcon';
 import Popular from '../../components/Popular';
-import { useSelector } from 'react-redux';
+import Inscription from '../../components/Inscription';
 
 const CenterTitle = styled.h1`
   text-align: center;
@@ -72,6 +73,11 @@ const Evento = ({ className, event, popular }) => {
         </Col>
         <Col lg="4" className="pb-2">
           <Popular articles={popular} />
+        </Col>
+        <Col lg="12" className="pb-2">
+          <Card>
+            <Inscription eventId={event._id} />
+          </Card>
         </Col>
       </Row>
     </div>
