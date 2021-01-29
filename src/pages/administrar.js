@@ -17,7 +17,7 @@ const Admin = () => {
   const [events, setEvents] = useState([]);
   const [slides, setSlides] = useState([]);
   const [messages, setMessages] = useState([]);
-  const [insciptions, setInscriptions] = useState([]);
+  const [inscriptions, setInscriptions] = useState([]);
 
   useEffect(async () => {
     const resUsers = await fetch(`/api/admin/users`);
@@ -60,8 +60,8 @@ const Admin = () => {
           Events
         </Nav.Link>
         <Nav.Link
-          eventKey="insciptions"
-          onClick={() => setSelected('insciptions')}
+          eventKey="inscriptions"
+          onClick={() => setSelected('inscriptions')}
         >
           Inscripciones
         </Nav.Link>
@@ -91,7 +91,7 @@ const Admin = () => {
         ) : selected === 'messages' ? (
           <MessagesTable messages={messages} />
         ) : (
-          <InscriptionTable inscriptions={insciptions} />
+          <InscriptionTable inscriptions={inscriptions} />
         )}
       </Card>
     </Container>
