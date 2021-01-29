@@ -9,7 +9,7 @@ router
   .post(InscriprionsController.newInscription);
 
 router
-  .route('/:inscriptionsId')
+  .route('/:inscriptionId')
   .delete(
     restrictAccess('admin'),
     InscriprionsController.removeInscription,
