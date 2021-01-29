@@ -61,9 +61,7 @@ const Inscription = ({ eventId }) => {
     });
 
     if (res.status === 201) {
-      dispatch(
-        showModal({ step: 'InscriptionRecieved', email, content }),
-      );
+      dispatch(showModal({ step: 'InscriptionRecieved', email }));
     }
 
     setLoading(false);
