@@ -12,7 +12,9 @@ module.exports = {
       eventId: req.body.eventId,
       utm_source: req.body.utm_source,
     };
-    res.status(200).json(sanitized);
+    const newInscription = Inscription(sanitized);
+    const inscription = await newInscription.save();
+    res.status(201).json(inscription);
   },
   removeInscription: async (req, res, next) => {
     const { inscriptionId } = req.params;

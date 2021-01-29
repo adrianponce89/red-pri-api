@@ -6,6 +6,7 @@ import EmailSignInMethod from './components/EmailSignInMethod';
 import SelectSignUpMethod from './components/SelectSignUpMethod';
 import EmailSignUpMethod from './components/EmailSignUpMethod';
 import MessageRecievedMethod from './components/MessageRecievedMethod';
+import InscriptionRecievedMethod from './components/InscriptionRecievedMethod';
 
 import { showModal, hideModal } from '../../redux/slices/modalSlice';
 
@@ -58,6 +59,8 @@ const SignInModal = (props) => {
       );
     else if (current === 'MessageRecieved')
       return <MessageRecievedMethod {...props} />;
+    else if (current === 'InscriptionRecieved')
+      return <InscriptionRecievedMethod {...props} />;
     else return <h1>Ocurrio un Error!</h1>;
   };
   return (
