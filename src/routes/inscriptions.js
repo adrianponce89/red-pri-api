@@ -1,5 +1,5 @@
 const express = require('express');
-const router = require('express-promise-router');
+const router = require('express-promise-router')();
 const { restrictAccess } = require('../utils/access');
 const InscriprionsController = require('../controllers/inscriptions');
 
