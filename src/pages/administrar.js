@@ -8,6 +8,7 @@ import ArticlesTable from '../components/Admin/ArticlesTable';
 import EventsTable from '../components/Admin/EventsTable';
 import SlidesTable from '../components/Admin/SlidesTable';
 import MessagesTable from '../components/Admin/MessagesTable';
+import InscriptionTable from '../components/Admin/InscriptionTable';
 
 const Admin = () => {
   const [selected, setSelected] = useState('users');
@@ -16,6 +17,7 @@ const Admin = () => {
   const [events, setEvents] = useState([]);
   const [slides, setSlides] = useState([]);
   const [messages, setMessages] = useState([]);
+  const [insciptions, setInscriptions] = useState([]);
 
   useEffect(async () => {
     const resUsers = await fetch(`/api/admin/users`);
@@ -28,6 +30,8 @@ const Admin = () => {
     setSlides(await resSlides.json());
     const resMessages = await fetch(`/api/messages`);
     setMessages(await resMessages.json());
+    const resInscriptions = await fetch(`/api/inscriptions`);
+    setInscriptions(await resInscriptions.json());
   }, []);
 
   return (
@@ -56,6 +60,12 @@ const Admin = () => {
           Events
         </Nav.Link>
         <Nav.Link
+          eventKey="insciptions"
+          onClick={() => setSelected('insciptions')}
+        >
+          Inscripciones
+        </Nav.Link>
+        <Nav.Link
           eventKey="slides"
           onClick={() => setSelected('slides')}
         >
@@ -78,8 +88,10 @@ const Admin = () => {
           <EventsTable events={events} />
         ) : selected === 'slides' ? (
           <SlidesTable slides={slides} />
-        ) : (
+        ) : selected === 'messages' ? (
           <MessagesTable messages={messages} />
+        ) : (
+          <InscriptionTable inscriptions={insciptions} />
         )}
       </Card>
     </Container>
