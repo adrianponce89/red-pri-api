@@ -12,5 +12,6 @@ router.use('/slides', require('./slides'));
 router.use('/suggestions', require('./suggestions'));
 router.use('/admin', require('./admin'));
 router.use('/events', require('./events'));
+router.use('/inscriptions', require('./inscriptions'));
 
 module.exports = router;
