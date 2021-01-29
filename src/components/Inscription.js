@@ -69,7 +69,6 @@ const Inscription = ({ eventId }) => {
     setLoading(false);
     setName('');
     setEmail('');
-    setUdi('');
     setutmSource('');
   };
 
