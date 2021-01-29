@@ -39,7 +39,7 @@ const InscriptionRow = ({ key, inscription }) => {
       <td>
         <a href={'mailto:' + email}>{email}</a>
       </td>
-      <td>{content}</td>
+      <td>{eventId}</td>
       <td>
         <LoadableButton
           disabled={loading}
