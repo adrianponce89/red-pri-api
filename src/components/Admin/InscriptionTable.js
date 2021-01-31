@@ -5,7 +5,7 @@ import { LoadableButton } from '../Loadable';
 import Router from 'next/router';
 
 const InscriptionRow = ({ key, inscription }) => {
-  const { name, email, eventId } = inscription;
+  const { name, email, event } = inscription;
   const [loading, setLoading] = useState(false);
 
   const handleDelete = async (event) => {
@@ -39,7 +39,9 @@ const InscriptionRow = ({ key, inscription }) => {
       <td>
         <a href={'mailto:' + email}>{email}</a>
       </td>
-      <td>{eventId}</td>
+      <td>
+        <a href={'/eventos/' + event.uid}>{event.title}</a>
+      </td>
       <td>
         <LoadableButton
           disabled={loading}
