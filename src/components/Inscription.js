@@ -89,6 +89,7 @@ const Inscription = ({ eventId }) => {
               size="lg"
               value={name}
               onChange={(e) => setName(e.target.value)}
+              required
             />
             <FormControls
               tipe="email"
@@ -96,6 +97,7 @@ const Inscription = ({ eventId }) => {
               size="lg"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
+              required
             />
           </ContainFormControl>
         </FormGroup>
