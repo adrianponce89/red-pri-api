@@ -4,7 +4,7 @@ import { hideModal } from './modalSlice';
 
 let profile = null;
 if (process.browser) {
-  profile = JSON.parse(localStorage.getItem('profile'));
+  profile = JSON.parse(sessionStorage.getItem('profile'));
 }
 
 const initialState = profile ? { loggedIn: true, profile } : {};
