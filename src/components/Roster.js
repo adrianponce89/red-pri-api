@@ -1,4 +1,4 @@
-import React, { Children } from 'react';
+import React from 'react';
 import Table from 'react-bootstrap/Table';
 import styled from 'styled-components';
 
@@ -20,19 +20,16 @@ const TableSroll = styled(Table)`
   }
 `;
 
-const Roster = ({ children }) => {
+const Roster = ({ children, titlesHead }) => {
   return (
     <div>
       <TableFixHead>
         <TableSroll striped bordered hover>
           <thead>
             <tr>
-              <th>#</th>
-              <th>Mail</th>
-              <th>Password</th>
-              <th>Rol</th>
-              <th>Permisos</th>
-              <th>Acciones</th>
+              {titlesHead.map((title, i) => (
+                <th id={i}>{title}</th>
+              ))}
             </tr>
           </thead>
           <tbody>{children}</tbody>

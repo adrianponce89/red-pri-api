@@ -199,7 +199,16 @@ const UsersTable = ({ users }) => {
       >
         Crear Nuevo Perfil
       </FloatingButton>
-      <Roster>
+      <Roster
+        titlesHead={[
+          '#',
+          'Mail',
+          'Password',
+          'Rol',
+          'Permisos',
+          'Acciones',
+        ]}
+      >
         {users.map((user) => (
           <UserRow key={user._id} user={user} />
         ))}
