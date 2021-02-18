@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
-import Table from 'react-bootstrap/Table';
 import Button from 'react-bootstrap/Button';
 import FormCheck from 'react-bootstrap/FormCheck';
 import styled from 'styled-components';
 import { LoadableButton } from '../Loadable';
 import Router from 'next/router';
 import Link from 'next/link';
+import Roster from '../Roster';
 
 const UserRow = ({ key, user }) => {
   const [email, setEmail] = useState(user.email);
@@ -189,52 +189,22 @@ const FloatingButton = styled(LoadableButton)`
   padding: 1em;
 `;
 
-const TableFixHead = styled.div`
-  overflow-y: auto;
-  height: 60vh;
-`;
-
-const TableSroll = styled(Table)`
-  border-collapse: initial;
-  width: 100%;
-  & thead th {
-    position: sticky;
-    top: 0;
-    border: 2px solid #eee;
-    z-index: 1;
-    background-color: white;
-    align-self: center;
-  }
-`;
-
 const UsersTable = ({ users }) => {
   return (
-    <TableFixHead>
-      <TableSroll striped bordered hover>
-        <FloatingButton
-          href="/crear-perfil"
-          variant="success"
-          style={{ position: 'absolute' }}
-        >
-          Crear Nuevo Perfil
-        </FloatingButton>
-        <thead>
-          <tr>
-            <th>#</th>
-            <th>Mail</th>
-            <th>Password</th>
-            <th>Rol</th>
-            <th>Permisos</th>
-            <th>Acciones</th>
-          </tr>
-        </thead>
-        <tbody>
-          {users.map((user) => (
-            <UserRow key={user._id} user={user} />
-          ))}
-        </tbody>
-      </TableSroll>
-    </TableFixHead>
+    <>
+      <FloatingButton
+        href="/crear-perfil"
+        variant="success"
+        style={{ position: 'absolute' }}
+      >
+        Crear Nuevo Perfil
+      </FloatingButton>
+      <Roster>
+        {users.map((user) => (
+          <UserRow key={user._id} user={user} />
+        ))}
+      </Roster>
+    </>
   );
 };
 
