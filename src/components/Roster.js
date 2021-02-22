@@ -17,6 +17,11 @@ const TableSroll = styled(Table)`
     z-index: 1;
     background-color: white;
     align-self: center;
+    padding: 11px;
+  }
+  & td {
+    padding: 5px;
+    vertical-align: middle;
   }
 `;
 
@@ -28,7 +33,9 @@ const Roster = ({ children, titlesHead }) => {
           <thead>
             <tr>
               {titlesHead.map((title, i) => (
-                <th id={i}>{title}</th>
+                <th style={{ textAlign: 'center' }} id={i}>
+                  {title}
+                </th>
               ))}
             </tr>
           </thead>
