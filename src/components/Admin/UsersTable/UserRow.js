@@ -1,13 +1,10 @@
 import React, { useState } from 'react';
-import Button from 'react-bootstrap/Button';
-import FormCheck from 'react-bootstrap/FormCheck';
-import styled from 'styled-components';
-import { LoadableButton } from '../Loadable';
+import { Button, FormCheck } from 'react-bootstrap';
+import { LoadableButton } from '../../Loadable';
 import Router from 'next/router';
 import Link from 'next/link';
-import Roster from '../Roster';
 
-const UserRow = ({ key, user }) => {
+const UserRow = ({ key, user, checked, onSelectUser }) => {
   const [email, setEmail] = useState(user.email);
   const [password, setPassword] = useState('');
   const [role, setRole] = useState(user.role);
@@ -82,6 +79,14 @@ const UserRow = ({ key, user }) => {
 
   return (
     <tr key={key}>
+      <td style={{ textAlign: 'center' }}>
+        <input
+          loading={loading}
+          type="checkbox"
+          value={checked}
+          onChange={onSelectUser}
+        />
+      </td>
       <td>{user._id}</td>
       <td>
         <input
@@ -182,39 +187,4 @@ const UserRow = ({ key, user }) => {
   );
 };
 
-const FloatingButton = styled(LoadableButton)`
-  position: absolute;
-  right: 0;
-  top: -4em;
-  padding: 1em;
-`;
-
-const UsersTable = ({ users }) => {
-  return (
-    <>
-      <FloatingButton
-        href="/crear-perfil"
-        variant="success"
-        style={{ position: 'absolute' }}
-      >
-        Crear Nuevo Perfil
-      </FloatingButton>
-      <Roster
-        titlesHead={[
-          '#',
-          'Mail',
-          'Password',
-          'Rol',
-          'Permisos',
-          'Acciones',
-        ]}
-      >
-        {users.map((user) => (
-          <UserRow key={user._id} user={user} />
-        ))}
-      </Roster>
-    </>
-  );
-};
-
-export default UsersTable;
+export default UserRow;

@@ -3,7 +3,7 @@ import Nav from 'react-bootstrap/Nav';
 import Card from 'react-bootstrap/Card';
 
 import Container from '../components/Container';
-import UsersTable from '../components/Admin/UsersTable';
+import UsersTable from '../components/Admin/UsersTable/index';
 import ArticlesTable from '../components/Admin/ArticlesTable';
 import EventsTable from '../components/Admin/EventsTable';
 import SlidesTable from '../components/Admin/SlidesTable';
