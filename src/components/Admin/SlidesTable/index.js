@@ -26,6 +26,15 @@ const SlidesTable = ({ slides }) => {
       );
     }
   };
+
+  const addAllSeletedSlid = (event) => {
+    if (event.target.checked) {
+      setSelectedSlid(slides.map(({ _id }) => _id));
+    } else {
+      setSelectedSlid([]);
+    }
+  };
+
   const [loading, setLoading] = useState(false);
   const handleAdd = async (event) => {
     event.preventDefault();
@@ -63,6 +72,7 @@ const SlidesTable = ({ slides }) => {
         'Link URL',
         'Acciones',
       ]}
+      onSeletedAllUsers={addAllSeletedSlid}
     >
       <FloatingButton
         loading={loading}
@@ -78,7 +88,7 @@ const SlidesTable = ({ slides }) => {
           key={slide._id}
           slide={slide}
           onSelectSlide={() => addSelectedSlid(slide)}
-          checked={() => selectedSlid.indexOf(slide._id)}
+          checked={selectedSlid.indexOf(slide._id) >= 0}
         />
       ))}
     </Roster>

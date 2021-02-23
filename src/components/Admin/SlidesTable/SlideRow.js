@@ -79,7 +79,7 @@ const SlideRow = ({ key, slide, onSelectSlide, checked }) => {
         <input
           loading={loading}
           type="checkbox"
-          value={checked}
+          checked={checked}
           onChange={onSelectSlide}
         />
       </td>
