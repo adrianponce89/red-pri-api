@@ -68,7 +68,7 @@ const EventRow = ({ key, event, onSelectEvent, checked }) => {
         <input
           loading={loading}
           type="checkbox"
-          value={checked}
+          checked={checked}
           onChange={onSelectEvent}
         />
       </td>
