@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import Router from 'next/router';
 import { LoadableButton } from '../../Loadable';
 
-const MessageRow = ({ key, message }) => {
+const MessageRow = ({ key, message, onSelectMessage, checked }) => {
   const { name, email, content } = message;
   const [loading, setLoading] = useState(false);
 
@@ -32,6 +32,14 @@ const MessageRow = ({ key, message }) => {
 
   return (
     <tr key={key}>
+      <td style={{ textAlign: 'center' }}>
+        <input
+          loading={loading}
+          type="checkbox"
+          checked={checked}
+          onChange={onSelectMessage}
+        />
+      </td>
       <td>{message._id}</td>
       <td>{name}</td>
       <td>
