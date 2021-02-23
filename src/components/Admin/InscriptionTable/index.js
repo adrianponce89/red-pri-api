@@ -19,6 +19,17 @@ const InscriptionTable = ({ inscriptions }) => {
       );
     }
   };
+
+  const addAllSeletedInscipation = (event) => {
+    if (event.target.checked) {
+      setSelectedInscipation(inscriptions.map(({ _id }) => _id));
+    } else {
+      setSelectedInscipation([]);
+    }
+  };
+
+  console.log('selectedInscipation', selectedInscipation);
+
   return (
     <Roster
       titlesHead={[
@@ -29,6 +40,7 @@ const InscriptionTable = ({ inscriptions }) => {
         '# Evento',
         'Acciones',
       ]}
+      onSeletedAllUsers={addAllSeletedInscipation}
     >
       {inscriptions.map((inscription) => (
         <InscriptionRow
@@ -37,7 +49,7 @@ const InscriptionTable = ({ inscriptions }) => {
           onSelectInscription={() =>
             addselectedInscipation(inscription)
           }
-          checked={() => selectedInscipation.indexOf(inscription._id)}
+          checked={selectedInscipation.indexOf(inscription._id) >= 0}
         />
       ))}
     </Roster>

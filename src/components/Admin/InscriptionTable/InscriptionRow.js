@@ -41,7 +41,7 @@ const InscriptionRow = ({
         <input
           loading={loading}
           type="checkbox"
-          value={checked}
+          checked={checked}
           onChange={onSelectInscription}
         />
       </td>
