@@ -16,7 +16,6 @@ const EventsTable = ({ events }) => {
       );
     }
   };
-  console.log('selectedEvents', selectedEvents);
   const addAllSeletedEvents = (event) => {
     if (event.target.checked) {
       setSelectedEvents(events.map(({ _id }) => _id));

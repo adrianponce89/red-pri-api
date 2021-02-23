@@ -3,17 +3,25 @@ import Roster from '../../Roster';
 import ArticleRow from './ArticleRow';
 
 const ArticlesTable = ({ articles }) => {
-  const [selectedArticle, setSelectedArticle] = useState([]);
-  const addSelectedArticle = (articles) => {
-    const index = selectedArticle.indexOf(articles._id);
+  const [selectedArticles, setSelectedArticles] = useState([]);
+  const addSelectedArticle = (article) => {
+    const index = selectedArticles.indexOf(article._id);
     if (index < 0) {
-      setSelectedArticle([...selectedArticle, articles._id]);
+      setSelectedArticles([...selectedArticles, article._id]);
     } else {
-      setSelectedArticle(
-        selectedArticle
+      setSelectedArticles(
+        selectedArticles
           .slice(0, index)
-          .concat(selectedArticle.slice(index + 1)),
+          .concat(selectedArticles.slice(index + 1)),
       );
+    }
+  };
+
+  const addAllSeletedArticles = (event) => {
+    if (event.target.checked) {
+      setSelectedArticles(articles.map(({ _id }) => _id));
+    } else {
+      setSelectedArticles([]);
     }
   };
 
@@ -27,13 +35,14 @@ const ArticlesTable = ({ articles }) => {
         'Publish',
         'Acciones',
       ]}
+      onSeletedAll={addAllSeletedArticles}
     >
       {articles.map((article) => (
         <ArticleRow
           key={article._id}
           article={article}
           onSelectArticle={() => addSelectedArticle(article)}
-          checked={() => selectedArticle.indexOf(article._id) >= 0}
+          checked={selectedArticles.indexOf(article._id) >= 0}
         />
       ))}
     </Roster>

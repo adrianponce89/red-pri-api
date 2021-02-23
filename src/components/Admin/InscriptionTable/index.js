@@ -28,8 +28,6 @@ const InscriptionTable = ({ inscriptions }) => {
     }
   };
 
-  console.log('selectedInscipation', selectedInscipation);
-
   return (
     <Roster
       titlesHead={[
