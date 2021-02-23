@@ -12,8 +12,10 @@ const FloatingButton = styled(LoadableButton)`
 
 const Index = ({ users }) => {
   const [selectedUsers, setSelectedUsers] = useState([]);
+
   const addSelectedUser = (user) => {
     const index = selectedUsers.indexOf(user._id);
+
     if (index < 0) {
       setSelectedUsers([...selectedUsers, user._id]);
     } else {
@@ -24,6 +26,15 @@ const Index = ({ users }) => {
       );
     }
   };
+
+  const addAllSeletedUsers = (event) => {
+    if (event.target.checked) {
+      setSelectedUsers(users.map(({ _id }) => _id));
+    } else {
+      setSelectedUsers([]);
+    }
+  };
+
   return (
     <>
       <FloatingButton
@@ -43,13 +54,14 @@ const Index = ({ users }) => {
           'Permisos',
           'Acciones',
         ]}
+        onSeletedAllUsers={addAllSeletedUsers}
       >
         {users.map((user) => (
           <UserRow
             key={user._id}
             user={user}
             onSelectUser={() => addSelectedUser(user)}
-            checked={() => selectedsUsers.indexOf(user._id) >= 0}
+            checked={selectedUsers.indexOf(user._id) >= 0}
           />
         ))}
       </Roster>

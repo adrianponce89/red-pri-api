@@ -83,7 +83,7 @@ const UserRow = ({ key, user, checked, onSelectUser }) => {
         <input
           loading={loading}
           type="checkbox"
-          value={checked}
+          checked={checked}
           onChange={onSelectUser}
         />
       </td>
