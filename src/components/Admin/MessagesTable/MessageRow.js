@@ -1,11 +1,6 @@
 import React, { useState } from 'react';
-import Table from 'react-bootstrap/Table';
-import Button from 'react-bootstrap/Button';
-import FormCheck from 'react-bootstrap/FormCheck';
-import styled from 'styled-components';
-import { LoadableButton } from '../Loadable';
 import Router from 'next/router';
-import Link from 'next/link';
+import { LoadableButton } from '../../Loadable';
 
 const MessageRow = ({ key, message }) => {
   const { name, email, content } = message;
@@ -57,39 +52,4 @@ const MessageRow = ({ key, message }) => {
   );
 };
 
-const FloatingButton = styled(LoadableButton)`
-  position: absolute;
-  right: 0;
-  top: -4em;
-  padding: 1em;
-`;
-
-const MessagesTable = ({ messages }) => {
-  return (
-    <Table striped bordered hover>
-      <FloatingButton
-        href="/crear-perfil"
-        variant="success"
-        style={{ position: 'absolute' }}
-      >
-        Crear Nuevo Perfil
-      </FloatingButton>
-      <thead>
-        <tr>
-          <th>#</th>
-          <th>Nombre</th>
-          <th>Mail</th>
-          <th>Contenido</th>
-          <th>Acciones</th>
-        </tr>
-      </thead>
-      <tbody>
-        {messages.map((message) => (
-          <MessageRow key={message._id} message={message} />
-        ))}
-      </tbody>
-    </Table>
-  );
-};
-
-export default MessagesTable;
+export default MessageRow;
