@@ -1,12 +1,10 @@
 import React, { useState } from 'react';
-import Table from 'react-bootstrap/Table';
-import Button from 'react-bootstrap/Button';
-import FormCheck from 'react-bootstrap/FormCheck';
-import { LoadableButton } from '../Loadable';
+import { Button, FormCheck } from 'react-bootstrap';
+import { LoadableButton } from '../../Loadable';
 import Router from 'next/router';
 import Link from 'next/link';
 
-const EventRow = ({ event }) => {
+const EventRow = ({ key, event, onSelectEvent, checked }) => {
   const [title, setTitle] = useState(event.title);
   const [content, setContent] = useState(event.content);
   const [published, setPublished] = useState(event.published);
@@ -65,7 +63,15 @@ const EventRow = ({ event }) => {
   };
 
   return (
-    <tr key={event._id}>
+    <tr key={key}>
+      <td style={{ textAlign: 'center' }}>
+        <input
+          loading={loading}
+          type="checkbox"
+          value={checked}
+          onChange={onSelectEvent}
+        />
+      </td>
       <td>{event._id}</td>
       <td>
         <input
@@ -139,23 +145,4 @@ const EventRow = ({ event }) => {
   );
 };
 
-const EventsTable = ({ events }) => (
-  <Table striped bordered hover>
-    <thead>
-      <tr>
-        <th>#</th>
-        <th>Title</th>
-        <th>Content</th>
-        <th>Publish</th>
-        <th>Acciones</th>
-      </tr>
-    </thead>
-    <tbody>
-      {events.map((event) => (
-        <EventRow event={event} />
-      ))}
-    </tbody>
-  </Table>
-);
-
-export default EventsTable;
+export default EventRow;
