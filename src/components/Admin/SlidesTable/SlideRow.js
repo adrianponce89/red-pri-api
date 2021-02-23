@@ -1,12 +1,10 @@
 import React, { useState } from 'react';
-import Table from 'react-bootstrap/Table';
 import Button from 'react-bootstrap/Button';
-import styled from 'styled-components';
-import { LoadableButton } from '../Loadable';
-import ImageSelection from '../ImageSelection';
+import { LoadableButton } from '../../Loadable';
+import ImageSelection from '../../ImageSelection';
 import Router from 'next/router';
 
-const SlideRow = ({ slide }) => {
+const SlideRow = ({ key, slide, onSelectSlide, checked }) => {
   const [title, setTitle] = useState(slide.title);
   const [content, setContent] = useState(slide.content);
   const [href, setHref] = useState(slide.href);
@@ -76,7 +74,15 @@ const SlideRow = ({ slide }) => {
   };
 
   return (
-    <tr key={slide._id}>
+    <tr key={key}>
+      <td style={{ textAlign: 'center' }}>
+        <input
+          loading={loading}
+          type="checkbox"
+          value={checked}
+          onChange={onSelectSlide}
+        />
+      </td>
       <td>{slide._id}</td>
       <td>
         <ImageSelection
@@ -162,67 +168,4 @@ const SlideRow = ({ slide }) => {
   );
 };
 
-const FloatingButton = styled(LoadableButton)`
-  position: absolute;
-  right: 0;
-  top: -4em;
-  padding: 1em;
-`;
-
-const SlidesTable = ({ slides }) => {
-  const [loading, setLoading] = useState(false);
-  const handleAdd = async (event) => {
-    event.preventDefault();
-    setLoading(true);
-
-    const res = await fetch(`/api/slides`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        title: '',
-        content: '',
-        href: '',
-      }),
-    });
-
-    if (res.status === 201) {
-      Router.reload();
-    } else {
-      const resJson = await res.json();
-      alert(resJson.error);
-    }
-    setLoading(false);
-  };
-
-  return (
-    <Table striped bordered hover>
-      <FloatingButton
-        loading={loading}
-        onClick={handleAdd}
-        variant="success"
-        style={{ position: 'absolute' }}
-      >
-        Agregar diapositiva
-      </FloatingButton>
-      <thead>
-        <tr>
-          <th>#</th>
-          <th>Image</th>
-          <th>Title</th>
-          <th>Content</th>
-          <th>Link URL</th>
-          <th>Acciones</th>
-        </tr>
-      </thead>
-      <tbody>
-        {slides.map((slide) => (
-          <SlideRow slide={slide} />
-        ))}
-      </tbody>
-    </Table>
-  );
-};
-
-export default SlidesTable;
+export default SlideRow;
