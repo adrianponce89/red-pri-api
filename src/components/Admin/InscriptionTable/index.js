@@ -40,7 +40,7 @@ const InscriptionTable = ({ inscriptions }) => {
         '# Evento',
         'Acciones',
       ]}
-      onSeletedAllUsers={addAllSeletedInscipation}
+      onSeletedAll={addAllSeletedInscipation}
     >
       {inscriptions.map((inscription) => (
         <InscriptionRow

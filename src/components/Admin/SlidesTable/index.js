@@ -72,7 +72,7 @@ const SlidesTable = ({ slides }) => {
         'Link URL',
         'Acciones',
       ]}
-      onSeletedAllUsers={addAllSeletedSlid}
+      onSeletedAll={addAllSeletedSlid}
     >
       <FloatingButton
         loading={loading}

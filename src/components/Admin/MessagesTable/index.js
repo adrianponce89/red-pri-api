@@ -35,7 +35,7 @@ const MessagesTable = ({ messages }) => {
         'Contenido',
         'Acciones',
       ]}
-      onSeletedAllUsers={addAllSeletedMessage}
+      onSeletedAll={addAllSeletedMessage}
     >
       {messages.map((message) => (
         <MessageRow

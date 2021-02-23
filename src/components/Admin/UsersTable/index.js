@@ -54,7 +54,7 @@ const Index = ({ users }) => {
           'Permisos',
           'Acciones',
         ]}
-        onSeletedAllUsers={addAllSeletedUsers}
+        onSeletedAll={addAllSeletedUsers}
       >
         {users.map((user) => (
           <UserRow

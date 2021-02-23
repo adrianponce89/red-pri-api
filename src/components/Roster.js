@@ -31,7 +31,7 @@ const TableSroll = styled(Table)`
   }
 `;
 
-const Roster = ({ children, titlesHead, onSeletedAllUsers }) => {
+const Roster = ({ children, titlesHead, onSeletedAll }) => {
   return (
     <TableFixHead>
       <TableSroll striped bordered hover>
@@ -47,7 +47,7 @@ const Roster = ({ children, titlesHead, onSeletedAllUsers }) => {
                   <input
                     type="checkbox"
                     className="select"
-                    onChange={onSeletedAllUsers}
+                    onChange={onSeletedAll}
                   />
                   {title}
                 </th>
