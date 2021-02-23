@@ -4,11 +4,11 @@ import Card from 'react-bootstrap/Card';
 
 import Container from '../components/Container';
 import UsersTable from '../components/Admin/UsersTable/index';
-import ArticlesTable from '../components/Admin/ArticlesTable';
-import EventsTable from '../components/Admin/EventsTable';
-import SlidesTable from '../components/Admin/SlidesTable';
-import MessagesTable from '../components/Admin/MessagesTable';
-import InscriptionTable from '../components/Admin/InscriptionTable';
+import ArticlesTable from '../components/Admin/ArticlesTable/index';
+import EventsTable from '../components/Admin/EventsTable/index';
+import SlidesTable from '../components/Admin/SlidesTable/index';
+import MessagesTable from '../components/Admin/MessagesTable/index';
+import InscriptionTable from '../components/Admin/InscriptionTable/index';
 
 const Admin = () => {
   const [selected, setSelected] = useState('users');

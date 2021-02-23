@@ -1,12 +1,10 @@
 import React, { useState } from 'react';
-import Table from 'react-bootstrap/Table';
-import Button from 'react-bootstrap/Button';
-import FormCheck from 'react-bootstrap/FormCheck';
-import { LoadableButton } from '../Loadable';
+import { Button, FormCheck } from 'react-bootstrap';
+import { LoadableButton } from '../../Loadable';
 import Router from 'next/router';
 import Link from 'next/link';
 
-const ArticleRow = ({ article }) => {
+const ArticleRow = ({ key, article, onSelectArticle, checked }) => {
   const [title, setTitle] = useState(article.title);
   const [content, setContent] = useState(article.content);
   const [published, setPublished] = useState(article.published);
@@ -65,7 +63,15 @@ const ArticleRow = ({ article }) => {
   };
 
   return (
-    <tr key={article._id}>
+    <tr key={key}>
+      <td style={{ textAlign: 'center' }}>
+        <input
+          loading={loading}
+          type="checkbox"
+          value={checked}
+          onChange={onSelectArticle}
+        />
+      </td>
       <td>{article._id}</td>
       <td>
         <input
@@ -139,23 +145,4 @@ const ArticleRow = ({ article }) => {
   );
 };
 
-const ArticlesTable = ({ articles }) => (
-  <Table striped bordered hover>
-    <thead>
-      <tr>
-        <th>#</th>
-        <th>Title</th>
-        <th>Content</th>
-        <th>Publish</th>
-        <th>Acciones</th>
-      </tr>
-    </thead>
-    <tbody>
-      {articles.map((article) => (
-        <ArticleRow article={article} />
-      ))}
-    </tbody>
-  </Table>
-);
-
-export default ArticlesTable;
+export default ArticleRow;
