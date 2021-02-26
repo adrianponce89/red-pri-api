@@ -31,7 +31,7 @@ const TableSroll = styled(Table)`
   }
 `;
 
-const Roster = ({ children, titlesHead, onSeletedAll }) => {
+const Roster = ({ children, titlesHead, onSeletedAll, checked }) => {
   return (
     <TableFixHead>
       <TableSroll striped bordered hover>
@@ -39,14 +39,13 @@ const Roster = ({ children, titlesHead, onSeletedAll }) => {
           <tr>
             {titlesHead.map((title, i) =>
               i > 0 ? (
-                <th style={{ textAlign: 'center' }} id={i}>
-                  {title}
-                </th>
+                <th style={{ textAlign: 'center' }}>{title}</th>
               ) : (
-                <th className="thSelect" id={i}>
+                <th className="thSelect">
                   <input
                     type="checkbox"
                     className="select"
+                    checked={checked}
                     onChange={onSeletedAll}
                   />
                   {title}

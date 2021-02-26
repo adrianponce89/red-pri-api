@@ -1,10 +1,15 @@
 import React, { useState } from 'react';
 import { Button, FormCheck } from 'react-bootstrap';
 import { LoadableButton } from '../../Loadable';
-import Router from 'next/router';
 import Link from 'next/link';
 
-const EventRow = ({ key, event, onSelectEvent, checked }) => {
+const EventRow = ({
+  key,
+  event,
+  onSelectEvent,
+  checked,
+  upDateTable,
+}) => {
   const [title, setTitle] = useState(event.title);
   const [content, setContent] = useState(event.content);
   const [published, setPublished] = useState(event.published);
@@ -36,6 +41,10 @@ const EventRow = ({ key, event, onSelectEvent, checked }) => {
 
   const handleDelete = async (e) => {
     e.preventDefault();
+    const msg = `¿Seguro que querés borrar el evento titulado "${event.title}"?`;
+    if (!confirm(msg)) {
+      return;
+    }
     setLoading(true);
 
     const res = await fetch(`/api/events/${event._id}`, {
@@ -46,7 +55,7 @@ const EventRow = ({ key, event, onSelectEvent, checked }) => {
     });
 
     if (res.status === 200) {
-      Router.reload();
+      upDateTable();
     } else {
       const resJson = await res.json();
       alert(resJson.error);

@@ -1,9 +1,19 @@
 import React, { useState } from 'react';
 import Roster from '../../Roster';
+import { LoadableButton } from '../../Loadable';
+import styled from 'styled-components';
 import InscriptionRow from './InscriptionRow';
 
-const InscriptionTable = ({ inscriptions }) => {
+const FloatingButton = styled(LoadableButton)`
+  right: 0;
+  top: -4em;
+  padding: 1em;
+`;
+
+const InscriptionTable = ({ inscriptions, upDateTable }) => {
   const [selectedInscipation, setSelectedInscipation] = useState([]);
+  const [loading, setLoading] = useState(false);
+
   const addselectedInscipation = (inscriptions) => {
     const index = selectedInscipation.indexOf(inscriptions._id);
     if (index < 0) {
@@ -28,29 +38,76 @@ const InscriptionTable = ({ inscriptions }) => {
     }
   };
 
+  const handleAllSelectedDelete = (event) => {
+    event.preventDefault();
+    const msg = `¿Seguro que querés borrar ${selectedInscipation.length} inscripciones?`;
+    if (!confirm(msg)) {
+      return;
+    }
+
+    setLoading(true);
+    selectedInscipation.forEach(async (_id) => {
+      const res = await fetch(`/api/inscriptions/${_id}`, {
+        method: 'DELETE',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+
+      if (res.status === 200) {
+        upDateTable();
+        console.log('finish');
+        setLoading(false);
+        setSelectedInscipation([]);
+      } else {
+        const resJson = await res.json();
+        alert(resJson.error);
+      }
+    });
+  };
+
   return (
-    <Roster
-      titlesHead={[
-        'Seleccion',
-        '#',
-        'Nombre',
-        'Mail',
-        '# Evento',
-        'Acciones',
-      ]}
-      onSeletedAll={addAllSeletedInscipation}
-    >
-      {inscriptions.map((inscription) => (
-        <InscriptionRow
-          key={inscription._id}
-          inscription={inscription}
-          onSelectInscription={() =>
-            addselectedInscipation(inscription)
-          }
-          checked={selectedInscipation.indexOf(inscription._id) >= 0}
-        />
-      ))}
-    </Roster>
+    <>
+      <FloatingButton
+        style={{
+          position: 'absolute',
+          right: '10vw',
+          fontWeight: 'bold',
+          display: `${
+            selectedInscipation.length > 0 ? 'inline-block' : 'none'
+          }`,
+        }}
+        variant="success"
+        loading={loading}
+        onClick={handleAllSelectedDelete}
+      >{`Borrar ${selectedInscipation.length}`}</FloatingButton>
+      <Roster
+        titlesHead={[
+          'Seleccion',
+          '#',
+          'Nombre',
+          'Mail',
+          '# Evento',
+          'Acciones',
+        ]}
+        onSeletedAll={addAllSeletedInscipation}
+        checked={selectedInscipation.length > 0}
+      >
+        {inscriptions.map((inscription) => (
+          <InscriptionRow
+            key={inscription._id}
+            inscription={inscription}
+            onSelectInscription={() =>
+              addselectedInscipation(inscription)
+            }
+            checked={
+              selectedInscipation.indexOf(inscription._id) >= 0
+            }
+            upDateTable={() => upDateTable()}
+          />
+        ))}
+      </Roster>
+    </>
   );
 };
 

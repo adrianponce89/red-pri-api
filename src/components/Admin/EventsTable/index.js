@@ -1,9 +1,18 @@
 import React, { useState } from 'react';
 import Roster from '../../Roster';
 import EventRow from './EventRow';
+import styled from 'styled-components';
+import { LoadableButton } from '../../Loadable';
 
-const EventsTable = ({ events }) => {
+const FloatingButton = styled(LoadableButton)`
+  right: 0;
+  top: -4em;
+  padding: 1em;
+`;
+
+const EventsTable = ({ events, upDateTable }) => {
   const [selectedEvents, setSelectedEvents] = useState([]);
+  const [loading, setLoading] = useState(false);
   const addSelectedEvent = (events) => {
     const index = selectedEvents.indexOf(events._id);
     if (index < 0) {
@@ -24,27 +33,70 @@ const EventsTable = ({ events }) => {
     }
   };
 
+  const handleAllSelectedDelete = (event) => {
+    event.preventDefault();
+    const msg = `¿Seguro que querés borrar ${selectedEvents.length} eventos ?`;
+    if (!confirm(msg)) {
+      return;
+    }
+
+    setLoading(true);
+    selectedEvents.forEach(async (_id) => {
+      const res = await fetch(`/api/events/${_id}`, {
+        method: 'DELETE',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+      if (res.status === 200) {
+        console.log('finish');
+        upDateTable();
+        setSelectedArticles([]);
+        setLoading(false);
+      } else {
+        const resJson = await res.json();
+        alert(resJson.error);
+      }
+    });
+  };
+
   return (
-    <Roster
-      titlesHead={[
-        'Selección',
-        '#',
-        'Title',
-        'Content',
-        'Publish',
-        'Acciones',
-      ]}
-      onSeletedAll={addAllSeletedEvents}
-    >
-      {events.map((event) => (
-        <EventRow
-          key={event._id}
-          event={event}
-          onSelectEvent={() => addSelectedEvent(event)}
-          checked={selectedEvents.indexOf(event._id) >= 0}
-        />
-      ))}
-    </Roster>
+    <>
+      <FloatingButton
+        style={{
+          position: 'absolute',
+          right: '10vw',
+          fontWeight: 'bold',
+          display: `${
+            selectedEvents.length > 0 ? 'inline-block' : 'none'
+          }`,
+        }}
+        variant="success"
+        loading={loading}
+        onClick={handleAllSelectedDelete}
+      >{`Borrar ${selectedEvents.length}`}</FloatingButton>
+      <Roster
+        titlesHead={[
+          'Selección',
+          '#',
+          'Title',
+          'Content',
+          'Publish',
+          'Acciones',
+        ]}
+        onSeletedAll={addAllSeletedEvents}
+      >
+        {events.map((event) => (
+          <EventRow
+            key={event._id}
+            event={event}
+            onSelectEvent={() => addSelectedEvent(event)}
+            checked={selectedEvents.indexOf(event._id) >= 0}
+            upDateTable={() => upDateTable()}
+          />
+        ))}
+      </Roster>
+    </>
   );
 };
 

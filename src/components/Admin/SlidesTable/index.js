@@ -12,7 +12,7 @@ const FloatingButton = styled(LoadableButton)`
   padding: 1em;
 `;
 
-const SlidesTable = ({ slides }) => {
+const SlidesTable = ({ slides, upDateTable }) => {
   const [selectedSlid, setSelectedSlid] = useState([]);
   const addSelectedSlid = (slides) => {
     const index = selectedSlid.indexOf(slides._id);
@@ -53,12 +53,38 @@ const SlidesTable = ({ slides }) => {
     });
 
     if (res.status === 201) {
-      Router.reload();
+      upDateTable();
+      setLoading(false);
     } else {
       const resJson = await res.json();
       alert(resJson.error);
     }
-    setLoading(false);
+  };
+
+  const handleAllSelectedDelete = (event) => {
+    event.preventDefault();
+    const msg = `¿Seguro que querés borrar ${selectedSlid.length} portadas?`;
+    if (!confirm(msg)) {
+      return;
+    }
+
+    setLoading(true);
+    selectedSlid.forEach(async (_id) => {
+      const res = await fetch(`/api/slides/${_id}`, {
+        method: 'DELETE',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+      if (res.status === 200) {
+        console.log('finish');
+        upDateTable();
+        setLoading(false);
+      } else {
+        const resJson = await res.json();
+        alert(resJson.error);
+      }
+    });
   };
 
   return (
@@ -75,6 +101,19 @@ const SlidesTable = ({ slides }) => {
       onSeletedAll={addAllSeletedSlid}
     >
       <FloatingButton
+        style={{
+          position: 'absolute',
+          right: '10vw',
+          fontWeight: 'bold',
+          display: `${
+            selectedSlid.length > 0 ? 'inline-block' : 'none'
+          }`,
+        }}
+        variant="success"
+        loading={loading}
+        onClick={handleAllSelectedDelete}
+      >{`Borrar ${selectedSlid.length}`}</FloatingButton>
+      <FloatingButton
         loading={loading}
         onClick={handleAdd}
         variant="success"
@@ -89,6 +128,7 @@ const SlidesTable = ({ slides }) => {
           slide={slide}
           onSelectSlide={() => addSelectedSlid(slide)}
           checked={selectedSlid.indexOf(slide._id) >= 0}
+          upDateTable={() => upDateTable()}
         />
       ))}
     </Roster>

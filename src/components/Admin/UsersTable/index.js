@@ -10,8 +10,9 @@ const FloatingButton = styled(LoadableButton)`
   padding: 1em;
 `;
 
-const Index = ({ users }) => {
+const UsersTable = ({ users, upDateTable }) => {
   const [selectedUsers, setSelectedUsers] = useState([]);
+  const [loading, setLoading] = useState(false);
 
   const addSelectedUser = (user) => {
     const index = selectedUsers.indexOf(user._id);
@@ -35,8 +36,48 @@ const Index = ({ users }) => {
     }
   };
 
+  const handleAllSelectedDelete = (event) => {
+    event.preventDefault();
+    const msg = `¿Seguro que querés borrar ${selectedUsers.length} usuarios ?`;
+    if (!confirm(msg)) {
+      return;
+    }
+
+    setLoading(true);
+    selectedUsers.forEach(async (_id) => {
+      const res = await fetch(`/api/users/${_id}`, {
+        method: 'DELETE',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+      if (res.status === 200) {
+        console.log('finish');
+        upDateTable();
+        setLoading(false);
+        setSelectedUsers([]);
+      } else {
+        const resJson = await res.json();
+        alert(resJson.error);
+      }
+    });
+  };
+
   return (
     <>
+      <FloatingButton
+        style={{
+          position: 'absolute',
+          right: '10vw',
+          fontWeight: 'bold',
+          display: `${
+            selectedUsers.length > 0 ? 'inline-block' : 'none'
+          }`,
+        }}
+        variant="success"
+        loading={loading}
+        onClick={handleAllSelectedDelete}
+      >{`Borrar ${selectedUsers.length}`}</FloatingButton>
       <FloatingButton
         href="/crear-perfil"
         variant="success"
@@ -62,6 +103,7 @@ const Index = ({ users }) => {
             user={user}
             onSelectUser={() => addSelectedUser(user)}
             checked={selectedUsers.indexOf(user._id) >= 0}
+            upDateTable={() => upDateTable()}
           />
         ))}
       </Roster>
@@ -69,4 +111,4 @@ const Index = ({ users }) => {
   );
 };
 
-export default Index;
+export default UsersTable;

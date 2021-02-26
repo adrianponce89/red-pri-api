@@ -4,7 +4,13 @@ import { LoadableButton } from '../../Loadable';
 import ImageSelection from '../../ImageSelection';
 import Router from 'next/router';
 
-const SlideRow = ({ key, slide, onSelectSlide, checked }) => {
+const SlideRow = ({
+  key,
+  slide,
+  onSelectSlide,
+  checked,
+  upDateTable,
+}) => {
   const [title, setTitle] = useState(slide.title);
   const [content, setContent] = useState(slide.content);
   const [href, setHref] = useState(slide.href);
@@ -58,7 +64,7 @@ const SlideRow = ({ key, slide, onSelectSlide, checked }) => {
     });
 
     if (res.status === 200) {
-      Router.reload();
+      upDateTable();
     } else {
       const resJson = await res.json();
       alert(resJson.error);

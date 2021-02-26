@@ -1,8 +1,13 @@
 import React, { useState } from 'react';
-import Router from 'next/router';
 import { LoadableButton } from '../../Loadable';
 
-const MessageRow = ({ key, message, onSelectMessage, checked }) => {
+const MessageRow = ({
+  key,
+  message,
+  onSelectMessage,
+  checked,
+  upDateTable,
+}) => {
   const { name, email, content } = message;
   const [loading, setLoading] = useState(false);
 
@@ -23,7 +28,7 @@ const MessageRow = ({ key, message, onSelectMessage, checked }) => {
 
     if (res.status === 200) {
       console.log('finish');
-      Router.reload();
+      upDateTable();
     } else {
       const resJson = await res.json();
       alert(resJson.error);

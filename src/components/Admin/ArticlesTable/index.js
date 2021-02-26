@@ -1,9 +1,19 @@
 import React, { useState } from 'react';
 import Roster from '../../Roster';
 import ArticleRow from './ArticleRow';
+import styled from 'styled-components';
+import { LoadableButton } from '../../Loadable';
 
-const ArticlesTable = ({ articles }) => {
+const FloatingButton = styled(LoadableButton)`
+  right: 0;
+  top: -4em;
+  padding: 1em;
+`;
+
+const ArticlesTable = ({ articles, upDateTable }) => {
   const [selectedArticles, setSelectedArticles] = useState([]);
+  const [loading, setLoading] = useState(false);
+
   const addSelectedArticle = (article) => {
     const index = selectedArticles.indexOf(article._id);
     if (index < 0) {
@@ -25,27 +35,71 @@ const ArticlesTable = ({ articles }) => {
     }
   };
 
+  const handleAllSelectedDelete = (event) => {
+    event.preventDefault();
+    const msg = `¿Seguro que querés borrar ${selectedArticles.length} usuarios ?`;
+    if (!confirm(msg)) {
+      return;
+    }
+
+    setLoading(true);
+    selectedArticles.forEach(async (_id) => {
+      const res = await fetch(`/api/articles/${_id}`, {
+        method: 'DELETE',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+      if (res.status === 200) {
+        console.log('finish');
+        upDateTable();
+        setSelectedArticles([]);
+        setLoading(false);
+      } else {
+        const resJson = await res.json();
+        alert(resJson.error);
+      }
+    });
+  };
+
   return (
-    <Roster
-      titlesHead={[
-        'Selección',
-        '#',
-        'Title',
-        'Content',
-        'Publish',
-        'Acciones',
-      ]}
-      onSeletedAll={addAllSeletedArticles}
-    >
-      {articles.map((article) => (
-        <ArticleRow
-          key={article._id}
-          article={article}
-          onSelectArticle={() => addSelectedArticle(article)}
-          checked={selectedArticles.indexOf(article._id) >= 0}
-        />
-      ))}
-    </Roster>
+    <>
+      <FloatingButton
+        style={{
+          position: 'absolute',
+          right: '10vw',
+          fontWeight: 'bold',
+          display: `${
+            selectedArticles.length > 0 ? 'inline-block' : 'none'
+          }`,
+        }}
+        variant="success"
+        loading={loading}
+        onClick={handleAllSelectedDelete}
+      >{`Borrar ${selectedArticles.length}`}</FloatingButton>
+      <Roster
+        titlesHead={[
+          'Selección',
+          '#',
+          'Title',
+          'Content',
+          'Publish',
+          'Acciones',
+        ]}
+        onSeletedAll={addAllSeletedArticles}
+        checked={selectedArticles.length > 0}
+      >
+        {articles.map((article) => (
+          <ArticleRow
+            key={article._id}
+            article={article}
+            onSelectArticle={() => addSelectedArticle(article)}
+            checked={selectedArticles.indexOf(article._id) >= 0}
+            upDateTable={() => upDateTable()}
+          />
+        ))}
+      </Roster>
+    </>
   );
 };
 
