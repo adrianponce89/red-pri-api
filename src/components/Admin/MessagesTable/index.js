@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import Roster from '../../Roster';
+import MessageRow from './MessageRow';
 
 const MessagesTable = ({ messages }) => {
   const [selectedMessage, setSelectedMessage] = useState([]);
