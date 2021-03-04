@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Roster from '../../Roster';
 import { LoadableButton } from '../../Loadable';
 import styled from 'styled-components';
@@ -10,9 +10,19 @@ const FloatingButton = styled(LoadableButton)`
   padding: 1em;
 `;
 
-const InscriptionTable = ({ inscriptions, upDateTable }) => {
+const InscriptionTable = () => {
+  const [inscriptions, setInscriptions] = useState([]);
   const [selectedInscipation, setSelectedInscipation] = useState([]);
   const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    upDateTable();
+  }, []);
+
+  const upDateTable = async () => {
+    const resInscriptions = await fetch(`/api/inscriptions`);
+    setInscriptions(await resInscriptions.json());
+  };
 
   const addselectedInscipation = (inscriptions) => {
     const index = selectedInscipation.indexOf(inscriptions._id);

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Roster from '../../Roster';
 import EventRow from './EventRow';
 import styled from 'styled-components';
@@ -10,9 +10,20 @@ const FloatingButton = styled(LoadableButton)`
   padding: 1em;
 `;
 
-const EventsTable = ({ events, upDateTable }) => {
+const EventsTable = () => {
   const [selectedEvents, setSelectedEvents] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [events, setEvents] = useState([]);
+
+  useEffect(() => {
+    upDateTable();
+  }, []);
+
+  const upDateTable = async () => {
+    const resEvents = await fetch(`/api/admin/events`);
+    setEvents(await resEvents.json());
+  };
+
   const addSelectedEvent = (events) => {
     const index = selectedEvents.indexOf(events._id);
     if (index < 0) {

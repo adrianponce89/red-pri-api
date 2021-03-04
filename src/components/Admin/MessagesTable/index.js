@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Roster from '../../Roster';
 import MessageRow from './MessageRow';
 import styled from 'styled-components';
@@ -10,9 +10,19 @@ const FloatingButton = styled(LoadableButton)`
   padding: 1em;
 `;
 
-const MessagesTable = ({ messages, upDateTable }) => {
+const MessagesTable = () => {
+  const [messages, setMessages] = useState([]);
   const [selectedMessage, setSelectedMessage] = useState([]);
   const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    upDateTable();
+  }, []);
+
+  const upDateTable = async () => {
+    const resMessages = await fetch(`/api/messages`);
+    setMessages(await resMessages.json());
+  };
 
   const addselectedMessage = (message) => {
     const index = selectedMessage.indexOf(message._id);
