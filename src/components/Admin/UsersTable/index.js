@@ -106,6 +106,7 @@ const UsersTable = () => {
           'Acciones',
         ]}
         onSeletedAll={addAllSeletedUsers}
+        checked={selectedUsers.length > 0}
       >
         {users.map((user) => (
           <UserRow

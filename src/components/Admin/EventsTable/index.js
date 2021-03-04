@@ -62,7 +62,7 @@ const EventsTable = () => {
       if (res.status === 200) {
         console.log('finish');
         upDateTable();
-        setSelectedArticles([]);
+        setSelectedEvents([]);
         setLoading(false);
       } else {
         const resJson = await res.json();
@@ -96,6 +96,7 @@ const EventsTable = () => {
           'Acciones',
         ]}
         onSeletedAll={addAllSeletedEvents}
+        checked={selectedEvents.length > 0}
       >
         {events.map((event) => (
           <EventRow

@@ -90,6 +90,7 @@ const SlidesTable = () => {
         console.log('finish');
         upDateTable();
         setLoading(false);
+        setSelectedSlid([]);
       } else {
         const resJson = await res.json();
         alert(resJson.error);
@@ -109,6 +110,7 @@ const SlidesTable = () => {
         'Acciones',
       ]}
       onSeletedAll={addAllSeletedSlid}
+      checked={selectedSlid.length > 0}
     >
       <FloatingButton
         style={{

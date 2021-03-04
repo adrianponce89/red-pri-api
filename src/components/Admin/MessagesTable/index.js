@@ -97,6 +97,7 @@ const MessagesTable = () => {
           'Acciones',
         ]}
         onSeletedAll={addAllSeletedMessage}
+        checked={selectedMessage.length > 0}
       >
         {messages.map((message) => (
           <MessageRow
