@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Roster from '../../Roster';
 import ArticleRow from './ArticleRow';
 import styled from 'styled-components';
@@ -10,9 +10,19 @@ const FloatingButton = styled(LoadableButton)`
   padding: 1em;
 `;
 
-const ArticlesTable = ({ articles, upDateTable }) => {
+const ArticlesTable = () => {
+  const [articles, setArticles] = useState([]);
   const [selectedArticles, setSelectedArticles] = useState([]);
   const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    upDateTable();
+  }, []);
+
+  const upDateTable = async () => {
+    const resArticles = await fetch(`/api/admin/articles`);
+    setArticles(await resArticles.json());
+  };
 
   const addSelectedArticle = (article) => {
     const index = selectedArticles.indexOf(article._id);

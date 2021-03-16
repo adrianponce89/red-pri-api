@@ -1,8 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { LoadableButton } from '../../Loadable';
 import SlideRow from './SlideRow';
-import Router from 'next/router';
 import Roster from '../../Roster';
 
 const FloatingButton = styled(LoadableButton)`
@@ -12,8 +11,19 @@ const FloatingButton = styled(LoadableButton)`
   padding: 1em;
 `;
 
-const SlidesTable = ({ slides, upDateTable }) => {
+const SlidesTable = () => {
+  const [slides, setSlides] = useState([]);
   const [selectedSlid, setSelectedSlid] = useState([]);
+
+  useEffect(() => {
+    upDateTable();
+  }, []);
+
+  const upDateTable = async () => {
+    const resSlides = await fetch(`/api/slides`);
+    setSlides(await resSlides.json());
+  };
+
   const addSelectedSlid = (slides) => {
     const index = selectedSlid.indexOf(slides._id);
     if (index < 0) {
@@ -80,6 +90,7 @@ const SlidesTable = ({ slides, upDateTable }) => {
         console.log('finish');
         upDateTable();
         setLoading(false);
+        setSelectedSlid([]);
       } else {
         const resJson = await res.json();
         alert(resJson.error);
@@ -99,6 +110,7 @@ const SlidesTable = ({ slides, upDateTable }) => {
         'Acciones',
       ]}
       onSeletedAll={addAllSeletedSlid}
+      checked={selectedSlid.length > 0}
     >
       <FloatingButton
         style={{

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { LoadableButton } from '../../Loadable';
 import Roster from '../../Roster';
@@ -10,9 +10,19 @@ const FloatingButton = styled(LoadableButton)`
   padding: 1em;
 `;
 
-const UsersTable = ({ users, upDateTable }) => {
+const UsersTable = () => {
   const [selectedUsers, setSelectedUsers] = useState([]);
+  const [users, setUsers] = useState([]);
   const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    upDateTable();
+  }, []);
+
+  const upDateTable = async () => {
+    const resUsers = await fetch(`/api/admin/users`);
+    setUsers(await resUsers.json());
+  };
 
   const addSelectedUser = (user) => {
     const index = selectedUsers.indexOf(user._id);
@@ -96,6 +106,7 @@ const UsersTable = ({ users, upDateTable }) => {
           'Acciones',
         ]}
         onSeletedAll={addAllSeletedUsers}
+        checked={selectedUsers.length > 0}
       >
         {users.map((user) => (
           <UserRow
