@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
-import Router from 'next/router';
 import { LoadableButton } from '../../Loadable';
 
 const MessageRow = ({
   key,
   message,
-  onSelectInscription,
+  onSelectMessage,
   checked,
+  upDateTable,
 }) => {
   const { name, email, content } = message;
   const [loading, setLoading] = useState(false);
@@ -28,7 +28,7 @@ const MessageRow = ({
 
     if (res.status === 200) {
       console.log('finish');
-      Router.reload();
+      upDateTable();
     } else {
       const resJson = await res.json();
       alert(resJson.error);
@@ -40,9 +40,9 @@ const MessageRow = ({
       <td style={{ textAlign: 'center' }}>
         <input
           loading={loading}
-          type="checkbox"
-          value={checked}
-          onChange={onSelectInscription}
+          type="checkbox"       
+          checked={checked}
+          onChange={onSelectMessage}
         />
       </td>
       <td>{message._id}</td>

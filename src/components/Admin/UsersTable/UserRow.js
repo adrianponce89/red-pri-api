@@ -1,10 +1,15 @@
 import React, { useState } from 'react';
 import { Button, FormCheck } from 'react-bootstrap';
 import { LoadableButton } from '../../Loadable';
-import Router from 'next/router';
 import Link from 'next/link';
 
-const UserRow = ({ key, user, checked, onSelectUser }) => {
+const UserRow = ({
+  key,
+  user,
+  checked,
+  onSelectUser,
+  upDateTable,
+}) => {
   const [email, setEmail] = useState(user.email);
   const [password, setPassword] = useState('');
   const [role, setRole] = useState(user.role);
@@ -33,6 +38,7 @@ const UserRow = ({ key, user, checked, onSelectUser }) => {
 
     if (res.status === 200) {
       console.log('finish');
+      upDateTable();
     } else {
       const resJson = await res.json();
       alert(resJson.error);
@@ -59,7 +65,7 @@ const UserRow = ({ key, user, checked, onSelectUser }) => {
 
     if (res.status === 200) {
       console.log('finish');
-      Router.reload();
+      upDateTable();
     } else {
       const resJson = await res.json();
       alert(resJson.error);
@@ -83,7 +89,7 @@ const UserRow = ({ key, user, checked, onSelectUser }) => {
         <input
           loading={loading}
           type="checkbox"
-          value={checked}
+          checked={checked}
           onChange={onSelectUser}
         />
       </td>

@@ -7,6 +7,7 @@ const InscriptionRow = ({
   inscription,
   onSelectInscription,
   checked,
+  upDateTable,
 }) => {
   const { name, email, event } = inscription;
   const [loading, setLoading] = useState(false);
@@ -28,7 +29,7 @@ const InscriptionRow = ({
 
     if (res.status === 200) {
       console.log('finish');
-      Router.reload();
+      upDateTable();
     } else {
       const resJson = await res.json();
       alert(resJson.error);
@@ -41,7 +42,7 @@ const InscriptionRow = ({
         <input
           loading={loading}
           type="checkbox"
-          value={checked}
+          checked={checked}
           onChange={onSelectInscription}
         />
       </td>

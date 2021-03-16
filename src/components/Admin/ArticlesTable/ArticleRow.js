@@ -1,10 +1,15 @@
 import React, { useState } from 'react';
 import { Button, FormCheck } from 'react-bootstrap';
 import { LoadableButton } from '../../Loadable';
-import Router from 'next/router';
 import Link from 'next/link';
 
-const ArticleRow = ({ key, article, onSelectArticle, checked }) => {
+const ArticleRow = ({
+  key,
+  article,
+  onSelectArticle,
+  checked,
+  upDateTable,
+}) => {
   const [title, setTitle] = useState(article.title);
   const [content, setContent] = useState(article.content);
   const [published, setPublished] = useState(article.published);
@@ -46,7 +51,7 @@ const ArticleRow = ({ key, article, onSelectArticle, checked }) => {
     });
 
     if (res.status === 200) {
-      Router.reload();
+      upDateTable();
     } else {
       const resJson = await res.json();
       alert(resJson.error);
@@ -68,7 +73,7 @@ const ArticleRow = ({ key, article, onSelectArticle, checked }) => {
         <input
           loading={loading}
           type="checkbox"
-          value={checked}
+          checked={checked}
           onChange={onSelectArticle}
         />
       </td>

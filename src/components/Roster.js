@@ -13,36 +13,50 @@ const TableSroll = styled(Table)`
   & thead th {
     position: sticky;
     top: 0;
-    border: 2px solid #eee;
     z-index: 1;
     background-color: white;
-    align-self: center;
     padding: 11px;
   }
   & td {
     padding: 5px;
     vertical-align: middle;
   }
+  .thSelect {
+    padding: 11px 8px;
+    display: flex;
+    align-items: center;
+    .select {
+      margin-right: 5px;
+    }
+  }
 `;
 
-const Roster = ({ children, titlesHead }) => {
+const Roster = ({ children, titlesHead, onSeletedAll, checked }) => {
   return (
-    <div>
-      <TableFixHead>
-        <TableSroll striped bordered hover>
-          <thead>
-            <tr>
-              {titlesHead.map((title, i) => (
-                <th style={{ textAlign: 'center' }} id={i}>
+    <TableFixHead>
+      <TableSroll striped bordered hover>
+        <thead>
+          <tr>
+            {titlesHead.map((title, i) =>
+              i > 0 ? (
+                <th style={{ textAlign: 'center' }}>{title}</th>
+              ) : (
+                <th className="thSelect">
+                  <input
+                    type="checkbox"
+                    className="select"
+                    checked={checked}
+                    onChange={onSeletedAll}
+                  />
                   {title}
                 </th>
-              ))}
-            </tr>
-          </thead>
-          <tbody>{children}</tbody>
-        </TableSroll>
-      </TableFixHead>
-    </div>
+              ),
+            )}
+          </tr>
+        </thead>
+        <tbody>{children}</tbody>
+      </TableSroll>
+    </TableFixHead>
   );
 };
 
