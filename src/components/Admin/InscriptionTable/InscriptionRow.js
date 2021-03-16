@@ -1,10 +1,14 @@
 import React, { useState } from 'react';
-import Table from 'react-bootstrap/Table';
-import styled from 'styled-components';
-import { LoadableButton } from '../Loadable';
+import { LoadableButton } from '../../Loadable';
 import Router from 'next/router';
 
-const InscriptionRow = ({ key, inscription }) => {
+const InscriptionRow = ({
+  key,
+  inscription,
+  onSelectInscription,
+  checked,
+  upDateTable,
+}) => {
   const { name, email, event } = inscription;
   const [loading, setLoading] = useState(false);
 
@@ -25,7 +29,7 @@ const InscriptionRow = ({ key, inscription }) => {
 
     if (res.status === 200) {
       console.log('finish');
-      Router.reload();
+      upDateTable();
     } else {
       const resJson = await res.json();
       alert(resJson.error);
@@ -34,6 +38,14 @@ const InscriptionRow = ({ key, inscription }) => {
 
   return (
     <tr key={key}>
+      <td style={{ textAlign: 'center' }}>
+        <input
+          loading={loading}
+          type="checkbox"
+          checked={checked}
+          onChange={onSelectInscription}
+        />
+      </td>
       <td>{inscription._id}</td>
       <td>{name}</td>
       <td>
@@ -56,35 +68,4 @@ const InscriptionRow = ({ key, inscription }) => {
   );
 };
 
-const FloatingButton = styled(LoadableButton)`
-  position: absolute;
-  right: 0;
-  top: -4em;
-  padding: 1em;
-`;
-
-const InscriptionTable = ({ inscriptions }) => {
-  return (
-    <Table striped bordered hover>
-      <thead>
-        <tr>
-          <th>#</th>
-          <th>Nombre</th>
-          <th>Mail</th>
-          <th># Evento</th>
-          <th>Acciones</th>
-        </tr>
-      </thead>
-      <tbody>
-        {inscriptions.map((inscription) => (
-          <InscriptionRow
-            key={inscription._id}
-            inscription={inscription}
-          />
-        ))}
-      </tbody>
-    </Table>
-  );
-};
-
-export default InscriptionTable;
+export default InscriptionRow;

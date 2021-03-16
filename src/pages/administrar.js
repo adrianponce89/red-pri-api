@@ -3,12 +3,12 @@ import Nav from 'react-bootstrap/Nav';
 import Card from 'react-bootstrap/Card';
 
 import Container from '../components/Container';
-import UsersTable from '../components/Admin/UsersTable';
-import ArticlesTable from '../components/Admin/ArticlesTable';
-import EventsTable from '../components/Admin/EventsTable';
-import SlidesTable from '../components/Admin/SlidesTable';
-import MessagesTable from '../components/Admin/MessagesTable';
-import InscriptionTable from '../components/Admin/InscriptionTable';
+import UsersTable from '../components/Admin/UsersTable/index';
+import ArticlesTable from '../components/Admin/ArticlesTable/index';
+import EventsTable from '../components/Admin/EventsTable/index';
+import SlidesTable from '../components/Admin/SlidesTable/index';
+import MessagesTable from '../components/Admin/MessagesTable/index';
+import InscriptionTable from '../components/Admin/InscriptionTable/index';
 
 const Admin = () => {
   const [selected, setSelected] = useState('users');
@@ -19,20 +19,39 @@ const Admin = () => {
   const [messages, setMessages] = useState([]);
   const [inscriptions, setInscriptions] = useState([]);
 
-  useEffect(async () => {
+  useEffect(() => {
+    upDateTableUsers();
+    upDateTableArticles();
+    upDateTableEvents();
+    upDateTableSlides();
+    upDateTableMessages();
+    upDateTableInscriptions();
+  }, []);
+
+  const upDateTableUsers = async () => {
     const resUsers = await fetch(`/api/admin/users`);
     setUsers(await resUsers.json());
+  };
+  const upDateTableArticles = async () => {
     const resArticles = await fetch(`/api/admin/articles`);
     setArticles(await resArticles.json());
+  };
+  const upDateTableEvents = async () => {
     const resEvents = await fetch(`/api/admin/events`);
     setEvents(await resEvents.json());
+  };
+  const upDateTableSlides = async () => {
     const resSlides = await fetch(`/api/slides`);
     setSlides(await resSlides.json());
+  };
+  const upDateTableMessages = async () => {
     const resMessages = await fetch(`/api/messages`);
     setMessages(await resMessages.json());
+  };
+  const upDateTableInscriptions = async () => {
     const resInscriptions = await fetch(`/api/inscriptions`);
     setInscriptions(await resInscriptions.json());
-  }, []);
+  };
 
   return (
     <Container>
@@ -81,17 +100,35 @@ const Admin = () => {
 
       <Card>
         {selected === 'users' ? (
-          <UsersTable users={users} />
+          <UsersTable
+            users={users}
+            upDateTable={() => upDateTableUsers()}
+          />
         ) : selected === 'articles' ? (
-          <ArticlesTable articles={articles} />
+          <ArticlesTable
+            articles={articles}
+            upDateTable={() => upDateTableArticles()}
+          />
         ) : selected === 'events' ? (
-          <EventsTable events={events} />
+          <EventsTable
+            events={events}
+            upDateTable={() => upDateTableEvents()}
+          />
         ) : selected === 'slides' ? (
-          <SlidesTable slides={slides} />
+          <SlidesTable
+            slides={slides}
+            upDateTable={() => upDateTableSlides()}
+          />
         ) : selected === 'messages' ? (
-          <MessagesTable messages={messages} />
+          <MessagesTable
+            messages={messages}
+            upDateTable={() => upDateTableMessages()}
+          />
         ) : (
-          <InscriptionTable inscriptions={inscriptions} />
+          <InscriptionTable
+            inscriptions={inscriptions}
+            upDateTable={() => upDateTableInscriptions()}
+          />
         )}
       </Card>
     </Container>
