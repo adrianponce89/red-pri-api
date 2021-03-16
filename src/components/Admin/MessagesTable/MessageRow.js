@@ -40,7 +40,7 @@ const MessageRow = ({
       <td style={{ textAlign: 'center' }}>
         <input
           loading={loading}
-          type="checkbox"
+          type="checkbox"       
           checked={checked}
           onChange={onSelectMessage}
         />
