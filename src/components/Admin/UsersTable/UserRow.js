@@ -1,13 +1,15 @@
 import React, { useState } from 'react';
-import Table from 'react-bootstrap/Table';
-import Button from 'react-bootstrap/Button';
-import FormCheck from 'react-bootstrap/FormCheck';
-import styled from 'styled-components';
-import { LoadableButton } from '../Loadable';
-import Router from 'next/router';
+import { Button, FormCheck } from 'react-bootstrap';
+import { LoadableButton } from '../../Loadable';
 import Link from 'next/link';
 
-const UserRow = ({ key, user }) => {
+const UserRow = ({
+  key,
+  user,
+  checked,
+  onSelectUser,
+  upDateTable,
+}) => {
   const [email, setEmail] = useState(user.email);
   const [password, setPassword] = useState('');
   const [role, setRole] = useState(user.role);
@@ -36,6 +38,7 @@ const UserRow = ({ key, user }) => {
 
     if (res.status === 200) {
       console.log('finish');
+      upDateTable();
     } else {
       const resJson = await res.json();
       alert(resJson.error);
@@ -62,7 +65,7 @@ const UserRow = ({ key, user }) => {
 
     if (res.status === 200) {
       console.log('finish');
-      Router.reload();
+      upDateTable();
     } else {
       const resJson = await res.json();
       alert(resJson.error);
@@ -82,6 +85,14 @@ const UserRow = ({ key, user }) => {
 
   return (
     <tr key={key}>
+      <td style={{ textAlign: 'center' }}>
+        <input
+          loading={loading}
+          type="checkbox"
+          checked={checked}
+          onChange={onSelectUser}
+        />
+      </td>
       <td>{user._id}</td>
       <td>
         <input
@@ -182,40 +193,4 @@ const UserRow = ({ key, user }) => {
   );
 };
 
-const FloatingButton = styled(LoadableButton)`
-  position: absolute;
-  right: 0;
-  top: -4em;
-  padding: 1em;
-`;
-
-const UsersTable = ({ users }) => {
-  return (
-    <Table striped bordered hover>
-      <FloatingButton
-        href="/crear-perfil"
-        variant="success"
-        style={{ position: 'absolute' }}
-      >
-        Crear Nuevo Perfil
-      </FloatingButton>
-      <thead>
-        <tr>
-          <th>#</th>
-          <th>Mail</th>
-          <th>Password</th>
-          <th>Rol</th>
-          <th>Permisos</th>
-          <th>Acciones</th>
-        </tr>
-      </thead>
-      <tbody>
-        {users.map((user) => (
-          <UserRow key={user._id} user={user} />
-        ))}
-      </tbody>
-    </Table>
-  );
-};
-
-export default UsersTable;
+export default UserRow;

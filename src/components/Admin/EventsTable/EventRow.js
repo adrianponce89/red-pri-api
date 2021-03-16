@@ -1,27 +1,30 @@
 import React, { useState } from 'react';
-import Table from 'react-bootstrap/Table';
-import Button from 'react-bootstrap/Button';
-import FormCheck from 'react-bootstrap/FormCheck';
-import { LoadableButton } from '../Loadable';
-import Router from 'next/router';
+import { Button, FormCheck } from 'react-bootstrap';
+import { LoadableButton } from '../../Loadable';
 import Link from 'next/link';
 
-const ArticleRow = ({ article }) => {
-  const [title, setTitle] = useState(article.title);
-  const [content, setContent] = useState(article.content);
-  const [published, setPublished] = useState(article.published);
+const EventRow = ({
+  key,
+  event,
+  onSelectEvent,
+  checked,
+  upDateTable,
+}) => {
+  const [title, setTitle] = useState(event.title);
+  const [content, setContent] = useState(event.content);
+  const [published, setPublished] = useState(event.published);
   const [loading, setLoading] = useState(false);
   const [modified, setModified] = useState(false);
 
-  const handleSave = async (event) => {
-    event.preventDefault();
+  const handleSave = async (e) => {
+    e.preventDefault();
     setLoading(true);
 
     const params = { title, published };
 
     const fd = new FormData();
     fd.append('data', JSON.stringify(params));
-    const res = await fetch(`/api/articles/${article._id}`, {
+    const res = await fetch(`/api/events/${event._id}`, {
       method: 'PATCH',
       body: fd,
     });
@@ -36,11 +39,15 @@ const ArticleRow = ({ article }) => {
     setModified(false);
   };
 
-  const handleDelete = async (event) => {
-    event.preventDefault();
+  const handleDelete = async (e) => {
+    e.preventDefault();
+    const msg = `¿Seguro que querés borrar el evento titulado "${event.title}"?`;
+    if (!confirm(msg)) {
+      return;
+    }
     setLoading(true);
 
-    const res = await fetch(`/api/articles/${article._id}`, {
+    const res = await fetch(`/api/events/${event._id}`, {
       method: 'DELETE',
       headers: {
         'Content-Type': 'application/json',
@@ -48,7 +55,7 @@ const ArticleRow = ({ article }) => {
     });
 
     if (res.status === 200) {
-      Router.reload();
+      upDateTable();
     } else {
       const resJson = await res.json();
       alert(resJson.error);
@@ -56,17 +63,25 @@ const ArticleRow = ({ article }) => {
     setModified(false);
   };
 
-  const handleCancel = (event) => {
-    event.preventDefault();
-    setTitle(article.title);
-    setContent(article.content);
-    setPublished(article.published);
+  const handleCancel = (e) => {
+    e.preventDefault();
+    setTitle(event.title);
+    setContent(event.content);
+    setPublished(event.published);
     setModified(false);
   };
 
   return (
-    <tr key={article._id}>
-      <td>{article._id}</td>
+    <tr key={key}>
+      <td style={{ textAlign: 'center' }}>
+        <input
+          loading={loading}
+          type="checkbox"
+          checked={checked}
+          onChange={onSelectEvent}
+        />
+      </td>
+      <td>{event._id}</td>
       <td>
         <input
           disabled={loading}
@@ -127,7 +142,7 @@ const ArticleRow = ({ article }) => {
             >
               Eliminar
             </LoadableButton>
-            <Link href={`/editar-articulo/${article.uid}`}>
+            <Link href={`/editar-evento/${event.uid}`}>
               <Button disabled={loading} variant="primary">
                 Editar
               </Button>
@@ -139,23 +154,4 @@ const ArticleRow = ({ article }) => {
   );
 };
 
-const ArticlesTable = ({ articles }) => (
-  <Table striped bordered hover>
-    <thead>
-      <tr>
-        <th>#</th>
-        <th>Title</th>
-        <th>Content</th>
-        <th>Publish</th>
-        <th>Acciones</th>
-      </tr>
-    </thead>
-    <tbody>
-      {articles.map((article) => (
-        <ArticleRow article={article} />
-      ))}
-    </tbody>
-  </Table>
-);
-
-export default ArticlesTable;
+export default EventRow;
