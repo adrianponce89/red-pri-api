@@ -14,8 +14,6 @@ import Roster from '../../Roster';
 import UserRow from './UserRow';
 
 const FloatingButton = styled(LoadableButton)`
-  right: 0;
-  top: -4em;
   padding: 1em;
 `;
 
@@ -104,6 +102,7 @@ const UsersTable = () => {
   const handleSelecteTitle = (title) => {
     setSerch(title);
   };
+
   const addAllSeletedUsers = (event) => {
     if (event.target.checked) {
       setSelectedUsers(users.map(({ _id }) => _id));
@@ -138,29 +137,29 @@ const UsersTable = () => {
       }
     });
   };
-
   return (
     <>
-      <FloatingButton
-        style={{
-          position: 'absolute',
-          right: '10vw',
-          fontWeight: 'bold',
-          display: `${
-            selectedUsers.length > 0 ? 'inline-block' : 'none'
-          }`,
-        }}
-        variant="success"
-        loading={loading}
-        onClick={handleAllSelectedDelete}
-      >{`Borrar ${selectedUsers.length}`}</FloatingButton>
-      <FloatingButton
-        href="/crear-perfil"
-        variant="success"
-        style={{ position: 'absolute' }}
-      >
-        Crear Nuevo Perfil
-      </FloatingButton>
+      <Container fluid="sm">
+        <Row>
+          <Col />
+          <Col xs lg="2" style={{ display: 'contents' }}>
+            <FloatingButton
+              style={{
+                fontWeight: 'bold',
+                display: `${
+                  selectedUsers.length > 0 ? 'inline-block' : 'none'
+                }`,
+              }}
+              variant="success"
+              loading={loading}
+              onClick={handleAllSelectedDelete}
+            >{`Borrar ${selectedUsers.length}`}</FloatingButton>
+            <FloatingButton href="/crear-perfil" variant="success">
+              Crear Nuevo Perfil
+            </FloatingButton>
+          </Col>
+        </Row>
+      </Container>
       <Container>
         <Row>
           <InputGroup>
