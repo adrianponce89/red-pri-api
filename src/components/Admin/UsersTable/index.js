@@ -31,7 +31,7 @@ const UsersTable = () => {
   const [users, setUsers] = useState([]);
   const [loading, setLoading] = useState(false);
   const [filter, setFilter] = useState('');
-  const [serch, setSerch] = useState('Nombre');
+  const [search, setSearch] = useState('Nombre');
 
   const TITLES_TABLE_USER = [
     'Selección',
@@ -47,16 +47,16 @@ const UsersTable = () => {
     updateTable();
   }, []);
 
-  const handleFilterUsers = (textSerch) => {
-    if (textSerch.length === 0) {
+  const handleFilterUsers = (textSearch) => {
+    if (textSearch.length === 0) {
       updateTable();
       setFilter('');
     } else {
-      setFilter(textSerch);
-      switch (serch) {
+      setFilter(textSearch);
+      switch (search) {
         case '#':
           setUsers(
-            users.filter((user) => user._id.includes(textSerch)),
+            users.filter((user) => user._id.includes(textSearch)),
           );
           break;
         case 'Mail':
@@ -64,7 +64,7 @@ const UsersTable = () => {
             users.filter((user) =>
               user.email
                 .toLowerCase()
-                .includes(textSerch.toLowerCase()),
+                .includes(textSearch.toLowerCase()),
             ),
           );
           break;
@@ -73,7 +73,7 @@ const UsersTable = () => {
             users.filter((user) =>
               user.name
                 .toLowerCase()
-                .includes(textSerch.toLowerCase()),
+                .includes(textSearch.toLowerCase()),
             ),
           );
           break;
@@ -100,7 +100,7 @@ const UsersTable = () => {
   };
 
   const handleSelectTitle = (title) => {
-    setSerch(title);
+    setSearch(title);
   };
 
   const addAllSeletedUsers = (event) => {
@@ -186,7 +186,7 @@ const UsersTable = () => {
               type="text"
               onChange={(e) => handleFilterUsers(e.target.value)}
               value={filter}
-              placeholder={`${serch}`}
+              placeholder={`${search}`}
             />
           </InputGroup>
         </Row>
