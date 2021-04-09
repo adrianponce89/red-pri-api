@@ -1,17 +1,33 @@
 // ./src/components/Navbar.js
+import React, { useEffect } from 'react';
 import styled from 'styled-components';
-import Navbar from 'react-bootstrap/Navbar';
-import NavDropdown from 'react-bootstrap/NavDropdown';
-import Nav from 'react-bootstrap/Nav';
-import Button from 'react-bootstrap/Button';
+import {
+  Navbar,
+  NavDropdown,
+  Nav,
+  Button,
+  Container,
+} from 'react-bootstrap';
 import SearchBar from './components/SearchBar';
 import FAIcon from '../FAIcon';
 import { withRouter } from 'next/router';
-import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { logout } from '../../redux/slices/authSlice';
 import { showModal } from '../../redux/slices/modalSlice';
 import { getSuggestions } from '../../redux/slices/suggestionsSlice';
+
+const NavResponsive = styled(Nav)`
+  @media (min-width: 640px) {
+    flex-direction: row;
+    justify-content: space-around;
+    flex-wrap: wrap;
+  }
+`;
+
+const ConteinerSerchBar = styled.div`
+  display: flex;
+  justify-content: center;
+`;
 
 const Navigation = (props) => {
   const { pathname } = props.router;
@@ -55,7 +71,7 @@ const Navigation = (props) => {
       </Navbar.Brand>
       <Navbar.Toggle aria-controls="basic-navbar-nav" />
       <Navbar.Collapse id="basic-navbar-nav">
-        <Nav className="mr-auto" activeKey={pathname}>
+        <NavResponsive className="mr-auto" activeKey={pathname}>
           <Nav.Link href="/">Inicio</Nav.Link>
           <Nav.Link href="/articulos">Articulos</Nav.Link>
           <Nav.Link href="/eventos">Eventos</Nav.Link>
@@ -68,10 +84,11 @@ const Navigation = (props) => {
           ) : (
             ''
           )}
-        </Nav>
+        </NavResponsive>
         <div className="m-2">
           <SearchBar suggestions={suggestions} />
         </div>
+
         {!!profile ? (
           <Nav>
             {/* <Nav.Link>
@@ -101,12 +118,10 @@ const Navigation = (props) => {
               ) : (
                 ''
               )}
-
               <NavDropdown.Item onClick={() => signout()}>
                 Salir
               </NavDropdown.Item>
             </NavDropdown>
-            <Nav.Link></Nav.Link>
           </Nav>
         ) : (
           <>
