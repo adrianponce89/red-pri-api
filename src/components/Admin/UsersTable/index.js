@@ -44,12 +44,12 @@ const UsersTable = () => {
   ];
 
   useEffect(() => {
-    upDateTable();
+    updateTable();
   }, []);
 
   const handleFilterUsers = (textSerch) => {
     if (textSerch.length === 0) {
-      upDateTable();
+      updateTable();
       setFilter('');
     } else {
       setFilter(textSerch);
@@ -80,7 +80,7 @@ const UsersTable = () => {
       }
     }
   };
-  const upDateTable = async () => {
+  const updateTable = async () => {
     const resUsers = await fetch(`/api/admin/users`);
     setUsers(await resUsers.json());
   };
@@ -99,7 +99,7 @@ const UsersTable = () => {
     }
   };
 
-  const handleSelecteTitle = (title) => {
+  const handleSelectTitle = (title) => {
     setSerch(title);
   };
 
@@ -128,7 +128,7 @@ const UsersTable = () => {
       });
       if (res.status === 200) {
         console.log('finish');
-        upDateTable();
+        updateTable();
         setLoading(false);
         setSelectedUsers([]);
       } else {
@@ -169,14 +169,14 @@ const UsersTable = () => {
               id="dropdown-basic"
             >
               <Dropdown.Item
-                onSelect={(e) => handleSelecteTitle('Nombre')}
+                onSelect={(e) => handleSelectTitle('Nombre')}
               >
                 Nombre
               </Dropdown.Item>
               {TITLES_TABLE_USER.slice(1, 3).map((title) => (
                 <Dropdown.Item
                   eventKey={title}
-                  onSelect={(e) => handleSelecteTitle(e)}
+                  onSelect={(e) => handleSelectTitle(e)}
                 >
                   {title}
                 </Dropdown.Item>
@@ -203,7 +203,7 @@ const UsersTable = () => {
             user={user}
             onSelectUser={() => addSelectedUser(user)}
             checked={selectedUsers.indexOf(user._id) >= 0}
-            upDateTable={() => upDateTable()}
+            updateTable={() => updateTable()}
           />
         ))}
       </Roster>

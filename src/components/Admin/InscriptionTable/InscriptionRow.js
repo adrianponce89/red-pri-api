@@ -7,7 +7,7 @@ const InscriptionRow = ({
   inscription,
   onSelectInscription,
   checked,
-  upDateTable,
+  updateTable,
 }) => {
   const { name, email, event } = inscription;
   const [loading, setLoading] = useState(false);
@@ -29,7 +29,7 @@ const InscriptionRow = ({
 
     if (res.status === 200) {
       console.log('finish');
-      upDateTable();
+      updateTable();
     } else {
       const resJson = await res.json();
       alert(resJson.error);
