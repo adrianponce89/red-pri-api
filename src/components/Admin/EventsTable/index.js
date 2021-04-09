@@ -16,10 +16,10 @@ const EventsTable = () => {
   const [events, setEvents] = useState([]);
 
   useEffect(() => {
-    upDateTable();
+    updateTable();
   }, []);
 
-  const upDateTable = async () => {
+  const updateTable = async () => {
     const resEvents = await fetch(`/api/admin/events`);
     setEvents(await resEvents.json());
   };
@@ -61,7 +61,7 @@ const EventsTable = () => {
       });
       if (res.status === 200) {
         console.log('finish');
-        upDateTable();
+        updateTable();
         setSelectedEvents([]);
         setLoading(false);
       } else {
@@ -104,7 +104,7 @@ const EventsTable = () => {
             event={event}
             onSelectEvent={() => addSelectedEvent(event)}
             checked={selectedEvents.indexOf(event._id) >= 0}
-            upDateTable={() => upDateTable()}
+            updateTable={() => updateTable()}
           />
         ))}
       </Roster>

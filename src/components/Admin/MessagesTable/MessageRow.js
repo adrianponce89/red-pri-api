@@ -6,7 +6,7 @@ const MessageRow = ({
   message,
   onSelectMessage,
   checked,
-  upDateTable,
+  updateTable,
 }) => {
   const { name, email, content } = message;
   const [loading, setLoading] = useState(false);
@@ -28,7 +28,7 @@ const MessageRow = ({
 
     if (res.status === 200) {
       console.log('finish');
-      upDateTable();
+      updateTable();
     } else {
       const resJson = await res.json();
       alert(resJson.error);
@@ -40,7 +40,7 @@ const MessageRow = ({
       <td style={{ textAlign: 'center' }}>
         <input
           loading={loading}
-          type="checkbox"       
+          type="checkbox"
           checked={checked}
           onChange={onSelectMessage}
         />

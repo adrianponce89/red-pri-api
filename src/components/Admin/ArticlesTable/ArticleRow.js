@@ -8,7 +8,7 @@ const ArticleRow = ({
   article,
   onSelectArticle,
   checked,
-  upDateTable,
+  updateTable,
 }) => {
   const [title, setTitle] = useState(article.title);
   const [content, setContent] = useState(article.content);
@@ -51,7 +51,7 @@ const ArticleRow = ({
     });
 
     if (res.status === 200) {
-      upDateTable();
+      updateTable();
     } else {
       const resJson = await res.json();
       alert(resJson.error);

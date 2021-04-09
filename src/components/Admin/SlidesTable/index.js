@@ -16,10 +16,10 @@ const SlidesTable = () => {
   const [selectedSlid, setSelectedSlid] = useState([]);
 
   useEffect(() => {
-    upDateTable();
+    updateTable();
   }, []);
 
-  const upDateTable = async () => {
+  const updateTable = async () => {
     const resSlides = await fetch(`/api/slides`);
     setSlides(await resSlides.json());
   };
@@ -63,7 +63,7 @@ const SlidesTable = () => {
     });
 
     if (res.status === 201) {
-      upDateTable();
+      updateTable();
       setLoading(false);
     } else {
       const resJson = await res.json();
@@ -88,7 +88,7 @@ const SlidesTable = () => {
       });
       if (res.status === 200) {
         console.log('finish');
-        upDateTable();
+        updateTable();
         setLoading(false);
         setSelectedSlid([]);
       } else {
@@ -140,7 +140,7 @@ const SlidesTable = () => {
           slide={slide}
           onSelectSlide={() => addSelectedSlid(slide)}
           checked={selectedSlid.indexOf(slide._id) >= 0}
-          upDateTable={() => upDateTable()}
+          updateTable={() => updateTable()}
         />
       ))}
     </Roster>

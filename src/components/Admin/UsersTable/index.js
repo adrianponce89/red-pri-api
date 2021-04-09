@@ -1,25 +1,86 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
+import {
+  FormControl,
+  Container,
+  Row,
+  Col,
+  InputGroup,
+  DropdownButton,
+  Dropdown,
+} from 'react-bootstrap';
 import { LoadableButton } from '../../Loadable';
 import Roster from '../../Roster';
 import UserRow from './UserRow';
 
 const FloatingButton = styled(LoadableButton)`
-  right: 0;
-  top: -4em;
   padding: 1em;
+`;
+
+const ConteinerNotFound = styled.div`
+  display: ${(prop) => (!prop.empty ? 'flex' : 'none')};
+  justify-content: center;
+`;
+
+const MessageNotFound = styled.p`
+  font-size: 3em;
 `;
 
 const UsersTable = () => {
   const [selectedUsers, setSelectedUsers] = useState([]);
   const [users, setUsers] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [filter, setFilter] = useState('');
+  const [search, setSearch] = useState('Nombre');
+
+  const TITLES_TABLE_USER = [
+    'Selección',
+    '#',
+    'Mail',
+    'Password',
+    'Rol',
+    'Permisos',
+    'Acciones',
+  ];
 
   useEffect(() => {
-    upDateTable();
+    updateTable();
   }, []);
 
-  const upDateTable = async () => {
+  const handleFilterUsers = (textSearch) => {
+    if (textSearch.length === 0) {
+      updateTable();
+      setFilter('');
+    } else {
+      setFilter(textSearch);
+      switch (search) {
+        case '#':
+          setUsers(
+            users.filter((user) => user._id.includes(textSearch)),
+          );
+          break;
+        case 'Mail':
+          setUsers(
+            users.filter((user) =>
+              user.email
+                .toLowerCase()
+                .includes(textSearch.toLowerCase()),
+            ),
+          );
+          break;
+        default:
+          setUsers(
+            users.filter((user) =>
+              user.name
+                .toLowerCase()
+                .includes(textSearch.toLowerCase()),
+            ),
+          );
+          break;
+      }
+    }
+  };
+  const updateTable = async () => {
     const resUsers = await fetch(`/api/admin/users`);
     setUsers(await resUsers.json());
   };
@@ -36,6 +97,10 @@ const UsersTable = () => {
           .concat(selectedUsers.slice(index + 1)),
       );
     }
+  };
+
+  const handleSelectTitle = (title) => {
+    setSearch(title);
   };
 
   const addAllSeletedUsers = (event) => {
@@ -63,7 +128,7 @@ const UsersTable = () => {
       });
       if (res.status === 200) {
         console.log('finish');
-        upDateTable();
+        updateTable();
         setLoading(false);
         setSelectedUsers([]);
       } else {
@@ -72,39 +137,63 @@ const UsersTable = () => {
       }
     });
   };
-
   return (
     <>
-      <FloatingButton
-        style={{
-          position: 'absolute',
-          right: '10vw',
-          fontWeight: 'bold',
-          display: `${
-            selectedUsers.length > 0 ? 'inline-block' : 'none'
-          }`,
-        }}
-        variant="success"
-        loading={loading}
-        onClick={handleAllSelectedDelete}
-      >{`Borrar ${selectedUsers.length}`}</FloatingButton>
-      <FloatingButton
-        href="/crear-perfil"
-        variant="success"
-        style={{ position: 'absolute' }}
-      >
-        Crear Nuevo Perfil
-      </FloatingButton>
+      <Container fluid="sm">
+        <Row>
+          <Col />
+          <Col xs lg="2" style={{ display: 'contents' }}>
+            <FloatingButton
+              style={{
+                fontWeight: 'bold',
+                display: `${
+                  selectedUsers.length > 0 ? 'inline-block' : 'none'
+                }`,
+              }}
+              variant="success"
+              loading={loading}
+              onClick={handleAllSelectedDelete}
+            >{`Borrar ${selectedUsers.length}`}</FloatingButton>
+            <FloatingButton href="/crear-perfil" variant="success">
+              Crear Nuevo Perfil
+            </FloatingButton>
+          </Col>
+        </Row>
+      </Container>
+      <Container>
+        <Row>
+          <InputGroup>
+            <DropdownButton
+              variant="info"
+              title="Filtrado por"
+              id="dropdown-basic"
+            >
+              <Dropdown.Item
+                onSelect={(e) => handleSelectTitle('Nombre')}
+              >
+                Nombre
+              </Dropdown.Item>
+              {TITLES_TABLE_USER.slice(1, 3).map((title) => (
+                <Dropdown.Item
+                  eventKey={title}
+                  onSelect={(e) => handleSelectTitle(e)}
+                >
+                  {title}
+                </Dropdown.Item>
+              ))}
+            </DropdownButton>
+            <FormControl
+              type="text"
+              onChange={(e) => handleFilterUsers(e.target.value)}
+              value={filter}
+              placeholder={`${search}`}
+            />
+          </InputGroup>
+        </Row>
+      </Container>
+
       <Roster
-        titlesHead={[
-          'Selección',
-          '#',
-          'Mail',
-          'Password',
-          'Rol',
-          'Permisos',
-          'Acciones',
-        ]}
+        titlesHead={TITLES_TABLE_USER}
         onSeletedAll={addAllSeletedUsers}
         checked={selectedUsers.length > 0}
       >
@@ -114,10 +203,17 @@ const UsersTable = () => {
             user={user}
             onSelectUser={() => addSelectedUser(user)}
             checked={selectedUsers.indexOf(user._id) >= 0}
-            upDateTable={() => upDateTable()}
+            updateTable={() => updateTable()}
           />
         ))}
       </Roster>
+      {
+        <ConteinerNotFound empty={users.length > 0}>
+          <MessageNotFound>
+            {'No se han encontrado resultados...'}
+          </MessageNotFound>
+        </ConteinerNotFound>
+      }
     </>
   );
 };

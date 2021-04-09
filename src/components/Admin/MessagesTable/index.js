@@ -4,7 +4,6 @@ import MessageRow from './MessageRow';
 import styled from 'styled-components';
 import { LoadableButton } from '../../Loadable';
 
-
 const FloatingButton = styled(LoadableButton)`
   right: 0;
   top: -4em;
@@ -17,10 +16,10 @@ const MessagesTable = () => {
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    upDateTable();
+    updateTable();
   }, []);
 
-  const upDateTable = async () => {
+  const updateTable = async () => {
     const resMessages = await fetch(`/api/messages`);
     setMessages(await resMessages.json());
   };
@@ -63,7 +62,7 @@ const MessagesTable = () => {
       });
       if (res.status === 200) {
         console.log('finish');
-        upDateTable();
+        updateTable();
         setLoading(false);
         setSelectedMessage([]);
       } else {
@@ -106,7 +105,7 @@ const MessagesTable = () => {
             message={message}
             onSelectMessage={() => addselectedMessage(message)}
             checked={selectedMessage.indexOf(message._id) >= 0}
-            upDateTable={() => upDateTable()}
+            updateTable={() => updateTable()}
           />
         ))}
       </Roster>
