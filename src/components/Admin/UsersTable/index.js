@@ -1,30 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import styled from 'styled-components';
-import {
-  FormControl,
-  Container,
-  Row,
-  Col,
-  InputGroup,
-  DropdownButton,
-  Dropdown,
-} from 'react-bootstrap';
-import { LoadableButton } from '../../Loadable';
 import Roster from '../../Roster';
 import UserRow from './UserRow';
-
-const FloatingButton = styled(LoadableButton)`
-  padding: 1em;
-`;
-
-const ConteinerNotFound = styled.div`
-  display: ${(prop) => (!prop.empty ? 'flex' : 'none')};
-  justify-content: center;
-`;
-
-const MessageNotFound = styled.p`
-  font-size: 3em;
-`;
+import MessageNotFound from '../../MessageNotFound';
+import UsersTableKeypad from './UsersTableKeypad';
+import UsersTableFilters from '../../TableFilters';
 
 const UsersTable = () => {
   const [selectedUsers, setSelectedUsers] = useState([]);
@@ -117,7 +96,6 @@ const UsersTable = () => {
     if (!confirm(msg)) {
       return;
     }
-
     setLoading(true);
     selectedUsers.forEach(async (_id) => {
       const res = await fetch(`/api/users/${_id}`, {
@@ -137,61 +115,23 @@ const UsersTable = () => {
       }
     });
   };
+
   return (
     <>
-      <Container fluid="sm">
-        <Row>
-          <Col />
-          <Col xs lg="2" style={{ display: 'contents' }}>
-            <FloatingButton
-              style={{
-                fontWeight: 'bold',
-                display: `${
-                  selectedUsers.length > 0 ? 'inline-block' : 'none'
-                }`,
-              }}
-              variant="success"
-              loading={loading}
-              onClick={handleAllSelectedDelete}
-            >{`Borrar ${selectedUsers.length}`}</FloatingButton>
-            <FloatingButton href="/crear-perfil" variant="success">
-              Crear Nuevo Perfil
-            </FloatingButton>
-          </Col>
-        </Row>
-      </Container>
-      <Container>
-        <Row>
-          <InputGroup>
-            <DropdownButton
-              variant="info"
-              title="Filtrado por"
-              id="dropdown-basic"
-            >
-              <Dropdown.Item
-                onSelect={(e) => handleSelectTitle('Nombre')}
-              >
-                Nombre
-              </Dropdown.Item>
-              {TITLES_TABLE_USER.slice(1, 3).map((title) => (
-                <Dropdown.Item
-                  eventKey={title}
-                  onSelect={(e) => handleSelectTitle(e)}
-                >
-                  {title}
-                </Dropdown.Item>
-              ))}
-            </DropdownButton>
-            <FormControl
-              type="text"
-              onChange={(e) => handleFilterUsers(e.target.value)}
-              value={filter}
-              placeholder={`${search}`}
-            />
-          </InputGroup>
-        </Row>
-      </Container>
-
+      <UsersTableKeypad
+        handleAllSelectedDelete={handleAllSelectedDelete}
+        display={selectedUsers.length > 0}
+        deletes={selectedUsers.length}
+        loading={loading}
+      />
+      <UsersTableFilters
+        handleSelectTitle={handleSelectTitle}
+        handleFilter={handleFilterUsers}
+        first={'Nombre'}
+        filter={filter}
+        search={search}
+        titleTables={TITLES_TABLE_USER}
+      />
       <Roster
         titlesHead={TITLES_TABLE_USER}
         onSeletedAll={addAllSeletedUsers}
@@ -207,13 +147,7 @@ const UsersTable = () => {
           />
         ))}
       </Roster>
-      {
-        <ConteinerNotFound empty={users.length > 0}>
-          <MessageNotFound>
-            {'No se han encontrado resultados...'}
-          </MessageNotFound>
-        </ConteinerNotFound>
-      }
+      {<MessageNotFound empty={users.length > 0} />}
     </>
   );
 };
