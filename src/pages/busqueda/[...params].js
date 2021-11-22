@@ -16,6 +16,7 @@ import FAIcon from '../../components/FAIcon';
 import NavPills from '../../components/NavPills';
 import ResultsMap from '../../components/ResultsMap';
 import NoResults from '../../components/Search/NoResults';
+import Profesionals from '../../components/Profesionals';
 
 const FiltersTitle = styled.h4`
   margin: 0.2em 0;
@@ -23,14 +24,14 @@ const FiltersTitle = styled.h4`
 `;
 
 const HideOnSm = styled.div`
-  @media (max-width: 576px) {
+  @media (max-width: 769px) {
     display: none;
   }
 `;
 
 const ShowOnSm = styled.div`
   display: none;
-  @media (max-width: 576px) {
+  @media (max-width: 769px) {
     display: block;
   }
 `;
@@ -47,13 +48,15 @@ const FilterButtonContainer = styled.div`
   button {
     pointer-events: all;
   }
+  z-index: 1500;
 `;
 
-const Busqueda = ({ results, filters, paging, availableFilters }) => {
+const Busqueda = ({ results, filters, paging, availableFilters, titlesList }) => {
   const [show, setShow] = useState(false);
   const [resultType, setResultType] = useState('list');
   return (
     <Container>
+      <Profesionals titlesList={titlesList}/>
       <Row>
         <Col md="3" className="mb-2">
           <div className="applied-filters">
@@ -132,6 +135,8 @@ export async function getServerSideProps({ query }) {
     .map((key) => `${key}=${params[key]}`)
     .join('&');
   const res = await fetch(`${server}/api/search?${qs}`);
+  const resSuggestions = await fetch(`${server}/api/suggestions`);
+  const { titlesList } = await resSuggestions.json();
   const {
     results,
     paging,
@@ -149,6 +154,7 @@ export async function getServerSideProps({ query }) {
       availableSorts,
       filters,
       availableFilters,
+      titlesList,
     },
   };
 }
