@@ -16,6 +16,7 @@ const CenteredImage = styled.div`
   @media (max-width: 576px) {
     width: 100%;
     padding-bottom: 75%;
+    background-size: 100% 100%;
   }
 `;
 

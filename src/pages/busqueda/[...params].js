@@ -57,7 +57,7 @@ const Busqueda = ({ results, filters, paging, availableFilters, titlesList }) =>
   return (
     <Container>
       <Profesionals titlesList={titlesList}/>
-      <Row>
+      <Row className="prueba">
         <Col md="3" className="mb-2">
           <div className="applied-filters">
             <FiltersTitle>Resultados para:</FiltersTitle>
