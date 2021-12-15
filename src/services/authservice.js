@@ -15,7 +15,7 @@ async function login(email, password) {
   const resJson = await res.json();
   if (res.status === 200) {
     const profile = resJson.user;
-    localStorage.setItem('profile', JSON.stringify(profile));
+    sessionStorage.setItem('profile', JSON.stringify(profile));
     return profile;
   } else {
     return Promise.reject(resJson.error);
@@ -23,7 +23,7 @@ async function login(email, password) {
 }
 
 function logout() {
-  localStorage.removeItem('profile');
+  sessionStorage.removeItem('profile');
   const cookies = new Cookies();
   cookies.set('jwt', null, { path: '/' });
 }
@@ -42,7 +42,7 @@ async function register(email, password) {
   const resJson = await res.json();
   if (res.status === 200) {
     const profile = resJson.user;
-    localStorage.setItem('profile', JSON.stringify(profile));
+    sessionStorage.setItem('profile', JSON.stringify(profile));
     return profile;
   } else {
     return Promise.reject(resJson.error);

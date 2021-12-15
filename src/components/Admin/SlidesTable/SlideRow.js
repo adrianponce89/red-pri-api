@@ -79,6 +79,7 @@ const SlideRow = ({
     setModified(false);
   };
 
+  const selectedImage = fileURL || slide.picUrl;
   return (
     <tr key={key}>
       <td style={{ textAlign: 'center' }}>
@@ -91,14 +92,18 @@ const SlideRow = ({
       </td>
       <td>{slide._id}</td>
       <td>
-        <ImageSelection
-          src={fileURL || slide.picUrl}
-          onChange={(event) => {
-            setFile(event.target.files[0]);
-            setFileURL(URL.createObjectURL(event.target.files[0]));
-            setModified(true);
-          }}
-        />
+        {!selectedImage || isImageURL(selectedImage) ? (
+          <ImageSelection
+            src={selectedImage}
+            onChange={(event) => {
+              setFile(event.target.files[0]);
+              setFileURL(URL.createObjectURL(event.target.files[0]));
+              setModified(true);
+            }}
+          />
+        ) : (
+          ''
+        )}
         {!file ? (
           <input
             disabled={loading}

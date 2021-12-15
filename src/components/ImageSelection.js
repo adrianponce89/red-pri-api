@@ -38,9 +38,6 @@ const ImageSelection = ({
 }) => {
   let fileInput;
 
-  if (src && !isImageURL(src)) {
-    return '';
-  }
   return (
     <ImageSelectorContainer className={className} style={style}>
       <CenteredImage src={src} defaultImage={defaultImage} />
