@@ -11,6 +11,7 @@ import Container from '../../components/Container';
 import CenteredImage from '../../components/CenteredImage';
 import ContactInfo from '../../components/ProfesionalCard/ContactInfo';
 import ShareSocialNetworks from '../../components/ShareSocialNetworks';
+import ResultsMap from '../../components/ResultsMap';
 import FAIcon from '../../components/FAIcon';
 
 const TopContainer = styled.div`
@@ -82,7 +83,7 @@ const PreWrap = styled.p`
   white-space: pre-wrap;
 `;
 
-const Perfil = ({ className, user }) => {
+const Perfil = ({ className, user, results }) => {
   const fullname = `${user.name} ${user.surname} `;
   const matricula = `(Mat.${user.matricula})`;
   const urlUser = `${domainURL}/perfil/${user.username} `;
@@ -182,6 +183,11 @@ const Perfil = ({ className, user }) => {
               </div>
             </Card.Body>
           </Card>
+          {
+            results[0].addressList[0] != undefined ? (
+              <ResultsMap results={results}/>
+            ) : null
+          }
         </Col>
       </Row>
     </Container>
@@ -194,9 +200,18 @@ export async function getServerSideProps({ params }) {
   );
   const user = await resUser.json();
 
+  const qs = Object.keys(params)
+    .map((key) => `${key}=${params[key]}`)
+    .join('&');
+  const res = await fetch(`${server}/api/search?${qs}`);
+  const {
+    results,
+  } = await res.json();
+
   return {
     props: {
       user,
+      results,
     },
   };
 }
