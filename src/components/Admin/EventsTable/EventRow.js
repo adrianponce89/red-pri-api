@@ -8,7 +8,7 @@ const EventRow = ({
   event,
   onSelectEvent,
   checked,
-  upDateTable,
+  updateTable,
 }) => {
   const [title, setTitle] = useState(event.title);
   const [content, setContent] = useState(event.content);
@@ -55,7 +55,7 @@ const EventRow = ({
     });
 
     if (res.status === 200) {
-      upDateTable();
+      updateTable();
     } else {
       const resJson = await res.json();
       alert(resJson.error);

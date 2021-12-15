@@ -9,7 +9,7 @@ const SlideRow = ({
   slide,
   onSelectSlide,
   checked,
-  upDateTable,
+  updateTable,
 }) => {
   const [title, setTitle] = useState(slide.title);
   const [content, setContent] = useState(slide.content);
@@ -64,7 +64,7 @@ const SlideRow = ({
     });
 
     if (res.status === 200) {
-      upDateTable();
+      updateTable();
     } else {
       const resJson = await res.json();
       alert(resJson.error);

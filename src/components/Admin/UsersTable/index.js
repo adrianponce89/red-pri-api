@@ -1,25 +1,65 @@
 import React, { useState, useEffect } from 'react';
-import styled from 'styled-components';
-import { LoadableButton } from '../../Loadable';
 import Roster from '../../Roster';
 import UserRow from './UserRow';
-
-const FloatingButton = styled(LoadableButton)`
-  right: 0;
-  top: -4em;
-  padding: 1em;
-`;
+import MessageNotFound from '../../MessageNotFound';
+import UsersTableKeypad from './UsersTableKeypad';
+import UsersTableFilters from '../../TableFilters';
 
 const UsersTable = () => {
   const [selectedUsers, setSelectedUsers] = useState([]);
   const [users, setUsers] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [filter, setFilter] = useState('');
+  const [search, setSearch] = useState('Nombre');
+
+  const TITLES_TABLE_USER = [
+    'Selección',
+    '#',
+    'Mail',
+    'Password',
+    'Rol',
+    'Permisos',
+    'Acciones',
+  ];
 
   useEffect(() => {
-    upDateTable();
+    updateTable();
   }, []);
 
-  const upDateTable = async () => {
+  const handleFilterUsers = (textSearch) => {
+    if (textSearch.length === 0) {
+      updateTable();
+      setFilter('');
+    } else {
+      setFilter(textSearch);
+      switch (search) {
+        case '#':
+          setUsers(
+            users.filter((user) => user._id.includes(textSearch)),
+          );
+          break;
+        case 'Mail':
+          setUsers(
+            users.filter((user) =>
+              user.email
+                .toLowerCase()
+                .includes(textSearch.toLowerCase()),
+            ),
+          );
+          break;
+        default:
+          setUsers(
+            users.filter((user) =>
+              user.name
+                .toLowerCase()
+                .includes(textSearch.toLowerCase()),
+            ),
+          );
+          break;
+      }
+    }
+  };
+  const updateTable = async () => {
     const resUsers = await fetch(`/api/admin/users`);
     setUsers(await resUsers.json());
   };
@@ -38,6 +78,10 @@ const UsersTable = () => {
     }
   };
 
+  const handleSelectTitle = (title) => {
+    setSearch(title);
+  };
+
   const addAllSeletedUsers = (event) => {
     if (event.target.checked) {
       setSelectedUsers(users.map(({ _id }) => _id));
@@ -52,7 +96,6 @@ const UsersTable = () => {
     if (!confirm(msg)) {
       return;
     }
-
     setLoading(true);
     selectedUsers.forEach(async (_id) => {
       const res = await fetch(`/api/users/${_id}`, {
@@ -63,7 +106,7 @@ const UsersTable = () => {
       });
       if (res.status === 200) {
         console.log('finish');
-        upDateTable();
+        updateTable();
         setLoading(false);
         setSelectedUsers([]);
       } else {
@@ -75,36 +118,22 @@ const UsersTable = () => {
 
   return (
     <>
-      <FloatingButton
-        style={{
-          position: 'absolute',
-          right: '10vw',
-          fontWeight: 'bold',
-          display: `${
-            selectedUsers.length > 0 ? 'inline-block' : 'none'
-          }`,
-        }}
-        variant="success"
+      <UsersTableKeypad
+        handleAllSelectedDelete={handleAllSelectedDelete}
+        display={selectedUsers.length > 0}
+        deletes={selectedUsers.length}
         loading={loading}
-        onClick={handleAllSelectedDelete}
-      >{`Borrar ${selectedUsers.length}`}</FloatingButton>
-      <FloatingButton
-        href="/crear-perfil"
-        variant="success"
-        style={{ position: 'absolute' }}
-      >
-        Crear Nuevo Perfil
-      </FloatingButton>
+      />
+      <UsersTableFilters
+        handleSelectTitle={handleSelectTitle}
+        handleFilter={handleFilterUsers}
+        first={'Nombre'}
+        filter={filter}
+        search={search}
+        titleTables={TITLES_TABLE_USER}
+      />
       <Roster
-        titlesHead={[
-          'Selección',
-          '#',
-          'Mail',
-          'Password',
-          'Rol',
-          'Permisos',
-          'Acciones',
-        ]}
+        titlesHead={TITLES_TABLE_USER}
         onSeletedAll={addAllSeletedUsers}
         checked={selectedUsers.length > 0}
       >
@@ -114,10 +143,11 @@ const UsersTable = () => {
             user={user}
             onSelectUser={() => addSelectedUser(user)}
             checked={selectedUsers.indexOf(user._id) >= 0}
-            upDateTable={() => upDateTable()}
+            updateTable={() => updateTable()}
           />
         ))}
       </Roster>
+      {<MessageNotFound empty={users.length > 0} />}
     </>
   );
 };

@@ -16,10 +16,10 @@ const ArticlesTable = () => {
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    upDateTable();
+    updateTable();
   }, []);
 
-  const upDateTable = async () => {
+  const updateTable = async () => {
     const resArticles = await fetch(`/api/admin/articles`);
     setArticles(await resArticles.json());
   };
@@ -62,7 +62,7 @@ const ArticlesTable = () => {
       });
       if (res.status === 200) {
         console.log('finish');
-        upDateTable();
+        updateTable();
         setSelectedArticles([]);
         setLoading(false);
       } else {
@@ -105,7 +105,7 @@ const ArticlesTable = () => {
             article={article}
             onSelectArticle={() => addSelectedArticle(article)}
             checked={selectedArticles.indexOf(article._id) >= 0}
-            upDateTable={() => upDateTable()}
+            updateTable={() => updateTable()}
           />
         ))}
       </Roster>

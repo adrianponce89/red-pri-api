@@ -8,7 +8,7 @@ const UserRow = ({
   user,
   checked,
   onSelectUser,
-  upDateTable,
+  updateTable,
 }) => {
   const [email, setEmail] = useState(user.email);
   const [password, setPassword] = useState('');
@@ -38,7 +38,7 @@ const UserRow = ({
 
     if (res.status === 200) {
       console.log('finish');
-      upDateTable();
+      updateTable();
     } else {
       const resJson = await res.json();
       alert(resJson.error);
@@ -65,7 +65,7 @@ const UserRow = ({
 
     if (res.status === 200) {
       console.log('finish');
-      upDateTable();
+      updateTable();
     } else {
       const resJson = await res.json();
       alert(resJson.error);

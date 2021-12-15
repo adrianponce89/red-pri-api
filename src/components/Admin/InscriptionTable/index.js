@@ -16,10 +16,10 @@ const InscriptionTable = () => {
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    upDateTable();
+    updateTable();
   }, []);
 
-  const upDateTable = async () => {
+  const updateTable = async () => {
     const resInscriptions = await fetch(`/api/inscriptions`);
     setInscriptions(await resInscriptions.json());
   };
@@ -65,7 +65,7 @@ const InscriptionTable = () => {
       });
 
       if (res.status === 200) {
-        upDateTable();
+        updateTable();
         console.log('finish');
         setLoading(false);
         setSelectedInscipation([]);
@@ -113,7 +113,7 @@ const InscriptionTable = () => {
             checked={
               selectedInscipation.indexOf(inscription._id) >= 0
             }
-            upDateTable={() => upDateTable()}
+            updateTable={() => updateTable()}
           />
         ))}
       </Roster>
