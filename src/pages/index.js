@@ -55,7 +55,7 @@ const Home = ({ slides, theme, titlesList }) => {
             icon="fa fa-search"
             title="BUSCÁ"
             description="Completa el formulario y encontra el profesional que estés buscando"
-            href="/#profesionales"
+            href="/busqueda/results"
             color={theme.colors.mainOrange}
           />
           <Landing

@@ -75,7 +75,7 @@ const Navigation = (props) => {
           <Nav.Link href="/">Inicio</Nav.Link>
           <Nav.Link href="/articulos">Articulos</Nav.Link>
           <Nav.Link href="/eventos">Eventos</Nav.Link>
-          <Nav.Link href="/#profesionales">Profesionales</Nav.Link>
+          <Nav.Link href="/busqueda/results">Profesionales</Nav.Link>
           <Nav.Link href="/conocenos">Conocenos</Nav.Link>
           {!!profile && profile.role === 'admin' ? (
             <Nav.Link href="/administrar">
